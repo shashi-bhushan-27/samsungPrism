@@ -204,7 +204,8 @@ def build_components(
     timings["cache_load"] = (time.perf_counter() - t1) * 1000
 
     siis_retriever = SiisRetriever(
-        siis_index, enricher, min_score=settings.siis_retrieval_min_score, min_margin=settings.siis_retrieval_min_margin
+        siis_index, enricher, min_score=settings.siis_retrieval_min_score, min_margin=settings.siis_retrieval_min_margin,
+        no_concept_min_dense=settings.siis_no_concept_min_dense,
     )
     service = TroubleshootingService(
         settings=settings,

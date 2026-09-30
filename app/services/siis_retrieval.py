@@ -37,12 +37,16 @@ class SiisRetriever:
         min_margin: float,
         w_bm25: float = 0.4,
         w_dense: float = 0.6,
+        no_concept_min_dense: float = 0.93,
     ):
         self.index = index
         self.min_score = min_score
         self.min_margin = min_margin
         self.w_bm25 = w_bm25
         self.w_dense = w_dense
+        # BM25 is normalised relative to the best hit, so a weak lexical overlap still earns the full BM25
+        # weight. A complaint with no recognised symptom is therefore only grounded on a near-duplicate.
+        self.no_concept_min_dense = no_concept_min_dense
         self._doc_intent = {}
         for d in index.docs:
             anchor = (index.query_text_by_doc.get(d.id) or [d.title or d.text.split("\n", 1)[0]])[0]
@@ -76,6 +80,9 @@ class SiisRetriever:
         top = scored[0]
         margin = top[0] - (scored[1][0] if len(scored) > 1 else 0.0)
         match = SiisMatch(idx.docs[top[1]], top[0], top[2], top[3], margin)
+        if not intent.features and top[3] < self.no_concept_min_dense:
+            rejected.append({"doc": match.doc.id, "reason": "no_concept", "dense": round(top[3], 4)})
+            return None, rejected
         if top[0] < self.min_score or margin < self.min_margin:
             rejected.append({"doc": match.doc.id, "reason": "below_threshold", "score": round(top[0], 4),
                              "margin": round(margin, 4)})

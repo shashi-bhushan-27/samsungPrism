@@ -385,3 +385,22 @@ def test_attack14_no_viable_solution_returns_no_match_structure(tmp_path, siis):
     assert r.body["meta"]["fallback"] in ("no_match", "no_siis_context")
     assert_contract(c, r.body)
     assert len(c.cache) == 0
+
+
+@pytest.mark.parametrize("query", ["How do I change my ringtone?", "Mobile data is not working",
+                                   "My car's infotainment system won't connect to anything",
+                                   "How do I reset my Samsung TV remote?"])
+def test_attack13_neural_retrieval_never_grounds_an_out_of_scope_complaint(query):
+    """Regression (live benchmark, H13): relative BM25 normalisation let concept-less complaints clear the KB
+    threshold on weak lexical overlap ("change my ringtone" was grounded in a battery article)."""
+    from app.core.config import Settings
+    from app.core.container import build_components
+
+    try:
+        comps = build_components(Settings(data_dir=ROOT / "data" / "dev_fixtures", llm_provider="none",
+                                          embedding_provider="fastembed", cache_backend="memory"), import_prewarm=False)
+    except Exception as exc:
+        pytest.skip(f"embedding model unavailable: {type(exc).__name__}")
+    intent = comps.enricher.analyze(query)
+    match, rejected = comps.siis_retriever.retrieve(intent, comps.embedder.embed([intent.normalized_query])[0])
+    assert match is None, rejected

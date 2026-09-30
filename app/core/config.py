@@ -104,6 +104,7 @@ class Settings(BaseSettings):
     siis_retrieval_enabled: bool = True
     siis_retrieval_min_score: float = 0.62
     siis_retrieval_min_margin: float = 0.02
+    siis_no_concept_min_dense: float = 0.93
 
     # ---- request limits ----------------------------------------------------------
     max_query_chars: int = 2000
