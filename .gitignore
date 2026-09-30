@@ -1,0 +1,22 @@
+# Secrets — never commit API keys
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+venv/
+
+# Runtime state (rebuilt on demand; the pre-warmed plan export is committed)
+artifacts/indexes/
+artifacts/cache/*.sqlite
+artifacts/cache/*.sqlite-*
+artifacts/models/
+artifacts/tmp/
+.fastembed_cache/
