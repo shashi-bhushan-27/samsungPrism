@@ -152,3 +152,22 @@ def test_dummy_text_variants():
     desc, msg = dummy_texts(p, primary_interaction(p, "Clear The App Cache"))
     assert desc == "Open storage settings for the selected app"
     assert msg == "Tap Clear cache in Storage settings"
+
+
+def test_vague_llm_action_name_still_maps_to_exact_toggle(resolver):
+    """Regression: an action named after the parent screen ("Camera Settings") that turns on one
+    toggle must map to that toggle, not to the parent Camera settings screen."""
+    d = resolver.resolve(
+        ExtractedAction("Camera Settings", "It will save selfies as previewed", "auto",
+                        ["Open the Camera app.", "Tap Settings.", "Turn on Save selfies as previewed."]),
+        domain="Camera",
+    )
+    assert d.kind == "catalog" and d.uri == uri("save_selfies_as_previewed"), d.trace()
+
+
+def test_vague_name_is_repaired_to_the_operated_feature():
+    from app.services.structure_extraction import specific_name
+
+    assert specific_name("Camera Settings", ["Open the Camera app.", "Tap Settings.",
+                                             "Turn on Save selfies as previewed."]) == "Turn on Save Selfies as Previewed"
+    assert specific_name("Turn On Power Saving", ["Open Settings.", "Tap Battery.", "Turn on Power saving."]) is None

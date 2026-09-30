@@ -110,7 +110,9 @@ class TroubleshootingService:
         request_id: str = "",
         read_cache: Optional[bool] = None,
         write_cache: Optional[bool] = None,
+        kb_doc: Optional[SiisDoc] = None,
     ) -> PipelineResult:
+        """`kb_doc` pins the grounding document (used by cache pre-warming for queries.json)."""
         s = self.settings
         read_cache = s.cache_read_enabled if read_cache is None else read_cache
         write_cache = s.cache_write_enabled if write_cache is None else write_cache
@@ -149,18 +151,24 @@ class TroubleshootingService:
 
         # ---------------------------------------------------------- SIIS source
         sources: list[Source] = []
-        if siis:
+        if kb_doc is not None:
+            sources.append(Source(ORIGIN_KB, kb_doc.text, kb_doc.id, 1.0, intent))
+        elif siis:
             sources.append(Source(ORIGIN_REQUEST, siis, None, 1.0, intent))
         elif s.siis_retrieval_enabled and self.siis_retriever is not None:
             with timer.stage("siis_retrieval"):
                 seen: set[str] = set()
-                for sub in (intent.sub_intents or (intent,)):
-                    vec = qvec if (sub is intent and qvec is not None) else self.embedder.embed([sub.normalized_query])[0]
-                    match, rejected = self.siis_retriever.retrieve(sub, vec)
-                    tel["notes"].extend(f"siis_reject:{r['doc']}:{r['reason']}" for r in rejected[:3])
-                    if match is not None and match.doc.id not in seen:
-                        seen.add(match.doc.id)
-                        sources.append(Source(ORIGIN_KB, match.doc.text, match.doc.id, min(1.0, match.score), sub))
+                try:
+                    for sub in (intent.sub_intents or (intent,)):
+                        vec = qvec if (sub is intent and qvec is not None) else self.embedder.embed([sub.normalized_query])[0]
+                        match, rejected = self.siis_retriever.retrieve(sub, vec)
+                        tel["notes"].extend(f"siis_reject:{r['doc']}:{r['reason']}" for r in rejected[:3])
+                        if match is not None and match.doc.id not in seen:
+                            seen.add(match.doc.id)
+                            sources.append(Source(ORIGIN_KB, match.doc.text, match.doc.id, min(1.0, match.score), sub))
+                except Exception as exc:
+                    log.exception("SIIS retrieval failed")
+                    raise ServiceError("retrieval_unavailable", "Knowledge retrieval is temporarily unavailable.", 503) from exc
         tel["sources"] = [{"origin": x.origin, "doc_id": x.doc_id, "confidence": round(x.confidence, 4)} for x in sources]
         if not sources:
             return self._fallback(FALLBACK_NO_SIIS_CONTEXT, echo, query, intent, timer, meter, tel)
@@ -215,7 +223,13 @@ class TroubleshootingService:
         contexts: list[schema.Goal] = []
         cacheable_parts: list[tuple[schema.Goal, Source, ExtractionResult]] = []
         for goal, res, src in goals:
-            built = await self._build_goal(goal, res, src, intent, timer, tel)
+            try:
+                built = await self._build_goal(goal, res, src, intent, timer, tel)
+            except ServiceError:
+                raise
+            except Exception as exc:
+                log.exception("deeplink mapping failed")
+                raise ServiceError("retrieval_unavailable", "Deeplink retrieval is temporarily unavailable.", 503) from exc
             if built is not None:
                 contexts.append(built)
                 cacheable_parts.append((built, src, res))

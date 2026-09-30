@@ -186,7 +186,7 @@ class TargetResolver:
     # ------------------------------------------------------------------ resolve
     def resolve(self, action: ExtractedAction, *, domain: Optional[str] = None) -> MappingDecision:
         path = self._path_with_hints(action)
-        primary = primary_interaction(path, action.action_name)
+        primary = primary_interaction(path, action.action_name, action.description)
         if action.category == CATEGORY_MANUAL:
             return MappingDecision("none", None, 0.0, "manual_action", path, primary)
         qtext = self.query_text(action, path, primary)

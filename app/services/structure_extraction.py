@@ -23,6 +23,8 @@ from app.models.internal import CanonicalIntent, ExtractedAction, ExtractedGoal,
 from app.services import category_rules
 from app.services.action_grouping import merge_fragments, split_all
 from app.services.grounding import SourceIndex, ground_steps, quote_supported
+from app.retrieval.text import token_set
+from app.retrieval.ui_path import parse_ui_path, primary_interaction
 from app.services.rules_extractor import extract_rules
 from app.validation import text_rules as T
 from app.validation.repair import (
@@ -242,6 +244,10 @@ class StructureExtractor:
             supports.extend(s.score for s in rep.supports if s.supported)
             name_source = a.action_name or kept[-1]
             name = repair_action_name(name_source)
+            specific = specific_name(name, kept)
+            if specific is not None:
+                notes.append(f"vague_name_repaired:{name}->{specific}")
+                name = specific
             decision = category_rules.classify(name, kept, a.proposed_category)
             desc = repair_description(a.description, name)
             cleaned.append(
@@ -294,6 +300,30 @@ class StructureExtractor:
         title = repair_title(title_raw or intent.title_hint, intent.title_hint)
         grounding = sum(supports) / len(supports) if supports else 0.0
         return ExtractedGoal(topic=topic, goal_kind=intent.goal_kind, title=title, actions=final, source_id=source_id), grounding
+
+
+_GENERIC_NAME_TOKENS = frozenset(token_set("settings setting options option menu screen configure adjust manage open check change set up"))
+
+
+def specific_name(name: str, steps: list[str]) -> Optional[str]:
+    """Replace a name that only mentions screens on the path ("Camera Settings") while the steps
+    operate one specific control ("Turn on Save selfies as previewed")."""
+    path = parse_ui_path(steps)
+    prim = primary_interaction(path, name)
+    if prim is None or prim.kind not in ("control", "slider", "button"):
+        return None
+    name_t = token_set(name) - _GENERIC_NAME_TOKENS
+    if name_t & token_set(prim.full_label or prim.label):
+        return None
+    screen_t = frozenset().union(*(token_set(e.label) for e in path.screens), token_set(path.root or ""))
+    if name_t and not name_t <= screen_t:
+        return None
+    label = prim.full_label or prim.label
+    if prim.kind == "control":
+        return T.to_title_case(f"Turn {prim.state or 'on'} {label}")
+    if prim.kind == "slider":
+        return T.to_title_case(f"Adjust {label}")
+    return T.to_title_case(label)
 
 
 def _clean_opt(v: Optional[str]) -> Optional[str]:

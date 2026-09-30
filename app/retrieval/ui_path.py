@@ -201,13 +201,20 @@ def parse_ui_path(steps: Sequence[str]) -> UiPath:
     return path
 
 
-def primary_interaction(path: UiPath, action_name: str) -> Optional[UiElement]:
-    """The control/value/button the action is named after (if any)."""
-    name_tokens = token_set(action_name)
+def primary_interaction(path: UiPath, action_name: str, description: str = "") -> Optional[UiElement]:
+    """The control/value/button the action is about.
+
+    * exactly one toggle/slider/button → it is the target, whatever the action is called
+      (an LLM may name the action after the parent screen, e.g. "Camera Settings");
+    * otherwise the interaction best named by the actionName/description (overlap ≥ 0.5).
+    """
+    candidates = [e for e in path.interactions if e.label.lower() not in GENERIC_BUTTONS and e.tokens]
+    operations = [e for e in candidates if e.kind in ("control", "slider", "button")]
+    if len(operations) == 1 and not any(e.kind == "value" for e in candidates):
+        return operations[0]
+    name_tokens = token_set(action_name) | token_set(description)
     best, best_score = None, 0.0
-    for el in path.interactions:
-        if el.label.lower() in GENERIC_BUTTONS:
-            continue
+    for el in candidates:
         score = 0.0
         for variant in el.label_variants:
             t = token_set(variant)

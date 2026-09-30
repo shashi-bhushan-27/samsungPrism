@@ -89,7 +89,9 @@ class Settings(BaseSettings):
     cache_read_enabled: bool = True
     cache_write_enabled: bool = True
     semantic_cache_enabled: bool = True
-    semantic_cache_threshold: float = 0.80
+    # Calibrated by scripts/calibrate_cache.py (see artifacts/reports/cache_calibration.json).
+    semantic_cache_threshold: float = 0.76
+    semantic_cache_threshold_no_concept: float = 0.93
     semantic_cache_margin: float = 0.0
     semantic_cache_top_k: int = 8
     # Variation keys must stay this close to the source query to be indexed.

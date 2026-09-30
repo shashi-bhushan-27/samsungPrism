@@ -31,6 +31,9 @@ from app.services.intent_lexicon import DISCRIMINATIVE_QUALIFIERS
 log = logging.getLogger(__name__)
 
 PLAN_ONLY_QUALIFIER_PENALTY = 0.02
+# A plan that also covers a symptom family the query does not mention (e.g. "storage full AND
+# slow" for a plain "slow" complaint) is slightly less appropriate than an exact-family plan.
+PLAN_ONLY_FAMILY_PENALTY = 0.02
 
 
 def intent_summary(intent: CanonicalIntent) -> dict[str, Any]:
@@ -74,6 +77,7 @@ class PlanCache:
         versions: dict[str, str],
         *,
         threshold: float,
+        no_concept_threshold: float = 0.93,
         margin: float = 0.0,
         top_k: int = 8,
         key_min_similarity: float = 0.55,
@@ -84,6 +88,9 @@ class PlanCache:
         self.embedder = embedder
         self.versions = dict(versions)
         self.threshold = threshold
+        # Complaints outside the concept lexicon have no deterministic intent to gate on, so they
+        # only reuse a plan when they are near-duplicates of a cached key.
+        self.no_concept_threshold = no_concept_threshold
         self.margin = margin
         self.top_k = top_k
         self.key_min_similarity = key_min_similarity
@@ -194,24 +201,24 @@ class PlanCache:
                 return CacheHit(rec, "exact", 1.0, intent.normalized_query)
         return None
 
-    def lookup_semantic(
-        self, intent: CanonicalIntent, qvec: np.ndarray, scope_fp: Optional[str], *, count_miss: bool = True
-    ) -> LookupResult:
-        matrix, key_plan, key_text = self._matrix, self._key_plan, self._key_text
+    def effective_threshold(self, intent: CanonicalIntent) -> float:
+        return self.threshold if intent.features else max(self.threshold, self.no_concept_threshold)
+
+    def best_candidate(
+        self, intent: CanonicalIntent, qvec: np.ndarray, scope_fp: Optional[str]
+    ) -> tuple[Optional[CacheRecord], float, Optional[int], list[dict[str, Any]], float]:
+        """Most similar eligible, concept-compatible plan (similarity after penalties), no threshold."""
+        matrix, key_plan = self._matrix, self._key_plan
         if matrix.shape[0] == 0:
-            if count_miss:
-                self.stats["misses"] += 1
-            return LookupResult(None)
+            return None, 0.0, None, [], 0.0
         sims = matrix @ np.asarray(qvec, dtype=np.float32).reshape(-1)
-        k = min(len(sims), max(self.top_k * 8, 32))
-        idx = np.argpartition(-sims, k - 1)[:k] if k < len(sims) else np.arange(len(sims))
-        order = sorted(idx.tolist(), key=lambda i: (-float(sims[i]), i))
-        qsum = intent_summary(intent)
         best_by_plan: dict[str, tuple[float, int]] = {}
-        for i in order:
+        for i in sorted(range(len(sims)), key=lambda i: (-float(sims[i]), i)):
             pid = key_plan[i]
             if pid not in best_by_plan:
                 best_by_plan[pid] = (float(sims[i]), i)
+        qsum = intent_summary(intent)
+        q_families = set(intent.features)
         ranked: list[tuple[float, str, int]] = []
         for pid, (sim, i) in best_by_plan.items():
             rec = self._records.get(pid)
@@ -220,13 +227,14 @@ class PlanCache:
             plan_q = set(rec.intent.get("qualifiers") or []) & DISCRIMINATIVE_QUALIFIERS
             if plan_q and not (plan_q & set(intent.qualifiers)):
                 sim -= PLAN_ONLY_QUALIFIER_PENALTY
+            if q_families:
+                extra = set(rec.intent.get("families") or []) - q_families
+                sim -= PLAN_ONLY_FAMILY_PENALTY * len(extra)
             ranked.append((sim, pid, i))
         ranked.sort(key=lambda t: (-t[0], t[1]))
-        rejected: list[dict[str, Any]] = []
         best_sim = ranked[0][0] if ranked else 0.0
+        rejected: list[dict[str, Any]] = []
         for pos, (sim, pid, i) in enumerate(ranked[: self.top_k]):
-            if sim < self.threshold:
-                break
             rec = self._records[pid]
             ok, why = compatibility(qsum, rec.intent)
             if not ok:
@@ -234,18 +242,30 @@ class PlanCache:
                 continue
             if self.margin > 0:
                 rival = next(
-                    (r for r in ranked[pos + 1 :] if self._records[r[1]].intent.get("signature") != rec.intent.get("signature")),
+                    (r for r in ranked[pos + 1 :]
+                     if self._records[r[1]].intent.get("signature") != rec.intent.get("signature")),
                     None,
                 )
                 if rival is not None and sim - rival[0] < self.margin:
                     rejected.append({"plan_id": pid, "similarity": round(sim, 4), "reason": "margin"})
-                    break
-            if not self._valid(rec):
-                continue
+                    return None, 0.0, None, rejected, best_sim
+            return rec, sim, i, rejected, best_sim
+        return None, 0.0, None, rejected, best_sim
+
+    def lookup_semantic(
+        self, intent: CanonicalIntent, qvec: np.ndarray, scope_fp: Optional[str], *, count_miss: bool = True
+    ) -> LookupResult:
+        rec, sim, key_i, rejected, best_sim = self.best_candidate(intent, qvec, scope_fp)
+        threshold = self.effective_threshold(intent)
+        if rec is not None and sim >= threshold and self._valid(rec):
             self.stats["semantic_hits"] += 1
             return LookupResult(
-                CacheHit(rec, "semantic", sim, key_text[i], {"rejected": rejected}), best_sim, rejected
+                CacheHit(rec, "semantic", sim, self._key_text[key_i], {"rejected": rejected, "threshold": threshold}),
+                best_sim,
+                rejected,
             )
+        if rec is not None and sim < threshold:
+            rejected.append({"plan_id": rec.plan_id, "similarity": round(sim, 4), "reason": f"below_threshold:{threshold}"})
         if count_miss:
             self.stats["misses"] += 1
         return LookupResult(None, best_sim, rejected)

@@ -1,0 +1,555 @@
+{
+  "summary": {
+    "exported_plans": 32,
+    "path": "/home/user/samsungPrism/artifacts/cache/prewarm_plans.jsonl",
+    "statuses": {
+      "cached": 32
+    }
+  },
+  "items": [
+    {
+      "id": "D01",
+      "status": "cached",
+      "ms": 2666,
+      "modes": [
+        "llm"
+      ],
+      "actions": 1,
+      "tokens": {
+        "input": 822,
+        "output": 487,
+        "thinking": 0,
+        "total": 1309
+      },
+      "cost_usd": 0.000936,
+      "fallback": null
+    },
+    {
+      "id": "D02",
+      "status": "cached",
+      "ms": 4934,
+      "modes": [
+        "llm"
+      ],
+      "actions": 5,
+      "tokens": {
+        "input": 866,
+        "output": 685,
+        "thinking": 0,
+        "total": 1551
+      },
+      "cost_usd": 0.001244,
+      "fallback": null
+    },
+    {
+      "id": "D03",
+      "status": "cached",
+      "ms": 4195,
+      "modes": [
+        "llm"
+      ],
+      "actions": 4,
+      "tokens": {
+        "input": 702,
+        "output": 393,
+        "thinking": 0,
+        "total": 1095
+      },
+      "cost_usd": 0.000765,
+      "fallback": null
+    },
+    {
+      "id": "D04",
+      "status": "cached",
+      "ms": 2376,
+      "modes": [
+        "llm"
+      ],
+      "actions": 2,
+      "tokens": {
+        "input": 648,
+        "output": 230,
+        "thinking": 0,
+        "total": 878
+      },
+      "cost_usd": 0.000507,
+      "fallback": null
+    },
+    {
+      "id": "D05",
+      "status": "cached",
+      "ms": 3825,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 818,
+        "output": 534,
+        "thinking": 0,
+        "total": 1352
+      },
+      "cost_usd": 0.0010055,
+      "fallback": null
+    },
+    {
+      "id": "D06",
+      "status": "cached",
+      "ms": 1815,
+      "modes": [
+        "llm"
+      ],
+      "actions": 2,
+      "tokens": {
+        "input": 639,
+        "output": 252,
+        "thinking": 0,
+        "total": 891
+      },
+      "cost_usd": 0.00053775,
+      "fallback": null
+    },
+    {
+      "id": "D07",
+      "status": "cached",
+      "ms": 3386,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 782,
+        "output": 554,
+        "thinking": 0,
+        "total": 1336
+      },
+      "cost_usd": 0.0010265,
+      "fallback": null
+    },
+    {
+      "id": "D08",
+      "status": "cached",
+      "ms": 2117,
+      "modes": [
+        "llm"
+      ],
+      "actions": 1,
+      "tokens": {
+        "input": 637,
+        "output": 140,
+        "thinking": 0,
+        "total": 777
+      },
+      "cost_usd": 0.0005411,
+      "fallback": null
+    },
+    {
+      "id": "B01",
+      "status": "cached",
+      "ms": 4633,
+      "modes": [
+        "llm"
+      ],
+      "actions": 6,
+      "tokens": {
+        "input": 860,
+        "output": 756,
+        "thinking": 0,
+        "total": 1616
+      },
+      "cost_usd": 0.001554,
+      "fallback": null
+    },
+    {
+      "id": "B02",
+      "status": "cached",
+      "ms": 2304,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 808,
+        "output": 546,
+        "thinking": 0,
+        "total": 1354
+      },
+      "cost_usd": 0.00136225,
+      "fallback": null
+    },
+    {
+      "id": "B03",
+      "status": "cached",
+      "ms": 2696,
+      "modes": [
+        "llm"
+      ],
+      "actions": 4,
+      "tokens": {
+        "input": 694,
+        "output": 380,
+        "thinking": 0,
+        "total": 1074
+      },
+      "cost_usd": 0.0011582,
+      "fallback": null
+    },
+    {
+      "id": "B04",
+      "status": "cached",
+      "ms": 2965,
+      "modes": [
+        "llm"
+      ],
+      "actions": 5,
+      "tokens": {
+        "input": 843,
+        "output": 717,
+        "thinking": 0,
+        "total": 1560
+      },
+      "cost_usd": 0.0020454,
+      "fallback": null
+    },
+    {
+      "id": "B05",
+      "status": "cached",
+      "ms": 1774,
+      "modes": [
+        "llm"
+      ],
+      "actions": 1,
+      "tokens": {
+        "input": 622,
+        "output": 151,
+        "thinking": 0,
+        "total": 773
+      },
+      "cost_usd": 0.000382,
+      "fallback": null
+    },
+    {
+      "id": "B06",
+      "status": "cached",
+      "ms": 5895,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 811,
+        "output": 603,
+        "thinking": 0,
+        "total": 1414
+      },
+      "cost_usd": 0.00110725,
+      "fallback": null
+    },
+    {
+      "id": "B07",
+      "status": "cached",
+      "ms": 3488,
+      "modes": [
+        "llm"
+      ],
+      "actions": 4,
+      "tokens": {
+        "input": 816,
+        "output": 677,
+        "thinking": 0,
+        "total": 1493
+      },
+      "cost_usd": 0.0012195,
+      "fallback": null
+    },
+    {
+      "id": "B08",
+      "status": "cached",
+      "ms": 2084,
+      "modes": [
+        "llm"
+      ],
+      "actions": 2,
+      "tokens": {
+        "input": 763,
+        "output": 493,
+        "thinking": 0,
+        "total": 1256
+      },
+      "cost_usd": 0.00093025,
+      "fallback": null
+    },
+    {
+      "id": "C01",
+      "status": "cached",
+      "ms": 5735,
+      "modes": [
+        "llm"
+      ],
+      "actions": 5,
+      "tokens": {
+        "input": 815,
+        "output": 712,
+        "thinking": 0,
+        "total": 1527
+      },
+      "cost_usd": 0.00127175,
+      "fallback": null
+    },
+    {
+      "id": "C02",
+      "status": "cached",
+      "ms": 4619,
+      "modes": [
+        "llm"
+      ],
+      "actions": 6,
+      "tokens": {
+        "input": 899,
+        "output": 844,
+        "thinking": 0,
+        "total": 1743
+      },
+      "cost_usd": 0.00210845,
+      "fallback": null
+    },
+    {
+      "id": "C03",
+      "status": "cached",
+      "ms": 2363,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 670,
+        "output": 304,
+        "thinking": 0,
+        "total": 974
+      },
+      "cost_usd": 0.000961,
+      "fallback": null
+    },
+    {
+      "id": "C04",
+      "status": "cached",
+      "ms": 2607,
+      "modes": [
+        "llm"
+      ],
+      "actions": 4,
+      "tokens": {
+        "input": 817,
+        "output": 599,
+        "thinking": 0,
+        "total": 1416
+      },
+      "cost_usd": 0.0017426,
+      "fallback": null
+    },
+    {
+      "id": "C05",
+      "status": "cached",
+      "ms": 2162,
+      "modes": [
+        "llm"
+      ],
+      "actions": 2,
+      "tokens": {
+        "input": 610,
+        "output": 222,
+        "thinking": 0,
+        "total": 832
+      },
+      "cost_usd": 0.000738,
+      "fallback": null
+    },
+    {
+      "id": "C06",
+      "status": "cached",
+      "ms": 4341,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 794,
+        "output": 558,
+        "thinking": 0,
+        "total": 1352
+      },
+      "cost_usd": 0.0016332,
+      "fallback": null
+    },
+    {
+      "id": "C07",
+      "status": "cached",
+      "ms": 2095,
+      "modes": [
+        "llm"
+      ],
+      "actions": 1,
+      "tokens": {
+        "input": 601,
+        "output": 151,
+        "thinking": 0,
+        "total": 752
+      },
+      "cost_usd": 0.0005578,
+      "fallback": null
+    },
+    {
+      "id": "C08",
+      "status": "cached",
+      "ms": 1729,
+      "modes": [
+        "llm"
+      ],
+      "actions": 2,
+      "tokens": {
+        "input": 624,
+        "output": 227,
+        "thinking": 0,
+        "total": 851
+      },
+      "cost_usd": 0.0004965,
+      "fallback": null
+    },
+    {
+      "id": "P01",
+      "status": "cached",
+      "ms": 3791,
+      "modes": [
+        "llm"
+      ],
+      "actions": 5,
+      "tokens": {
+        "input": 855,
+        "output": 698,
+        "thinking": 0,
+        "total": 1553
+      },
+      "cost_usd": 0.00126075,
+      "fallback": null
+    },
+    {
+      "id": "P02",
+      "status": "cached",
+      "ms": 2203,
+      "modes": [
+        "llm"
+      ],
+      "actions": 4,
+      "tokens": {
+        "input": 691,
+        "output": 389,
+        "thinking": 0,
+        "total": 1080
+      },
+      "cost_usd": 0.00075625,
+      "fallback": null
+    },
+    {
+      "id": "P03",
+      "status": "cached",
+      "ms": 4891,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 803,
+        "output": 548,
+        "thinking": 0,
+        "total": 1351
+      },
+      "cost_usd": 0.00102275,
+      "fallback": null
+    },
+    {
+      "id": "P04",
+      "status": "cached",
+      "ms": 4504,
+      "modes": [
+        "llm"
+      ],
+      "actions": 4,
+      "tokens": {
+        "input": 794,
+        "output": 614,
+        "thinking": 0,
+        "total": 1408
+      },
+      "cost_usd": 0.0011195,
+      "fallback": null
+    },
+    {
+      "id": "P05",
+      "status": "cached",
+      "ms": 5488,
+      "modes": [
+        "llm"
+      ],
+      "actions": 2,
+      "tokens": {
+        "input": 759,
+        "output": 477,
+        "thinking": 0,
+        "total": 1236
+      },
+      "cost_usd": 0.00116405,
+      "fallback": null
+    },
+    {
+      "id": "P06",
+      "status": "cached",
+      "ms": 3078,
+      "modes": [
+        "llm"
+      ],
+      "actions": 4,
+      "tokens": {
+        "input": 704,
+        "output": 400,
+        "thinking": 0,
+        "total": 1104
+      },
+      "cost_usd": 0.0012112,
+      "fallback": null
+    },
+    {
+      "id": "P07",
+      "status": "cached",
+      "ms": 4012,
+      "modes": [
+        "llm"
+      ],
+      "actions": 2,
+      "tokens": {
+        "input": 758,
+        "output": 476,
+        "thinking": 0,
+        "total": 1234
+      },
+      "cost_usd": 0.0014174,
+      "fallback": null
+    },
+    {
+      "id": "P08",
+      "status": "cached",
+      "ms": 2589,
+      "modes": [
+        "llm"
+      ],
+      "actions": 4,
+      "tokens": {
+        "input": 840,
+        "output": 648,
+        "thinking": 0,
+        "total": 1488
+      },
+      "cost_usd": 0.001872,
+      "fallback": null
+    }
+  ]
+}

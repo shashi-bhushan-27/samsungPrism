@@ -77,6 +77,10 @@ def build_llm(settings: Settings) -> LLMProvider:
     from app.llm.gemini import GeminiProvider
 
     key = settings.gemini_api_key.get_secret_value() if settings.gemini_api_key else ""
+    if not key:
+        # Serve cached plans and deterministic fallbacks; /health reports llm=false (not ready).
+        log.warning("GEMINI_API_KEY is not set: LLM disabled, cold requests use the rules extractor")
+        return NullLLMProvider()
     return GeminiProvider(
         api_key=key,
         model=settings.llm_model,
@@ -185,6 +189,7 @@ def build_components(
         embedder,
         {"catalog": registry.fingerprint, "pipeline": PIPELINE_VERSION},
         threshold=settings.semantic_cache_threshold,
+        no_concept_threshold=settings.semantic_cache_threshold_no_concept,
         margin=settings.semantic_cache_margin,
         top_k=settings.semantic_cache_top_k,
         key_min_similarity=settings.cache_key_min_similarity,

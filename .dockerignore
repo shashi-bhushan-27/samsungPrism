@@ -1,0 +1,16 @@
+.git
+.gitignore
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.env
+*.env
+tests
+benchmarks/raw
+artifacts/indexes
+artifacts/cache/*.sqlite
+artifacts/cache/*.sqlite-*
+artifacts/reports
+artifacts/tmp
+Dockerfile
+.dockerignore
