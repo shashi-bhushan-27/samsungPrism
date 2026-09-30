@@ -3,9 +3,9 @@
   "embedding": "fastembed:BAAI/bge-small-en-v1.5:384",
   "plans_in_cache": 32,
   "rule": "max hit rate s.t. precision >= 0.99; midpoint of plateau",
-  "chosen_threshold": 0.76,
+  "chosen_threshold": 0.77,
   "calibration_at_chosen": {
-    "threshold": 0.76,
+    "threshold": 0.77,
     "hit_rate": 1.0,
     "wrong_plan": 0,
     "negative_false_hits": 0,
@@ -13,7 +13,7 @@
     "precision": 1.0
   },
   "test_at_chosen": {
-    "threshold": 0.76,
+    "threshold": 0.77,
     "hit_rate": 0.9688,
     "wrong_plan": 0,
     "negative_false_hits": 0,
@@ -159,25 +159,25 @@
       "threshold": 0.66,
       "hit_rate": 1.0,
       "wrong_plan": 0,
-      "negative_false_hits": 3,
+      "negative_false_hits": 2,
       "misses": 0,
-      "precision": 0.9552
+      "precision": 0.9697
     },
     {
       "threshold": 0.67,
       "hit_rate": 1.0,
       "wrong_plan": 0,
-      "negative_false_hits": 3,
+      "negative_false_hits": 2,
       "misses": 0,
-      "precision": 0.9552
+      "precision": 0.9697
     },
     {
       "threshold": 0.68,
       "hit_rate": 1.0,
       "wrong_plan": 0,
-      "negative_false_hits": 3,
+      "negative_false_hits": 2,
       "misses": 0,
-      "precision": 0.9552
+      "precision": 0.9697
     },
     {
       "threshold": 0.69,
@@ -199,25 +199,25 @@
       "threshold": 0.71,
       "hit_rate": 1.0,
       "wrong_plan": 0,
-      "negative_false_hits": 1,
+      "negative_false_hits": 2,
       "misses": 0,
-      "precision": 0.9846
+      "precision": 0.9697
     },
     {
       "threshold": 0.72,
       "hit_rate": 1.0,
       "wrong_plan": 0,
-      "negative_false_hits": 0,
+      "negative_false_hits": 1,
       "misses": 0,
-      "precision": 1.0
+      "precision": 0.9846
     },
     {
       "threshold": 0.73,
       "hit_rate": 1.0,
       "wrong_plan": 0,
-      "negative_false_hits": 0,
+      "negative_false_hits": 1,
       "misses": 0,
-      "precision": 1.0
+      "precision": 0.9846
     },
     {
       "threshold": 0.74,
@@ -301,14 +301,30 @@
     },
     {
       "threshold": 0.84,
-      "hit_rate": 0.8906,
+      "hit_rate": 0.9062,
       "wrong_plan": 0,
       "negative_false_hits": 0,
-      "misses": 7,
+      "misses": 6,
       "precision": 1.0
     },
     {
       "threshold": 0.85,
+      "hit_rate": 0.875,
+      "wrong_plan": 0,
+      "negative_false_hits": 0,
+      "misses": 8,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.86,
+      "hit_rate": 0.8594,
+      "wrong_plan": 0,
+      "negative_false_hits": 0,
+      "misses": 9,
+      "precision": 1.0
+    },
+    {
+      "threshold": 0.87,
       "hit_rate": 0.8438,
       "wrong_plan": 0,
       "negative_false_hits": 0,
@@ -316,83 +332,67 @@
       "precision": 1.0
     },
     {
-      "threshold": 0.86,
-      "hit_rate": 0.8281,
-      "wrong_plan": 0,
-      "negative_false_hits": 0,
-      "misses": 11,
-      "precision": 1.0
-    },
-    {
-      "threshold": 0.87,
-      "hit_rate": 0.8125,
-      "wrong_plan": 0,
-      "negative_false_hits": 0,
-      "misses": 12,
-      "precision": 1.0
-    },
-    {
       "threshold": 0.88,
-      "hit_rate": 0.7656,
+      "hit_rate": 0.7812,
       "wrong_plan": 0,
       "negative_false_hits": 0,
-      "misses": 15,
+      "misses": 14,
       "precision": 1.0
     },
     {
       "threshold": 0.89,
-      "hit_rate": 0.7031,
+      "hit_rate": 0.7188,
       "wrong_plan": 0,
       "negative_false_hits": 0,
-      "misses": 19,
+      "misses": 18,
       "precision": 1.0
     },
     {
       "threshold": 0.9,
-      "hit_rate": 0.625,
+      "hit_rate": 0.6406,
       "wrong_plan": 0,
       "negative_false_hits": 0,
-      "misses": 24,
+      "misses": 23,
       "precision": 1.0
     },
     {
       "threshold": 0.91,
-      "hit_rate": 0.5625,
+      "hit_rate": 0.5781,
       "wrong_plan": 0,
       "negative_false_hits": 0,
-      "misses": 28,
+      "misses": 27,
       "precision": 1.0
     },
     {
       "threshold": 0.92,
-      "hit_rate": 0.4531,
+      "hit_rate": 0.5,
       "wrong_plan": 0,
       "negative_false_hits": 0,
-      "misses": 35,
+      "misses": 32,
       "precision": 1.0
     },
     {
       "threshold": 0.93,
-      "hit_rate": 0.4062,
+      "hit_rate": 0.4219,
       "wrong_plan": 0,
       "negative_false_hits": 0,
-      "misses": 38,
+      "misses": 37,
       "precision": 1.0
     },
     {
       "threshold": 0.94,
-      "hit_rate": 0.2656,
+      "hit_rate": 0.2344,
       "wrong_plan": 0,
       "negative_false_hits": 0,
-      "misses": 47,
+      "misses": 49,
       "precision": 1.0
     },
     {
       "threshold": 0.95,
-      "hit_rate": 0.2188,
+      "hit_rate": 0.1875,
       "wrong_plan": 0,
       "negative_false_hits": 0,
-      "misses": 50,
+      "misses": 52,
       "precision": 1.0
     },
     {
@@ -405,10 +405,10 @@
     },
     {
       "threshold": 0.97,
-      "hit_rate": 0.1094,
+      "hit_rate": 0.0938,
       "wrong_plan": 0,
       "negative_false_hits": 0,
-      "misses": 57,
+      "misses": 58,
       "precision": 1.0
     },
     {

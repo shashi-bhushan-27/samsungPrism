@@ -1,0 +1,585 @@
+{
+  "_notice": "LLM-generated held-out paraphrases (synthetic). Generated after the semantic threshold was frozen; items identical to a cache key were removed.",
+  "generated_at": "2026-09-30T18:54:42+00:00",
+  "generator_model": "gemini-3.5-flash-lite",
+  "frozen_threshold": 0.76,
+  "dropped_as_seen": 0,
+  "items": [
+    {
+      "query_id": "D01",
+      "style": "support_chat",
+      "text": "Hey my phone is acting super weird. I just installed a new app and now whenever I try to swipe left and right to go back or switch screens, it scrolls up and down instead. It is driving me nuts, please help fix this.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D01",
+      "style": "search_phrase",
+      "text": "phone swipe navigation inverted up down after installing app",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D01",
+      "style": "indirect_description",
+      "text": "A customer is frustrated because a newly downloaded application messed up their gesture controls, causing horizontal swipes to trigger vertical scrolling instead.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D02",
+      "style": "support_chat",
+      "text": "Hey my phone screen is acting super weird, it keeps flashing and flickering randomly every time I open an app, can you guys help me fix this or do I need a replacement?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D02",
+      "style": "search_phrase",
+      "text": "phone screen flickering fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D02",
+      "style": "indirect_description",
+      "text": "My device display won't stop blinking and pulsing, making it completely unusable.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D03",
+      "style": "support_chat",
+      "text": "Hey, I need help because my phone screen is way too dark even when I crank the brightness all the way up to 100 percent. I can barely see anything outside.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D03",
+      "style": "search_phrase",
+      "text": "phone screen too dim max brightness",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D03",
+      "style": "indirect_description",
+      "text": "A customer is frustrated because their display lacks visibility outdoors and indoors even after adjusting the brightness slider to the maximum setting.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D04",
+      "style": "support_chat",
+      "text": "hey my phone screen keeps going totally black after like five seconds of using it and i cant see anything, can someone help?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D04",
+      "style": "search_phrase",
+      "text": "phone screen turns black after a few seconds fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D04",
+      "style": "indirect_description",
+      "text": "A customer is complaining that their smartphone display shuts off and goes completely black only a few seconds after turning it on, making the device unusable.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D05",
+      "style": "support_chat",
+      "text": "Hey support, I just put a new glass screen protector on my phone and now the touch screen barely registers my taps. Sometimes I have to press really hard or it just freezes up completely. Is there a touch sensitivity setting I need to change or is the protector too thick?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D05",
+      "style": "search_phrase",
+      "text": "phone touchscreen not working after screen protector installation",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D05",
+      "style": "indirect_description",
+      "text": "A customer is frustrated because their phone screen became unresponsive to touch inputs immediately after they applied a protective glass cover.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D06",
+      "style": "support_chat",
+      "text": "Hey my screen has this really annoying yellow tint to everything, like it's stuck on warm mode or something. I already checked night light and it's off. Can I fix this?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D06",
+      "style": "search_phrase",
+      "text": "phone display yellowish warm tint fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D06",
+      "style": "indirect_description",
+      "text": "A customer is frustrated because their phone screen has an unnatural yellow and warm hue, making white look cream and distorting all their photos.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D07",
+      "style": "support_chat",
+      "text": "Hey, why is my screen stuttering so bad whenever I scroll through Twitter or web pages? It looks like it's lagging big time and totally ruins the experience.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D07",
+      "style": "search_phrase",
+      "text": "fix choppy screen scrolling lag issue",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D07",
+      "style": "indirect_description",
+      "text": "A customer is complaining that the display refresh rate or touch response makes scrolling look stuttery and laggy instead of fluid.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D08",
+      "style": "support_chat",
+      "text": "Hey my eyes are burning from this bright screen, how do I switch to dark mode on my Galaxy phone??",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D08",
+      "style": "search_phrase",
+      "text": "how to enable dark mode galaxy",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "D08",
+      "style": "indirect_description",
+      "text": "A customer is struggling to find the dark theme settings on their Samsung device and needs step-by-step help to stop the eye strain.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B01",
+      "style": "support_chat",
+      "text": "Hey my phone battery is draining super fast today like from 100 to 0 in an hour without me even using it much can someone help?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B01",
+      "style": "search_phrase",
+      "text": "phone battery dies very fast fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B01",
+      "style": "indirect_description",
+      "text": "A user is frustrated because their mobile device is losing charge at an abnormally rapid rate throughout the day.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B02",
+      "style": "support_chat",
+      "text": "Hey guys, ever since I installed the newest software update, my battery drains super fast even when the phone is just sitting in my pocket. Can you help?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B02",
+      "style": "search_phrase",
+      "text": "battery draining fast after update fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B02",
+      "style": "indirect_description",
+      "text": "Ever since the recent system update came through, the phone can barely hold a charge for half a day under normal use.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B03",
+      "style": "support_chat",
+      "text": "Hey there, my phone gets super hot every time I plug it in to charge. Is this normal or is the battery fried?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B03",
+      "style": "search_phrase",
+      "text": "smartphone overheating while charging fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B03",
+      "style": "indirect_description",
+      "text": "A customer is frustrated because their mobile device reaches extremely high temperatures whenever connected to the charger, raising safety concerns.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B04",
+      "style": "support_chat",
+      "text": "Hey my phone is literally refusing to charge unless I hold the cable at a super weird angle and even then it takes like 6 hours to go up by 10 percent. What is going on?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B04",
+      "style": "search_phrase",
+      "text": "phone charging extremely slow won't charge fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B04",
+      "style": "indirect_description",
+      "text": "A user is having a terrible time getting their mobile device to take a charge, noting that it either doesn't work at all or creeps up way too slowly.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B05",
+      "style": "support_chat",
+      "text": "Hey support, where is the option to cap battery charging at 80% or something? I don't want it sitting at 100 all night.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B05",
+      "style": "search_phrase",
+      "text": "limit charge to 80 percent battery protection setting",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B05",
+      "style": "indirect_description",
+      "text": "A user is looking for a battery health feature to restrict full charging in order to preserve long-term battery lifespan.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B06",
+      "style": "support_chat",
+      "text": "Hey team, my phone battery is draining so fast because apps refuse to close in the background. Please fix this.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B06",
+      "style": "search_phrase",
+      "text": "stop apps running in background android battery drain",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B06",
+      "style": "indirect_description",
+      "text": "A customer is frustrated that their smartphone battery is constantly depleted due to applications failing to close properly and continuing to run hidden processes.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B07",
+      "style": "support_chat",
+      "text": "Hey my phone battery is acting crazy. It shows 40 percent and then all of a sudden it drops straight to 5 percent and dies. What is going on?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B07",
+      "style": "search_phrase",
+      "text": "phone battery percentage drops suddenly from 40 to 5",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B07",
+      "style": "indirect_description",
+      "text": "My device has a severe power management issue where the charge level plummets without warning in the middle of the day.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B08",
+      "style": "support_chat",
+      "text": "Hey support, I noticed my battery is draining super fast after the latest update. The Always On Display seems to be eating up like 30% of my charge all day long. Can you fix this?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B08",
+      "style": "search_phrase",
+      "text": "Always On Display battery drain fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "B08",
+      "style": "indirect_description",
+      "text": "A user is frustrated because their phone's battery life has significantly worsened, and they suspect that keeping the screen partially on all the time is the main culprit.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C01",
+      "style": "support_chat",
+      "text": "hey, I'm super frustrated because every single photo I take with this phone ends up looking like a blurry mess and it's impossible to get a clear shot no matter what settings I use.",
+      "model": "gemini-3.1-flash-lite"
+    },
+    {
+      "query_id": "C01",
+      "style": "search_phrase",
+      "text": "phone camera taking blurry photos fix",
+      "model": "gemini-3.1-flash-lite"
+    },
+    {
+      "query_id": "C01",
+      "style": "indirect_description",
+      "text": "I really regret buying this device since it can't even capture a decent picture of my kids without everything looking like it was taken through a fogged-up lens.",
+      "model": "gemini-3.1-flash-lite"
+    },
+    {
+      "query_id": "C02",
+      "style": "support_chat",
+      "text": "Hey there, my phone is acting up big time. Every time I try to open the camera app, it freezes for a second and then says Camera failed before shutting down completely. I tried restarting and clearing cache, but nothing works.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C02",
+      "style": "search_phrase",
+      "text": "camera app keeps crashing camera failed error fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C02",
+      "style": "indirect_description",
+      "text": "A user is frustrated because their phone's camera application refuses to stay open, constantly throwing an error message and disrupting their ability to take photos.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C03",
+      "style": "support_chat",
+      "text": "Hey my camera is totally useless at night, every single low light photo comes out pitch black and grainy. What is wrong with this lens?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C03",
+      "style": "search_phrase",
+      "text": "phone takes dark blurry photos in low light",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C03",
+      "style": "indirect_description",
+      "text": "A user is expressing frustration on a forum because their smartphone struggles heavily with night photography, producing unusable and underexposed pictures.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C04",
+      "style": "support_chat",
+      "text": "Hey my phone camera is completely broken, whenever I open the app it's just totally black and wont take pictures.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C04",
+      "style": "search_phrase",
+      "text": "camera app shows black screen fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C04",
+      "style": "indirect_description",
+      "text": "A customer is frustrated because their device's camera malfunctions by displaying only a black screen upon launch.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C05",
+      "style": "support_chat",
+      "text": "Hey, my phone's camera stabilization is completely broken. Every time I try to shoot a video, it comes out super shaky and jittery, even when I hold it completely still with both hands. Is this a software bug or a hardware defect?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C05",
+      "style": "search_phrase",
+      "text": "phone video stabilization not working shaky footage fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C05",
+      "style": "indirect_description",
+      "text": "A customer is frustrated because their smartphone fails to stabilize video recordings, resulting in unwatchably blurry and shaky content regardless of lighting or holding technique.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C06",
+      "style": "support_chat",
+      "text": "Hey my phone keeps saying error when I try to save pictures to the SD card, what do I do?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C06",
+      "style": "search_phrase",
+      "text": "camera app not saving photos to micro sd card error",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C06",
+      "style": "indirect_description",
+      "text": "Ever since the last update, my phone refuses to store any of my pictures onto the memory card, which is super annoying because the internal storage is almost full.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C07",
+      "style": "support_chat",
+      "text": "Hey support, why do all my front camera photos get flipped backwards like a mirror as soon as I take them? Is there a setting to fix this?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C07",
+      "style": "search_phrase",
+      "text": "front camera mirror image fix selfie flipped",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C07",
+      "style": "indirect_description",
+      "text": "So I got this new phone and whenever I try to take a cute picture of myself, it saves it completely backwards. Like my right side is on the left. It drives me crazy and none of my old phones did this.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C08",
+      "style": "support_chat",
+      "text": "Hey my phone camera is totally busted when it comes to scanning QR codes. It just sits there and refuses to read them no matter what I try. Can someone help me fix this?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C08",
+      "style": "search_phrase",
+      "text": "phone camera won't scan QR codes fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "C08",
+      "style": "indirect_description",
+      "text": "A user is frustrated because their device's built-in camera application fails to recognize and scan QR codes automatically, requiring them to download a third-party app.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P01",
+      "style": "support_chat",
+      "text": "Hey team, ever since I installed the latest software update, my phone has been lagging terribly. Apps take forever to open and the whole system freezes constantly. Can you fix this?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P01",
+      "style": "search_phrase",
+      "text": "phone lagging badly after recent system update fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P01",
+      "style": "indirect_description",
+      "text": "A customer is complaining that their mobile device's performance degraded significantly following a recent software update, causing severe lag and freezing issues.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P02",
+      "style": "support_chat",
+      "text": "Hey support, my phone is lagging so badly lately and every time I try to open an app it takes forever just to load anything. Can you help?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P02",
+      "style": "search_phrase",
+      "text": "phone lagging slow app opening fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P02",
+      "style": "indirect_description",
+      "text": "A customer is frustrated because their device has become extremely sluggish, causing long delays when attempting to launch and use various mobile applications.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P03",
+      "style": "support_chat",
+      "text": "Hey my phone keeps crashing every time I open any app, can you guys help me fix this or do I need a replacement?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P03",
+      "style": "search_phrase",
+      "text": "apps freezing and crashing constantly android iphone fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P03",
+      "style": "indirect_description",
+      "text": "The user is expressing extreme frustration over their mobile device becoming completely unusable because all installed applications constantly freeze up and shut down unexpectedly.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P04",
+      "style": "support_chat",
+      "text": "Hey support, my phone gets super hot and literally burns my hands whenever I try to play games on it. What's going on?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P04",
+      "style": "search_phrase",
+      "text": "phone overheating while playing games fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P04",
+      "style": "indirect_description",
+      "text": "A customer is complaining that their device gets excessively warm during gaming sessions.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P05",
+      "style": "support_chat",
+      "text": "Hey so my phone is lagging super bad and it keeps saying storage is full even though I deleted a bunch of apps, can u guys help?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P05",
+      "style": "search_phrase",
+      "text": "phone storage full running slow fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P05",
+      "style": "indirect_description",
+      "text": "A user is experiencing severe device sluggishness because the internal memory capacity has reached its limit, causing daily performance issues.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P06",
+      "style": "support_chat",
+      "text": "Hey my phone keeps rebooting out of nowhere multiple times a day and I am getting super frustrated.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P06",
+      "style": "search_phrase",
+      "text": "phone keeps restarting randomly fix",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P06",
+      "style": "indirect_description",
+      "text": "Ever since the latest update, the device just goes to a black screen and powers back on by itself whenever it feels like it.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P07",
+      "style": "support_chat",
+      "text": "Hey my phone is acting super laggy and the menus drag when I open stuff. How do I speed up the animations so it feels normal?",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P07",
+      "style": "search_phrase",
+      "text": "how to speed up slow phone animations",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P07",
+      "style": "indirect_description",
+      "text": "A user is frustrated with sluggish UI transitions and wants to know the setting to make their device feel more responsive.",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P08",
+      "style": "support_chat",
+      "text": "hey my phone totally froze up out of nowhere and now it wont turn on or respond to any buttons i press please help",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P08",
+      "style": "search_phrase",
+      "text": "phone frozen black screen unresponsive buttons",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "query_id": "P08",
+      "style": "indirect_description",
+      "text": "My device just locked up completely and nothing I try seems to wake it back up.",
+      "model": "gemini-3.5-flash-lite"
+    }
+  ]
+}
