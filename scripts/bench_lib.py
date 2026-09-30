@@ -19,17 +19,17 @@ import _common
 ROOT = _common.ROOT
 
 
-def percentiles(values: list[float]) -> dict[str, Optional[float]]:
+def percentiles(values: list[float], digits: int = 2) -> dict[str, Optional[float]]:
     if not values:
         return {"n": 0, "p50": None, "p95": None, "p99": None, "mean": None, "max": None}
     a = np.asarray(values, dtype=float)
     return {
         "n": int(a.size),
-        "p50": round(float(np.percentile(a, 50)), 2),
-        "p95": round(float(np.percentile(a, 95)), 2),
-        "p99": round(float(np.percentile(a, 99)), 2),
-        "mean": round(float(a.mean()), 2),
-        "max": round(float(a.max()), 2),
+        "p50": round(float(np.percentile(a, 50)), digits),
+        "p95": round(float(np.percentile(a, 95)), digits),
+        "p99": round(float(np.percentile(a, 99)), digits),
+        "mean": round(float(a.mean()), digits),
+        "max": round(float(a.max()), digits),
     }
 
 

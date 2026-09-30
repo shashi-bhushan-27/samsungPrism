@@ -54,7 +54,15 @@ def render() -> str:
     comp_all = b.get("compliance_all_paths", {})
     acc = b.get("accuracy_cold") or {}
     lat = b.get("latency", {})
-    cold = b.get("cold_path", {})
+    cold = dict(b.get("cold_path", {}))
+    idx_path = REPORTS / "results_index.jsonl"
+    if idx_path.exists():  # per-request costs (older benchmark.json rounded the P95 to cents)
+        from bench_lib import percentiles
+
+        costs = [r["cost_usd"] for r in map(json.loads, idx_path.read_text().splitlines())
+                 if r.get("path") == "cold" and r.get("status") == 200 and r.get("cost_usd") is not None]
+        if costs:
+            cold["cost_usd_p95"] = percentiles(costs, digits=8)["p95"]
     cache = b.get("cache", {})
     pl = cache.get("paraphrase_llm", {})
     pm = cache.get("paraphrase_manual", {})

@@ -1,0 +1,27 @@
+{
+  "verified_at": "2026-09-30T21:50:47+00:00",
+  "image": "samsung-prism-troubleshooter (python:3.11-slim base, 787MB)",
+  "commit": "see git log (post H13)",
+  "startup_to_healthy_s": 5.28,
+  "health": {
+    "status": "ok"
+  },
+  "container_user": "appuser",
+  "exact_hit": {
+    "status": 200,
+    "x_cache": "HIT-EXACT",
+    "x_latency_ms": 3.24,
+    "cost_usd": 0.0,
+    "goal": "Follow these steps to perform this Swipe Navigation Troubleshooting",
+    "deeplink": "bixby://dummy_positive"
+  },
+  "empty_query": {
+    "error_code": "empty_query"
+  },
+  "out_of_scope": {
+    "query": "How do I change my ringtone?",
+    "contexts": [],
+    "fallback": "no_siis_context"
+  },
+  "note": "Built with the sandbox's egress proxy passed as build-time args (docker build --network host --build-arg HTTPS_PROXY=...); nothing proxy-related is baked into the image."
+}

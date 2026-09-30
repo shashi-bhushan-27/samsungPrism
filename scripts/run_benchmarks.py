@@ -428,7 +428,7 @@ def main() -> int:
         "input_tokens_per_query": round(sum(t["tokens_in"] for t in tele) / len(tele), 1) if tele else None,
         "output_tokens_per_query": round(sum(t["tokens_out"] for t in tele) / len(tele), 1) if tele else None,
         "cost_usd_per_query": round(sum(t["cost_usd"] for t in tele) / len(tele), 8) if tele and priced else None,
-        "cost_usd_p95": percentiles([t["cost_usd"] for t in tele])["p95"] if tele and priced else None,
+        "cost_usd_p95": percentiles([t["cost_usd"] for t in tele], digits=8)["p95"] if tele and priced else None,
         "cost_usd_total": round(sum(t["cost_usd"] for t in tele), 6) if tele and priced else None,
         "models": dict(Counter(c.body["meta"]["model"] for c in cold_ok)),
         "over_8s": sum(1 for c in cold_ok if c.client_ms > 8000),
