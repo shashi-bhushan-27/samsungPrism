@@ -1,0 +1,1378 @@
+[
+  {
+    "deeplink": "bixby://masked/act/132cb030d81b",
+    "description": "Open Settings",
+    "message": "Open the Settings app",
+    "qna_description": "Open the main Settings menu to change any phone option",
+    "classes": {
+      "category": "General"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/01015b955a8f",
+    "description": "Open Connections settings",
+    "message": "Manage Wi-Fi, Bluetooth, and mobile networks",
+    "qna_description": "Change Wi-Fi, Bluetooth, airplane mode, mobile networks and data usage",
+    "classes": {
+      "category": "Connectivity"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/1908c5b6b8e4",
+    "description": "Open Wi-Fi settings",
+    "message": "Connect to Wi-Fi networks",
+    "qna_description": "Turn Wi-Fi on or off and choose a wireless network",
+    "classes": {
+      "category": "Connectivity"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/5266f6c32f55",
+    "description": "Turn on Bluetooth",
+    "message": "Connect to Bluetooth devices",
+    "qna_description": "Turn Bluetooth on or off and pair headphones, watches and speakers",
+    "classes": {
+      "category": "Connectivity"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/d630bcb50cda",
+      "key": "bluetooth_enabled",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/1422c30f93e4",
+    "description": "Turn on Airplane mode",
+    "message": "Turn off all wireless connections",
+    "qna_description": "Disable calls, Wi-Fi, Bluetooth and mobile data at once",
+    "classes": {
+      "category": "Connectivity"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/c7d6e67995ab",
+      "key": "airplane_mode",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/b1b04b753884",
+    "description": "Open Mobile Hotspot and Tethering",
+    "message": "Share your mobile data connection",
+    "qna_description": "Share mobile data with other devices over Wi-Fi, USB or Bluetooth",
+    "classes": {
+      "category": "Connectivity"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/afe0d67ac9a3",
+    "description": "Turn on NFC",
+    "message": "Use contactless payments",
+    "qna_description": "Enable NFC to pay and share by touching devices",
+    "classes": {
+      "category": "Connectivity"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/241157127e44",
+      "key": "nfc_enabled",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/19e43e12fe96",
+    "description": "Open Data usage",
+    "message": "Check mobile data usage",
+    "qna_description": "See how much mobile data each app uses and set a data limit",
+    "classes": {
+      "category": "Connectivity"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/4afc37a302a7",
+    "description": "Open Sounds and vibration settings",
+    "message": "Change ringtones and volume",
+    "qna_description": "Adjust volume, ringtone, notification sound and vibration pattern",
+    "classes": {
+      "category": "Sound"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/c27a4db6856e",
+    "description": "Change ringtone",
+    "message": "Choose a ringtone for calls",
+    "qna_description": "Pick the sound that plays for incoming calls",
+    "classes": {
+      "category": "Sound"
+    },
+    "originalType": "list"
+  },
+  {
+    "deeplink": "bixby://masked/act/be823462a610",
+    "description": "Open System sound settings",
+    "message": "Change touch and keyboard sounds",
+    "qna_description": "Turn touch interaction, screen lock and keyboard sounds on or off",
+    "classes": {
+      "category": "Sound"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/d80919625934",
+    "description": "Open Notifications settings",
+    "message": "Manage app notifications",
+    "qna_description": "Choose which apps can send notifications and how they appear",
+    "classes": {
+      "category": "Notifications"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/73946bfe3134",
+    "description": "Turn on Do not disturb",
+    "message": "Mute calls and alerts",
+    "qna_description": "Silence calls, notifications and media except for allowed exceptions",
+    "classes": {
+      "category": "Notifications"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/13dc5f4d5b9d",
+      "key": "do_not_disturb",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/ab1d41466e3a",
+    "description": "Open Display settings",
+    "message": "Adjust display options",
+    "qna_description": "Change brightness, screen mode, font size, screen timeout and other display settings",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/23057d548b41",
+    "description": "Turn on Dark mode",
+    "message": "Use a dark colour theme",
+    "qna_description": "Apply a dark theme to screens and apps to reduce eye strain and save battery",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/b8b636868309",
+      "key": "dark_mode",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/2af8ad6f9eb8",
+    "description": "Open Dark mode settings",
+    "message": "Schedule Dark mode",
+    "qna_description": "Turn on Dark mode automatically as scheduled, from sunset to sunrise or at custom times",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/e97b69f6745b",
+    "description": "Adjust screen brightness",
+    "message": "Make the screen brighter or dimmer",
+    "qna_description": "Drag the brightness slider to change how bright the screen is",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "slider"
+  },
+  {
+    "deeplink": "bixby://masked/act/e33de9c94b60",
+    "description": "Turn on Adaptive brightness",
+    "message": "Automatically adjust brightness",
+    "qna_description": "Let the phone change screen brightness based on lighting conditions and your habits",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/5515037fe6e9",
+      "key": "adaptive_brightness",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/938f68c532b4",
+    "description": "Turn on Extra brightness",
+    "message": "Make the screen brighter than the maximum",
+    "qna_description": "Increase the maximum brightness beyond the normal limit in dark or bright places",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/f9febcfcd80c",
+      "key": "extra_brightness",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/c13de56d12cd",
+    "description": "Open Motion smoothness settings",
+    "message": "Choose the screen refresh rate",
+    "qna_description": "Switch between Adaptive refresh rate up to 120 Hz for smoother scrolling and Standard 60 Hz",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/2eed69b0ffc8",
+    "description": "Open Eye comfort shield settings",
+    "message": "Reduce blue light",
+    "qna_description": "Filter blue light and adjust colour temperature to reduce eye strain at night",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/0723a1fed444",
+    "description": "Open Screen mode settings",
+    "message": "Choose Vivid or Natural colours",
+    "qna_description": "Change screen colour mode, white balance and colour tone",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/c58d5921380d",
+    "description": "Open Font size and style settings",
+    "message": "Change text size and font",
+    "qna_description": "Make text bigger or smaller and change the font style",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/7cb5572810d8",
+    "description": "Adjust Screen zoom",
+    "message": "Make items on screen bigger or smaller",
+    "qna_description": "Zoom the screen content in or out",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "slider"
+  },
+  {
+    "deeplink": "bixby://masked/act/cc6a73127216",
+    "description": "Change Screen resolution",
+    "message": "Choose HD+, FHD+ or WQHD+",
+    "qna_description": "Lower the screen resolution to save battery or raise it for sharper images",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "list"
+  },
+  {
+    "deeplink": "bixby://masked/act/0e6e5436207d",
+    "description": "Open Camera cutout settings",
+    "message": "Choose how apps show around the camera",
+    "qna_description": "Hide the front camera area or show apps in full screen",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/fbd6829f2ce4",
+    "description": "Change Screen timeout",
+    "message": "Choose how long before the screen turns off",
+    "qna_description": "Set how long the screen stays on when the phone is not used",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "list"
+  },
+  {
+    "deeplink": "bixby://masked/act/0e6b35a992f7",
+    "description": "Turn on Accidental touch protection",
+    "message": "Block touches in dark places",
+    "qna_description": "Stop accidental touches when the phone is in a pocket or bag",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/00133b28e965",
+      "key": "accidental_touch_protection",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/cd58827954c7",
+    "description": "Turn on Touch sensitivity",
+    "message": "Improve touch response with a screen protector",
+    "qna_description": "Increase touch sensitivity so the screen responds better when you use a screen protector",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/b2bac1f07c48",
+      "key": "touch_sensitivity",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/37e4db67f10b",
+    "description": "Turn on Edge panels",
+    "message": "Show shortcuts on the screen edge",
+    "qna_description": "Swipe in from the edge of the screen to open favourite apps and tools",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/5d2886fc3681",
+      "key": "edge_panels",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/b783661220bf",
+    "description": "Open Screen saver settings",
+    "message": "Show a screen saver while charging",
+    "qna_description": "Display photos or colours while the phone is charging or docked",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/7b062dace9d7",
+    "description": "Turn on Easy mode",
+    "message": "Use a simpler layout",
+    "qna_description": "Show larger icons and a simpler Home screen layout",
+    "classes": {
+      "category": "Display"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/cfd9c4d8e9c0",
+      "key": "easy_mode",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/46c35d4f3946",
+    "description": "Open Lock screen settings",
+    "message": "Change lock screen options",
+    "qna_description": "Change screen lock type, clock style and Always On Display",
+    "classes": {
+      "category": "Lock screen"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/2ab803b2591f",
+    "description": "Turn on Always On Display",
+    "message": "Show the clock when the screen is off",
+    "qna_description": "Show time, date and notifications while the screen is off",
+    "classes": {
+      "category": "Lock screen"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/59bd94fe4084",
+      "key": "always_on_display",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/dedc5e57bd7a",
+    "description": "Open Always On Display settings",
+    "message": "Choose when Always On Display shows",
+    "qna_description": "Show Always On Display only when you tap the screen, always, as scheduled or for new notifications",
+    "classes": {
+      "category": "Lock screen"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/5abacb145b07",
+    "description": "Open Home screen settings",
+    "message": "Change the Home screen layout",
+    "qna_description": "Change the grid, app icon badges, and swipe down for notification panel options",
+    "classes": {
+      "category": "Home screen"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/2eeaaa531dc0",
+    "description": "Turn on Swipe down for notification panel",
+    "message": "Open notifications by swiping down on the Home screen",
+    "qna_description": "Swipe down anywhere on the Home screen to open the notification panel",
+    "classes": {
+      "category": "Home screen"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/b96de97e18c3",
+      "key": "home_swipe_down_panel",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/bf7a4b5e781c",
+    "description": "Open Advanced features",
+    "message": "Try extra features",
+    "qna_description": "Side button, motions and gestures, one-handed mode and screenshots",
+    "classes": {
+      "category": "Advanced features"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/fc41292f4793",
+    "description": "Open Motions and gestures settings",
+    "message": "Control the phone with motions",
+    "qna_description": "Lift to wake, double tap to turn on screen, palm swipe to capture and other gestures",
+    "classes": {
+      "category": "Advanced features"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/ed84189127b5",
+    "description": "Turn on Palm swipe to capture",
+    "message": "Take screenshots with a hand swipe",
+    "qna_description": "Swipe the edge of your hand across the screen to take a screenshot",
+    "classes": {
+      "category": "Advanced features"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/769c9f31791d",
+      "key": "palm_swipe_capture",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/f8c3dc3317c7",
+    "description": "Turn on One-handed mode",
+    "message": "Shrink the screen for one hand",
+    "qna_description": "Reduce the screen size by swiping down in the centre of the bottom edge",
+    "classes": {
+      "category": "Advanced features"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/c27348330645",
+      "key": "one_handed_mode",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/7722a0dbeab7",
+    "description": "Open Side button settings",
+    "message": "Choose what the Side button does",
+    "qna_description": "Set double press and press and hold actions for the Side button",
+    "classes": {
+      "category": "Advanced features"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/a83d2573b614",
+    "description": "Open Battery settings",
+    "message": "Check battery status",
+    "qna_description": "View battery level, battery usage, power saving and charging options",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/3f858cf0c7e1",
+    "description": "Open Battery settings",
+    "message": "Check battery status",
+    "qna_description": "Battery page inside Device care with usage and power saving",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/9c8f23940550",
+    "description": "Open Battery usage",
+    "message": "See which apps use the most battery",
+    "qna_description": "View battery usage by app and system since the last full charge",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/867ae88997d5",
+    "description": "Turn on Power saving",
+    "message": "Extend battery life",
+    "qna_description": "Limit background network usage, sync and location to make the battery last longer",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/b531bd72b478",
+      "key": "power_saving_mode",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/d11ce0024cbe",
+    "description": "Open Power saving options",
+    "message": "Choose what Power saving limits",
+    "qna_description": "Limit CPU speed, decrease brightness and turn off Always On Display while Power saving is on",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/b7d4a26d3502",
+    "description": "Open Background usage limits",
+    "message": "Manage sleeping apps",
+    "qna_description": "Put unused apps to sleep and manage sleeping, deep sleeping and never sleeping apps",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/64ba4f46a5d0",
+    "description": "Turn on Put unused apps to sleep",
+    "message": "Stop unused apps running in the background",
+    "qna_description": "Automatically put apps you have not used recently to sleep so they do not drain the battery",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/38935f6125f2",
+      "key": "put_unused_apps_to_sleep",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/d391c85c98df",
+    "description": "Open Deep sleeping apps",
+    "message": "Choose apps that never run in the background",
+    "qna_description": "Add apps to deep sleep so they only work when you open them",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/a06839582d4b",
+    "description": "Open Never sleeping apps",
+    "message": "Keep important apps running",
+    "qna_description": "Choose apps that are never put to sleep so notifications arrive on time",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/a193b7d1e540",
+    "description": "Open Charging settings",
+    "message": "Manage fast charging and battery protection",
+    "qna_description": "Turn fast charging, super fast charging and battery protection on or off",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/76d17988be24",
+    "description": "Turn on Fast charging",
+    "message": "Charge the battery faster",
+    "qna_description": "Use fast charging with a compatible charger to charge the battery more quickly",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/62368cd30ef6",
+      "key": "fast_charging",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/c1d892039ff0",
+    "description": "Turn on Fast wireless charging",
+    "message": "Charge faster on a wireless charger",
+    "qna_description": "Use a compatible wireless charger to charge the battery faster",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/f3506769d310",
+      "key": "fast_wireless_charging",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/c791b140f1bd",
+    "description": "Turn on Battery protection",
+    "message": "Stop charging at 80 percent",
+    "qna_description": "Limit the maximum charge to 80 percent to extend the lifespan of your battery",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/73d848d91a09",
+      "key": "battery_protection",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/844a6438f495",
+    "description": "Turn on Adaptive battery",
+    "message": "Limit battery for apps you use less",
+    "qna_description": "Learn how you use apps and limit battery for apps you do not use often",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/0d0da7e1901c",
+      "key": "adaptive_battery",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/ad73dcc5a056",
+    "description": "Show battery percentage",
+    "message": "Display battery percentage in the status bar",
+    "qna_description": "Show the remaining battery percentage next to the battery icon",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/d68abcc58e4b",
+      "key": "show_battery_percentage",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/60d22ecbef32",
+    "description": "Open Battery information",
+    "message": "Check battery health",
+    "qna_description": "View battery capacity, charge cycles and battery status",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/fed93d22afa5",
+    "description": "Turn on Wireless power sharing",
+    "message": "Charge other devices with your phone",
+    "qna_description": "Use your phone battery to wirelessly charge earbuds, watches and other phones",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/9c61a8728348",
+      "key": "wireless_power_sharing",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/4abeaabe9dc4",
+    "description": "Open Device care",
+    "message": "Optimise your phone",
+    "qna_description": "Check battery, storage, memory and device protection and optimise your phone",
+    "classes": {
+      "category": "Performance"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/06dab0816e0a",
+    "description": "Optimize now",
+    "message": "Close background apps and fix issues",
+    "qna_description": "Scan and optimise your phone by closing background apps and managing abnormal battery use",
+    "classes": {
+      "category": "Performance"
+    },
+    "originalType": "button"
+  },
+  {
+    "deeplink": "bixby://masked/act/257329ca2c3b",
+    "description": "Open Memory settings",
+    "message": "Free up RAM",
+    "qna_description": "Close apps running in the background to free up memory and speed up the phone",
+    "classes": {
+      "category": "Performance"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/df545bf90ab4",
+    "description": "Open Storage",
+    "message": "Free up storage space",
+    "qna_description": "Delete unnecessary files, duplicate images and large files to free up storage",
+    "classes": {
+      "category": "Performance"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/93b91a1be884",
+    "description": "Open Auto optimization",
+    "message": "Optimise your phone automatically",
+    "qna_description": "Automatically close background apps and restart the phone when needed",
+    "classes": {
+      "category": "Performance"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/4f97125b3894",
+    "description": "Turn on Auto restart at set times",
+    "message": "Restart the phone automatically",
+    "qna_description": "Automatically restart the phone at a set time to keep it running smoothly",
+    "classes": {
+      "category": "Performance"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/df9c43e131b0",
+      "key": "auto_restart",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/ec819b033b77",
+    "description": "Change Performance profile",
+    "message": "Choose Light or Standard performance",
+    "qna_description": "Balance processing speed, heat and battery life by choosing a performance profile",
+    "classes": {
+      "category": "Performance"
+    },
+    "originalType": "list"
+  },
+  {
+    "deeplink": "bixby://masked/act/3584130e0941",
+    "description": "Open Diagnostics",
+    "message": "Test your phone's hardware",
+    "qna_description": "Check whether the touchscreen, sensors, battery and other hardware work properly",
+    "classes": {
+      "category": "Performance"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/e9f5d565b38d",
+    "description": "Open Software update",
+    "message": "Download and install updates",
+    "qna_description": "Check for the latest software update and install it",
+    "classes": {
+      "category": "Performance"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/67de542be543",
+    "description": "Open General management",
+    "message": "Change language, keyboard and reset options",
+    "qna_description": "Language, date and time, keyboard and reset settings",
+    "classes": {
+      "category": "General"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/e3da847794ce",
+    "description": "Open Reset options",
+    "message": "Reset settings or data",
+    "qna_description": "Choose Reset all settings, Reset network settings or Factory data reset",
+    "classes": {
+      "category": "General"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/dee287fdb6e3",
+    "description": "Reset all settings",
+    "message": "Return settings to their defaults",
+    "qna_description": "Reset all phone settings to their defaults without deleting your data",
+    "classes": {
+      "category": "General"
+    },
+    "originalType": "button"
+  },
+  {
+    "deeplink": "bixby://masked/act/5f2f38bde5c4",
+    "description": "Reset network settings",
+    "message": "Reset Wi-Fi, mobile data and Bluetooth",
+    "qna_description": "Reset all network settings including Wi-Fi passwords and Bluetooth pairings",
+    "classes": {
+      "category": "Connectivity"
+    },
+    "originalType": "button"
+  },
+  {
+    "deeplink": "bixby://masked/act/3de3df895bef",
+    "description": "Open Factory data reset",
+    "message": "Erase all data from the phone",
+    "qna_description": "Reset the phone to factory settings and delete all apps and personal data",
+    "classes": {
+      "category": "General"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/09e9452617b7",
+    "description": "Open Samsung Keyboard settings",
+    "message": "Change keyboard options",
+    "qna_description": "Change keyboard layout, predictive text and swipe typing",
+    "classes": {
+      "category": "General"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/91f9f6af56c6",
+    "description": "Open Date and time settings",
+    "message": "Set the date and time",
+    "qna_description": "Use automatic date and time or set them manually",
+    "classes": {
+      "category": "General"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/35be976f462c",
+    "description": "Open Apps",
+    "message": "Manage installed apps",
+    "qna_description": "See installed apps, uninstall apps, and change default apps and app permissions",
+    "classes": {
+      "category": "Apps"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/c996d273228d",
+    "description": "Open Default apps",
+    "message": "Choose default apps",
+    "qna_description": "Choose which apps open links, make calls and send messages",
+    "classes": {
+      "category": "Apps"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/381053e50ba1",
+    "description": "Open Camera app info",
+    "message": "Manage the Camera app",
+    "qna_description": "Force stop the Camera app, check its storage and permissions",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/dce2d7417036",
+    "description": "Open Camera app storage",
+    "message": "Clear Camera cache",
+    "qna_description": "Clear the Camera app cache to fix crashes and errors",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/2421c0670c95",
+    "description": "Open Camera app permissions",
+    "message": "Check Camera permissions",
+    "qna_description": "Allow the Camera app to use the camera, microphone, location and storage",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/f6b4e28108e9",
+    "description": "Open Developer options",
+    "message": "Advanced options for developers",
+    "qna_description": "Change animation scale, USB debugging and other developer settings",
+    "classes": {
+      "category": "Performance"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/6a744e76365d",
+    "description": "Open Accessibility settings",
+    "message": "Make the phone easier to use",
+    "qna_description": "Vision, hearing, dexterity and interaction accessibility features",
+    "classes": {
+      "category": "Accessibility"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/36086520b4ba",
+    "description": "Turn on Remove animations",
+    "message": "Turn off screen animations",
+    "qna_description": "Remove screen effects and animations when opening or closing apps",
+    "classes": {
+      "category": "Accessibility"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/0c2bc2b6f339",
+      "key": "remove_animations",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/9e157c0665d8",
+    "description": "Turn on High contrast fonts",
+    "message": "Make text easier to read",
+    "qna_description": "Add outlines to text to increase contrast",
+    "classes": {
+      "category": "Accessibility"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/151fcb33ba45",
+      "key": "high_contrast_fonts",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/ae5d24dbf527",
+    "description": "Open Security and privacy settings",
+    "message": "Protect your phone and data",
+    "qna_description": "Screen lock, biometrics, permissions and privacy settings",
+    "classes": {
+      "category": "Security"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/5edf341ec0e8",
+    "description": "Open Privacy settings",
+    "message": "Control app access to data",
+    "qna_description": "See permission usage and control camera and microphone access",
+    "classes": {
+      "category": "Security"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/8e28834eb680",
+    "description": "Turn on Camera access",
+    "message": "Allow apps to use the camera",
+    "qna_description": "Control whether apps are allowed to use the camera",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/815ca3d99f27",
+      "key": "camera_access",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/ff2f20f8c932",
+    "description": "Turn on Microphone access",
+    "message": "Allow apps to use the microphone",
+    "qna_description": "Control whether apps are allowed to use the microphone",
+    "classes": {
+      "category": "Security"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/8108019a93be",
+      "key": "microphone_access",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/ca8c914839b3",
+    "description": "Open Permission manager",
+    "message": "Review app permissions",
+    "qna_description": "See which apps can use location, camera, microphone and more",
+    "classes": {
+      "category": "Security"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/7c7755774289",
+    "description": "Open Biometrics settings",
+    "message": "Set up fingerprints and face recognition",
+    "qna_description": "Register fingerprints or your face to unlock the phone",
+    "classes": {
+      "category": "Security"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/0aa07d618fe4",
+    "description": "Turn on Location",
+    "message": "Let apps use your location",
+    "qna_description": "Allow apps and services to find where your phone is",
+    "classes": {
+      "category": "Location"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/4cbc242d6357",
+      "key": "location_enabled",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/7c4055c48a13",
+    "description": "Open Location services",
+    "message": "Manage Wi-Fi and Bluetooth scanning",
+    "qna_description": "Turn Wi-Fi scanning and Bluetooth scanning for location on or off",
+    "classes": {
+      "category": "Location"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/7313f01642e3",
+    "description": "Open Digital Wellbeing",
+    "message": "Check screen time",
+    "qna_description": "See how much time you spend on apps and set app timers",
+    "classes": {
+      "category": "Wellbeing"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/41c4b6ae9879",
+    "description": "Open Modes and Routines",
+    "message": "Automate phone settings",
+    "qna_description": "Create modes and routines that change settings automatically",
+    "classes": {
+      "category": "General"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/df5787ce67e2",
+    "description": "Open Wallpaper and style",
+    "message": "Change wallpaper and colours",
+    "qna_description": "Choose wallpapers and a colour palette for the phone",
+    "classes": {
+      "category": "General"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/46a9034dfc3b",
+    "description": "Open About phone",
+    "message": "See phone information",
+    "qna_description": "Check the model name, software information and battery information",
+    "classes": {
+      "category": "General"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/bd08f9f55038",
+    "description": "Open Camera settings",
+    "message": "Change camera options",
+    "qna_description": "Adjust picture, video and general camera settings",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/d3a19eb2bd6e",
+    "description": "Turn on Scene optimizer",
+    "message": "Improve photos automatically",
+    "qna_description": "Adjust colour and exposure automatically to match the scene, including low light",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/507dc9a730e1",
+      "key": "scene_optimizer",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/854c1d8b5e5e",
+    "description": "Turn on Shot suggestions",
+    "message": "Get help framing photos",
+    "qna_description": "Show guides that help you line up the best shot",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/f6a98941347f",
+      "key": "shot_suggestions",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/ee4cbce68456",
+    "description": "Turn on Scan QR codes",
+    "message": "Detect QR codes with the camera",
+    "qna_description": "Let the camera scan QR codes automatically",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/3c38ee0d139d",
+      "key": "scan_qr_codes",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/84c3349dbca9",
+    "description": "Turn on Tracking auto-focus",
+    "message": "Keep moving subjects in focus",
+    "qna_description": "Keep focus on a subject even when it moves",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/4bf645201dc8",
+      "key": "tracking_autofocus",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/6f7cab6ebe98",
+    "description": "Turn on Video stabilization",
+    "message": "Reduce shaky video",
+    "qna_description": "Stabilise video to reduce blur caused by camera shake",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/868b3fbdd243",
+      "key": "video_stabilization",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/a5d24a810b08",
+    "description": "Turn on Auto HDR",
+    "message": "Capture more detail",
+    "qna_description": "Capture more detail in bright and dark areas of photos and videos",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/877f7af696e6",
+      "key": "auto_hdr",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/698327e44c2c",
+    "description": "Open Advanced picture options",
+    "message": "Choose HEIF or RAW formats",
+    "qna_description": "Save pictures as high efficiency HEIF files or RAW copies",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/d417a621855d",
+    "description": "Turn on Save selfies as previewed",
+    "message": "Save selfies without flipping",
+    "qna_description": "Save selfies as they appear in the preview instead of flipping them",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/5bcb6072f964",
+      "key": "save_selfies_as_previewed",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/9209ecd28965",
+    "description": "Turn on Grid lines",
+    "message": "Show a framing grid",
+    "qna_description": "Show guide grid lines on the viewfinder to help compose shots",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/90fc851384d2",
+      "key": "grid_lines",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/0410103a1c02",
+    "description": "Change Camera storage location",
+    "message": "Save photos to the SD card or phone",
+    "qna_description": "Choose whether photos and videos are saved to the phone or the SD card",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "list"
+  },
+  {
+    "deeplink": "bixby://masked/act/85e909b54ee9",
+    "description": "Open Shooting methods",
+    "message": "Choose ways to take pictures",
+    "qna_description": "Take pictures with the volume keys, voice commands, a floating shutter or palm",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "screen"
+  },
+  {
+    "deeplink": "bixby://masked/act/3cdaa26bfe0f",
+    "description": "Turn on Watermark",
+    "message": "Add a watermark to photos",
+    "qna_description": "Add the model name, date and time to the corner of photos",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "toggle",
+    "validation": {
+      "deeplink": "bixby://masked/val/f83c98222610",
+      "key": "watermark",
+      "resultType": "boolean",
+      "condition": "equal",
+      "value": "true"
+    }
+  },
+  {
+    "deeplink": "bixby://masked/act/2740c0944a61",
+    "description": "Reset camera settings",
+    "message": "Restore default camera settings",
+    "qna_description": "Reset all camera settings to their default values",
+    "classes": {
+      "category": "Camera"
+    },
+    "originalType": "button"
+  },
+  {
+    "deeplink": "bixby://masked/act/a83d2573b614",
+    "description": "Open Battery settings",
+    "message": "Check battery status",
+    "qna_description": "View battery level, battery usage, power saving and charging options",
+    "classes": {
+      "category": "Battery"
+    },
+    "originalType": "screen"
+  }
+]

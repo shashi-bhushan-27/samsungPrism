@@ -1,0 +1,226 @@
+[
+  {
+    "id": "S-D01",
+    "query_id": "D01",
+    "domain": "Display",
+    "title": "Swipe gestures or navigation buttons behave unexpectedly",
+    "siis_response": "Swipe gestures or navigation buttons behave unexpectedly\n\nSome apps can change how navigation gestures respond, or the navigation type may have been changed. You can choose between navigation buttons and swipe gestures in the navigation bar settings.\n\n1. Change the navigation type\nOpen Settings and tap Display. Tap Navigation bar, and then select your preferred navigation type between Buttons and Swipe gestures. If you use swipe gestures, you can also turn on Gesture hint to show guidance lines at the bottom of the screen.\n\nOnce the navigation type is set, gestures work the same way in most apps.\n"
+  },
+  {
+    "id": "S-D02",
+    "query_id": "D02",
+    "domain": "Display",
+    "title": "Screen flickers or blinks",
+    "siis_response": "Screen flickers or blinks\n\nScreen flickering can be caused by brightness changes, the refresh rate or an app that is not optimised for your phone.\n\n1. Turn off Adaptive brightness\nAdaptive brightness changes the brightness automatically and can make the screen appear to flicker in changing light. Open Settings, tap Display, and then turn off Adaptive brightness.\n\n2. Change the motion smoothness\nOpen Settings, tap Display, and then tap Motion smoothness. Select Standard, and then tap Apply.\n\n3. Check for app problems in Safe mode\nPress and hold the Side key and the Volume down key, and then touch and hold Power off until Safe mode appears. Tap Safe mode. If the problem stops, an app you downloaded is causing it.\n\n4. Update the software\nOpen Settings, tap Software update, and then tap Download and install.\n\n5. Have the screen checked\nIf the screen still flickers, back up your data and visit a Samsung service centre.\n"
+  },
+  {
+    "id": "S-D03",
+    "query_id": "D03",
+    "domain": "Display",
+    "title": "Screen is too dark",
+    "siis_response": "Screen is too dark\n\nIf the screen looks too dark, check the brightness settings and the features that lower brightness to save power.\n\nSolution 1: Adjust the brightness\nOpen Settings and tap Display. Drag the Brightness slider to the right.\n\nSolution 2: Turn on Extra brightness\nOpen Settings, tap Display, and then turn on Extra brightness.\n\nSolution 3: Turn off Power saving\nPower saving lowers the screen brightness. Open Settings, tap Battery, and then turn off Power saving.\n\nSolution 4: Turn off Eye comfort shield\nEye comfort shield can make the screen look darker and warmer. Open Settings, tap Display, and then tap Eye comfort shield. Turn off Eye comfort shield.\n"
+  },
+  {
+    "id": "S-D04",
+    "query_id": "D04",
+    "domain": "Display",
+    "title": "Screen turns off too quickly",
+    "siis_response": "Screen turns off too quickly\n\nThe screen turns off automatically after the screen timeout period to save battery.\n\n1. Change the screen timeout\nOpen Settings, tap Display, and then tap Screen timeout. Select a longer time, such as 2 minutes.\n\n2. Turn off Power saving\nWhen Power saving is on, the screen timeout is limited to 30 seconds. Open Settings, tap Battery, and then turn off Power saving.\n"
+  },
+  {
+    "id": "S-D05",
+    "query_id": "D05",
+    "domain": "Display",
+    "title": "Touchscreen does not respond properly",
+    "siis_response": "Touchscreen does not respond properly\n\nA thick or uncertified screen protector can stop the touchscreen from detecting your taps.\n\n- Increase the touch sensitivity: Open Settings, tap Display, and then turn on Touch sensitivity. This helps the screen respond when you use a screen protector.\n\n- Check the screen protector: Remove the screen protector if it is thick or damaged, and then clean the screen with a soft, dry cloth.\n\n- Restart your phone: Restarting closes apps and processes running in the background. Press and hold the Side key and the Volume down key, and then tap Restart.\n"
+  },
+  {
+    "id": "S-D06",
+    "query_id": "D06",
+    "domain": "Display",
+    "title": "Screen colours look yellow or warm",
+    "siis_response": "Screen colours look yellow or warm\n\nColour settings and blue light filters can make the screen look yellow.\n\n1. Turn off Eye comfort shield\nOpen Settings, tap Display, and then tap Eye comfort shield. Turn off Eye comfort shield.\n\n2. Adjust the screen mode\nOpen Settings, tap Display, and then tap Screen mode. Select Vivid, and then drag the White balance slider towards Cool.\n"
+  },
+  {
+    "id": "S-D07",
+    "query_id": "D07",
+    "domain": "Display",
+    "title": "Scrolling is not smooth",
+    "siis_response": "Scrolling is not smooth\n\nScrolling looks smoother with a higher refresh rate.\n\nSolution 1: Use a higher refresh rate\nOpen Settings, tap Display, and then tap Motion smoothness. Select Adaptive, and then tap Apply.\n\nSolution 2: Turn off Power saving\nPower saving can limit the refresh rate. Open Settings, tap Battery, and then turn off Power saving.\n\nSolution 3: Turn off Remove animations\nOpen Settings, tap Accessibility, and then tap Visibility enhancements. Turn off Remove animations.\n"
+  },
+  {
+    "id": "S-D08",
+    "query_id": "D08",
+    "domain": "Display",
+    "title": "Use Dark mode",
+    "siis_response": "Use Dark mode\n\nDark mode applies a dark theme that is easier on your eyes at night.\n\n1. Turn on Dark mode\nOpen Settings, tap Display, and then select Dark.\n\n2. Schedule Dark mode\nOpen Settings, tap Display, and then tap Dark mode settings. Turn on Turn on as scheduled, and then select Sunset to sunrise or set a custom schedule.\n"
+  },
+  {
+    "id": "S-B01",
+    "query_id": "B01",
+    "domain": "Battery",
+    "title": "Battery drains quickly",
+    "siis_response": "Battery drains quickly\n\nBattery life depends on how you use your phone. The following settings can help the battery last longer.\n\n1. Check the battery usage\nOpen Settings, tap Battery, and then tap Battery usage to see which apps use the most power.\n\n2. Put unused apps to sleep\nOpen Settings, tap Battery, and then tap Background usage limits. Turn on Put unused apps to sleep.\n\n3. Turn on Power saving\nOpen Settings, tap Battery, and then turn on Power saving.\n\n4. Turn off Always On Display\nOpen Settings, tap Lock screen and AOD, and then turn off Always On Display.\n\n5. Restart your phone\nRestarting closes apps and processes running in the background. Press and hold the Side key and the Volume down key, and then tap Restart.\n\n6. Update the software\nOpen Settings, tap Software update, and then tap Download and install.\n"
+  },
+  {
+    "id": "S-B02",
+    "query_id": "B02",
+    "domain": "Battery",
+    "title": "Battery drains faster after a software update",
+    "siis_response": "Battery drains faster after a software update\n\nAfter a major update, the phone optimises apps in the background, which can use more battery for a few days.\n\nSolution 1: Optimise your phone\nOpen Settings, tap Device care, and then tap Optimize now.\n\nSolution 2: Update your apps\nOpen Galaxy Store, tap Menu, and then tap Updates. Tap Update all to install the latest versions of your apps.\n\nSolution 3: Restart your phone\nRestarting closes apps and processes running in the background. Press and hold the Side key and the Volume down key, and then tap Restart.\n"
+  },
+  {
+    "id": "S-B03",
+    "query_id": "B03",
+    "domain": "Battery",
+    "title": "Phone gets hot while charging",
+    "siis_response": "Phone gets hot while charging\n\nIt is normal for the phone to feel warm while charging, especially with fast charging. If it gets too hot, try the following.\n\n1. Turn off Fast charging\nOpen Settings, tap Battery, and then tap Charging settings. Turn off Fast charging.\n\n2. Remove the phone case\nRemove the phone case while charging so that heat can escape.\n\n3. Use the original charger\nUse the charger and cable that came with your phone or a Samsung-certified charger.\n\n4. Restart your phone\nRestarting closes apps and processes running in the background. Press and hold the Side key and the Volume down key, and then tap Restart.\n"
+  },
+  {
+    "id": "S-B04",
+    "query_id": "B04",
+    "domain": "Battery",
+    "title": "Phone does not charge or charges slowly",
+    "siis_response": "Phone does not charge or charges slowly\n\nCharging problems are often caused by the charger, the cable or dirt in the charging port.\n\n- Turn on Fast charging: Open Settings, tap Battery, and then tap Charging settings. Turn on Fast charging.\n\n- Clean the charging port: Turn off the phone and gently clean the charging port with a soft brush.\n\n- Try a different charger: Try a different Samsung charger and cable, and plug the charger into a different wall outlet.\n\n- Restart your phone: Restarting closes apps and processes running in the background. Press and hold the Side key and the Volume down key, and then tap Restart.\n\n- Visit a service centre: If the phone still does not charge, back up your data and visit a Samsung service centre.\n"
+  },
+  {
+    "id": "S-B05",
+    "query_id": "B05",
+    "domain": "Battery",
+    "title": "Protect the battery by limiting the charge",
+    "siis_response": "Protect the battery by limiting the charge\n\nKeeping the battery below full charge can extend its lifespan.\n\n1. Turn on Battery protection\nOpen Settings, tap Battery, and then tap Charging settings. Turn on Battery protection to stop charging at 80 percent.\n"
+  },
+  {
+    "id": "S-B06",
+    "query_id": "B06",
+    "domain": "Battery",
+    "title": "Apps drain the battery in the background",
+    "siis_response": "Apps drain the battery in the background\n\nApps that run in the background can use battery even when you are not using them.\n\nSolution 1: Put unused apps to sleep\nOpen Settings, tap Battery, and then tap Background usage limits. Turn on Put unused apps to sleep.\n\nSolution 2: Add apps to deep sleep\nOpen Settings, tap Battery, tap Background usage limits, and then tap Deep sleeping apps. Tap Add, select the apps, and then tap Add.\n\nSolution 3: Turn on Adaptive battery\nOpen Settings, tap Battery, and then tap More battery settings. Turn on Adaptive battery.\n"
+  },
+  {
+    "id": "S-B07",
+    "query_id": "B07",
+    "domain": "Battery",
+    "title": "Battery percentage changes suddenly",
+    "siis_response": "Battery percentage changes suddenly\n\nSudden changes in the battery percentage can be caused by software issues or battery wear.\n\n1. Check the battery information\nOpen Settings, tap Battery, and then tap Battery information to check the battery status.\n\n2. Update the software\nOpen Settings, tap Software update, and then tap Download and install.\n\n3. Restart your phone\nRestarting closes apps and processes running in the background. Press and hold the Side key and the Volume down key, and then tap Restart.\n\n4. Have the battery checked\nIf the percentage keeps changing suddenly, visit a Samsung service centre to have the battery checked.\n"
+  },
+  {
+    "id": "S-B08",
+    "query_id": "B08",
+    "domain": "Battery",
+    "title": "Always On Display uses battery",
+    "siis_response": "Always On Display uses battery\n\nAlways On Display uses a small amount of battery to show information while the screen is off.\n\n- Show Always On Display only when tapped: Open Settings, tap Lock screen and AOD, and then tap Always On Display settings. Select Tap to show.\n\n- Turn off Always On Display: Open Settings, tap Lock screen and AOD, and then turn off Always On Display.\n"
+  },
+  {
+    "id": "S-C01",
+    "query_id": "C01",
+    "domain": "Camera",
+    "title": "Photos are blurry",
+    "siis_response": "Photos are blurry\n\nBlurry photos are often caused by a dirty lens, camera shake or focus settings.\n\n1. Clean the camera lens\nWipe the camera lens gently with a soft, lint-free cloth.\n\n2. Remove the phone case\nRemove the phone case or cover if it blocks the camera lens.\n\n3. Turn on Tracking auto-focus\nOpen the Camera app, tap Settings, and then turn on Tracking auto-focus.\n\n4. Turn on Scene optimizer\nOpen the Camera app, tap Settings, and then turn on Scene optimizer.\n\n5. Reset the camera settings\nOpen the Camera app, tap Settings, and then tap Reset settings. Tap Reset to confirm.\n"
+  },
+  {
+    "id": "S-C02",
+    "query_id": "C02",
+    "domain": "Camera",
+    "title": "Warning: Camera failed",
+    "siis_response": "Warning: Camera failed\n\nThis message appears when the Camera app stops working properly.\n\n1. Force stop the Camera app\nOpen Settings, tap Apps, and then tap Camera. Tap Force stop, and then tap OK.\n\n2. Clear the Camera cache\nOpen Settings, tap Apps, and then tap Camera. Tap Storage, and then tap Clear cache.\n\n3. Check the Camera permissions\nOpen Settings, tap Apps, tap Camera, and then tap Permissions. Make sure Camera and Microphone are allowed.\n\n4. Restart your phone\nRestarting closes apps and processes running in the background. Press and hold the Side key and the Volume down key, and then tap Restart.\n\n5. Check for app problems in Safe mode\nPress and hold the Side key and the Volume down key, and then touch and hold Power off until Safe mode appears. Tap Safe mode. If the problem stops, an app you downloaded is causing it.\n\n6. Update the software\nOpen Settings, tap Software update, and then tap Download and install.\n"
+  },
+  {
+    "id": "S-C03",
+    "query_id": "C03",
+    "domain": "Camera",
+    "title": "Photos are dark in low light",
+    "siis_response": "Photos are dark in low light\n\nThe camera needs help to capture enough light in dark places.\n\nSolution 1: Turn on Scene optimizer\nScene optimizer brightens photos taken in low light. Open the Camera app, tap Settings, and then turn on Scene optimizer.\n\nSolution 2: Use Night mode\nOpen the Camera app, tap More, and then tap Night. Hold the phone steady while the picture is taken.\n\nSolution 3: Turn on Auto HDR\nOpen the Camera app, tap Settings, and then turn on Auto HDR.\n"
+  },
+  {
+    "id": "S-C04",
+    "query_id": "C04",
+    "domain": "Camera",
+    "title": "Camera shows a black screen",
+    "siis_response": "Camera shows a black screen\n\nThe camera preview can stay black if camera access is blocked or the Camera app stops responding.\n\n1. Allow camera access\nOpen Settings, tap Security and privacy, and then tap Privacy. Turn on Camera access.\n\n2. Force stop the Camera app\nOpen Settings, tap Apps, and then tap Camera. Tap Force stop, and then tap OK.\n\n3. Restart your phone\nRestarting closes apps and processes running in the background. Press and hold the Side key and the Volume down key, and then tap Restart.\n\n4. Have the camera repaired\nIf the screen is still black, visit a Samsung service centre to have the camera repaired.\n"
+  },
+  {
+    "id": "S-C05",
+    "query_id": "C05",
+    "domain": "Camera",
+    "title": "Videos are shaky",
+    "siis_response": "Videos are shaky\n\nVideo stabilisation reduces the shake in videos recorded by hand.\n\n- Turn on Video stabilization: Open the Camera app, tap Settings, and then turn on Video stabilization.\n\n- Keep the phone steady: Hold the phone with both hands or use a tripod while recording.\n"
+  },
+  {
+    "id": "S-C06",
+    "query_id": "C06",
+    "domain": "Camera",
+    "title": "Photos are not saved to the SD card",
+    "siis_response": "Photos are not saved to the SD card\n\nPhotos are saved to the phone unless you choose the SD card as the storage location.\n\n1. Change the storage location\nOpen the Camera app, tap Settings, and then tap Storage location. Select SD card.\n\n2. Reinsert the SD card\nTurn off the phone, remove the SD card, and then insert the SD card again.\n\n3. Free up storage space\nOpen Settings, tap Device care, and then tap Storage. Delete files you no longer need.\n"
+  },
+  {
+    "id": "S-C07",
+    "query_id": "C07",
+    "domain": "Camera",
+    "title": "Selfies are flipped",
+    "siis_response": "Selfies are flipped\n\nBy default, selfies are saved flipped compared to the preview.\n\n1. Save selfies as previewed\nOpen the Camera app, tap Settings, and then turn on Save selfies as previewed.\n"
+  },
+  {
+    "id": "S-C08",
+    "query_id": "C08",
+    "domain": "Camera",
+    "title": "Camera does not scan QR codes",
+    "siis_response": "Camera does not scan QR codes\n\nThe camera can scan QR codes automatically when the option is turned on.\n\n- Turn on Scan QR codes: Open the Camera app, tap Settings, and then turn on Scan QR codes.\n\n- Clean the camera lens: Wipe the camera lens gently with a soft, lint-free cloth.\n"
+  },
+  {
+    "id": "S-P01",
+    "query_id": "P01",
+    "domain": "Performance",
+    "title": "Phone is slow after a software update",
+    "siis_response": "Phone is slow after a software update\n\nAfter an update, apps are optimised in the background, which may make the phone slower for a while.\n\n1. Optimise with Device care\nOpen Settings, tap Device care, and then tap Optimize now.\n\n2. Free up storage\nOpen Settings, tap Device care, and then tap Storage. Delete files you no longer need.\n\n3. Update your apps\nOpen Galaxy Store, tap Menu, and then tap Updates. Tap Update all.\n\n4. Restart your phone\nRestarting closes apps and processes running in the background. Press and hold the Side key and the Volume down key, and then tap Restart.\n\n5. Reset the phone to factory settings\nIf the phone is still slow, back up your data. Open Settings, tap General management, and then tap Reset. Tap Factory data reset.\n"
+  },
+  {
+    "id": "S-P02",
+    "query_id": "P02",
+    "domain": "Performance",
+    "title": "Phone is slow or lags",
+    "siis_response": "Phone is slow or lags\n\nToo many apps running at the same time can slow down your phone.\n\nSolution 1: Close apps you are not using\nTap the Recent apps button, and then tap Close all.\n\nSolution 2: Free up memory\nOpen Settings, tap Device care, and then tap Memory. Tap Clean now.\n\nSolution 3: Change the performance profile\nOpen Settings, tap Device care, and then tap Performance profile. Select Standard.\n\nSolution 4: Restart your phone\nRestarting closes apps and processes running in the background. Press and hold the Side key and the Volume down key, and then tap Restart.\n"
+  },
+  {
+    "id": "S-P03",
+    "query_id": "P03",
+    "domain": "Performance",
+    "title": "Apps stop working or close unexpectedly",
+    "siis_response": "Apps stop working or close unexpectedly\n\nApps can stop working because of outdated versions, corrupted temporary files or conflicts with other apps.\n\n1. Update the app\nOpen Galaxy Store or Play Store and update the app.\n\n2. Clear the app cache\nOpen Settings, tap Apps, and then select the app. Tap Storage, and then tap Clear cache.\n\n3. Check for app problems in Safe mode\nPress and hold the Side key and the Volume down key, and then touch and hold Power off until Safe mode appears. Tap Safe mode. If the problem stops, an app you downloaded is causing it.\n"
+  },
+  {
+    "id": "S-P04",
+    "query_id": "P04",
+    "domain": "Performance",
+    "title": "Phone gets hot while playing games",
+    "siis_response": "Phone gets hot while playing games\n\nGames use a lot of processing power, which makes the phone warmer.\n\n1. Use the Light performance profile\nOpen Settings, tap Device care, and then tap Performance profile. Select Light.\n\n2. Lower the screen brightness\nOpen Settings, tap Display, and then drag the Brightness slider to the left.\n\n3. Let the phone cool down\nRemove the phone case and stop playing until the phone cools down.\n\n4. Update the software\nOpen Settings, tap Software update, and then tap Download and install.\n"
+  },
+  {
+    "id": "S-P05",
+    "query_id": "P05",
+    "domain": "Performance",
+    "title": "Storage is full",
+    "siis_response": "Storage is full\n\nWhen storage is almost full, the phone can become slow.\n\n- Free up storage: Open Settings, tap Device care, and then tap Storage. Review the suggestions and delete files you do not need.\n\n- Uninstall apps you do not use: Open Settings, tap Apps, select an app you do not use, and then tap Uninstall.\n"
+  },
+  {
+    "id": "S-P06",
+    "query_id": "P06",
+    "domain": "Performance",
+    "title": "Phone restarts on its own",
+    "siis_response": "Phone restarts on its own\n\nThe phone may restart automatically because of a scheduled restart, an app problem or a software issue.\n\n1. Turn off Auto restart\nOpen Settings, tap Device care, and then tap Auto optimization. Turn off Auto restart.\n\n2. Check for app problems in Safe mode\nPress and hold the Side key and the Volume down key, and then touch and hold Power off until Safe mode appears. Tap Safe mode. If the problem stops, an app you downloaded is causing it.\n\n3. Update the software\nOpen Settings, tap Software update, and then tap Download and install.\n\n4. Visit a service centre\nIf the phone keeps restarting, back up your data and visit a Samsung service centre.\n"
+  },
+  {
+    "id": "S-P07",
+    "query_id": "P07",
+    "domain": "Performance",
+    "title": "Make the phone feel faster",
+    "siis_response": "Make the phone feel faster\n\nScreen animations and the refresh rate affect how fast the phone feels.\n\nSolution 1: Remove animations\nOpen Settings, tap Accessibility, and then tap Visibility enhancements. Turn on Remove animations.\n\nSolution 2: Use a higher refresh rate\nOpen Settings, tap Display, and then tap Motion smoothness. Select Adaptive.\n"
+  },
+  {
+    "id": "S-P08",
+    "query_id": "P08",
+    "domain": "Performance",
+    "title": "Phone freezes or does not respond",
+    "siis_response": "Phone freezes or does not respond\n\nIf the phone stops responding, try the following steps in order.\n\n1. Force restart the phone\nPress and hold the Side key and the Volume down key for more than 7 seconds until the phone restarts.\n\n2. Check for app problems in Safe mode\nPress and hold the Side key and the Volume down key, and then touch and hold Power off until Safe mode appears. Tap Safe mode. If the problem stops, an app you downloaded is causing it.\n\n3. Update the software\nOpen Settings, tap Software update, and then tap Download and install.\n\n4. Reset the phone\nIf the problem continues, back up your data. Open Settings, tap General management, and then tap Reset. Tap Factory data reset.\n"
+  }
+]

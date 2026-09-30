@@ -208,6 +208,11 @@ def core_clause(step: str) -> str:
         if m and len(s) > m.end():
             s = s[m.end() :]
             changed = True
+        toks = s.split(None, 2)
+        # "Gently clean ...", "Carefully remove ..." — skip a leading -ly adverb before a verb.
+        if len(toks) >= 2 and toks[0].lower().endswith("ly") and _core(toks[1]).lower() in IMPERATIVE_VERBS:
+            s = s[len(toks[0]) :].lstrip()
+            changed = True
     return s.strip()
 
 
@@ -239,10 +244,32 @@ _BOUNDARY = re.compile(
 )
 _PATH_SEP = re.compile(r"\s*(?:>|→|->|»|›)\s*")
 _TRAILING_PREPOSITIONS = frozenset({"to", "into", "onto", "on", "at", "in", "from", "with", "and"})
+# One UI labels that contain "and" followed by a verb-like word.
+_AND_LABELS = re.compile(
+    r"(?i)\b(?:download\s+and\s+install|back\s*up\s+and\s+restore|backup\s+and\s+restore|search\s+and\s+replace"
+    r"|drag\s+and\s+drop|scan\s+and\s+fix|check\s+and\s+update|pause\s+and\s+resume)\b"
+)
 
 
 def _is_verb_token(tok: str) -> bool:
     return _core(tok).lower() in IMPERATIVE_VERBS
+
+
+_CLAUSE_FOLLOWERS = frozenset(
+    """
+    the a an your it its them this that these those all any each every on off up down back out to again until
+    for in from with into away about over my our both some
+    """.split()
+)
+
+
+def _starts_clause(rest: str) -> bool:
+    """True when `rest` reads like '<verb> <object>' ("tap Battery", "turn on X", "select the apps")."""
+    toks = rest.split()
+    if len(toks) < 2:
+        return False
+    follower = _core(toks[1])
+    return follower[:1].isupper() or follower.lower() in _CLAUSE_FOLLOWERS or follower[:1].isdigit()
 
 
 def split_interactions(step: str) -> list[str]:
@@ -263,6 +290,7 @@ def split_interactions(step: str) -> list[str]:
         prefix = text[: len(text) - len(core)]
         text = core
     masked = _HOLD_PAIRS.sub(lambda m: m.group(0).replace(" ", " "), text)
+    masked = _AND_LABELS.sub(lambda m: m.group(0).replace(" ", " "), masked)
     parts: list[str] = []
     cursor = 0
     for m in _BOUNDARY.finditer(masked):
@@ -283,6 +311,15 @@ def split_interactions(step: str) -> list[str]:
             split_here = bool(nxt)
         else:
             split_here = bool(nxt) and nxt[:1].islower() and _is_verb_token(nxt)
+            if split_here and sep.strip() == "," and not _starts_clause(rest):
+                split_here = False  # "a soft, dry cloth" — adjective list, not a new clause
+            if split_here and re.fullmatch(r",?\s*and", sep.strip()):
+                # "Tap Download and install." — an object-less verb right after a Capitalised
+                # word continues a UI label rather than starting a new interaction.
+                tail = words(rest.split(",")[0].split(";")[0])
+                prev_word = _core(left_words[-1])
+                if len(tail) == 1 and len(left_words) >= 2 and prev_word[:1].isupper():
+                    split_here = False
         if len(left_words) == 1 and _is_verb_token(left_words[0]) and not is_then:
             split_here = False  # "Press | and hold" style verb coordination
         if split_here:

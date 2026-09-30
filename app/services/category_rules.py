@@ -46,12 +46,12 @@ _CAMERA_SETTINGS_RESET = re.compile(r"(?i)\bcamera\b.*\breset\s+settings\b|\bres
 _MANUAL_RULES: tuple[tuple[int, re.Pattern[str]], ...] = (
     (2, re.compile(r"(?i)\bservice\s+(?:centre|center)\b|\bauthori[sz]ed\s+(?:repair|service)\b|\btake\s+(?:the\s+|your\s+)?(?:phone|device)\s+to\b|\bcontact\s+(?:samsung\s+)?(?:support|customer\s+care)\b|\brepair\s+(?:centre|center|shop)\b")),
     (1, re.compile(r"(?i)\breplace\s+(?:the\s+)?(?:battery|cable|charger|adapter|screen)\b|\b(?:use|try)\s+(?:a\s+|an\s+|the\s+)?(?:different|another|original|genuine|certified|samsung)\s+(?:\w+\s+)?(?:charger|cable|adapter|charging\s+cable|wall\s+outlet|outlet|power\s+source)\b")),
-    (0, re.compile(r"(?i)\bclean\s+(?:the\s+)?(?:\w+\s+){0,2}(?:port|lens|lenses|screen|sensor|speaker|microphone|contacts?)\b|\bwipe\s+(?:the\s+)?(?:\w+\s+){0,2}(?:lens|screen|port)\b|\bremove\s+(?:the\s+|any\s+|your\s+)?(?:\w+\s+){0,2}(?:case|cover|screen\s+protector|protector|film|sticker|sim\s+card|sd\s+card|memory\s+card)\b|\blet\s+(?:the\s+|your\s+)?(?:phone|device)\s+cool\b|\bmove\s+(?:the\s+|your\s+)?(?:phone|device)\s+(?:to|out|away)\b|\bkeep\s+(?:the\s+|your\s+)?(?:phone|device)\s+(?:out\s+of|away\s+from)\b|\bunplug\s+(?:the\s+)?(?:charger|cable)\b|\binspect\s+(?:the\s+)?(?:\w+\s+)?(?:port|cable|charger)\b|\bdry\s+(?:the\s+|your\s+)?(?:phone|device|port)\b")),
+    (0, re.compile(r"(?i)\bclean\s+(?:the\s+)?(?:\w+\s+){0,2}(?:port|lens|lenses|screen|sensor|speaker|microphone|contacts?)\b|\bwipe\s+(?:the\s+)?(?:\w+\s+){0,2}(?:lens|screen|port)\b|\bremove\s+(?:the\s+|any\s+|your\s+)?(?:\w+\s+){0,2}(?:case|cover|screen\s+protector|protector|film|sticker|sim\s+card|sd\s+card|memory\s+card)\b|\blet\s+(?:the\s+|your\s+)?(?:phone|device)\s+cool\b|\bmove\s+(?:the\s+|your\s+)?(?:phone|device)\s+(?:to|out|away)\b|\bkeep\s+(?:the\s+|your\s+)?(?:phone|device)\s+(?:out\s+of|away\s+from)\b|\bunplug\s+(?:the\s+)?(?:charger|cable)\b|\binspect\s+(?:the\s+)?(?:\w+\s+)?(?:port|cable|charger)\b|\bdry\s+(?:the\s+|your\s+)?(?:phone|device|port)\b|\bwith\s+both\s+hands\b|\btripod\b|\bgimbal\b|\b(?:re)?insert\s+(?:the\s+|it\s+)?(?:sim|sd|memory)\b|\bcools?\s+down\b")),
 )
 
 _CORRECTIVE_RE = re.compile(
     r"(?i)\bclear\s+(?:the\s+)?cache\b|\bforce\s+stop\b|\buninstall\b|\bdisable\s+(?:the\s+)?app\b|\bremove\s+(?:the\s+)?app\b"
-    r"|\bupdate\s+(?:the\s+)?apps?\b|\bapp\s+updates?\b|\breset\s+settings\b"
+    r"|\bupdate\s+(?:the\s+|your\s+|all\s+)?(?:[\w-]+\s+){0,2}apps?\b|\bapp\s+updates?\b|\bupdate\s+all\b|\breset\s+settings\b"
 )
 _OPTIMISE_RE = re.compile(
     r"(?i)\boptimi[sz]e\s+now\b|\bdevice\s+care\b|\bclean\s+now\b|\bfree\s+up\b|\bauto\s+optimi[sz]ation\b|\bmemory\b.*\bclean\b"

@@ -1,0 +1,162 @@
+[
+  {
+    "id": "D01",
+    "domain": "Display",
+    "query": "The mobile phone swipe navigation moves up or down instead of left or right after downloading an app."
+  },
+  {
+    "id": "D02",
+    "domain": "Display",
+    "query": "My screen keeps flickering"
+  },
+  {
+    "id": "D03",
+    "domain": "Display",
+    "query": "Screen is too dim even at full brightness"
+  },
+  {
+    "id": "D04",
+    "domain": "Display",
+    "query": "My screen goes black after just a few seconds"
+  },
+  {
+    "id": "D05",
+    "domain": "Display",
+    "query": "Touchscreen isn't responding to my taps since I put on a screen protector"
+  },
+  {
+    "id": "D06",
+    "domain": "Display",
+    "query": "The colours on my display look yellowish and warm"
+  },
+  {
+    "id": "D07",
+    "domain": "Display",
+    "query": "Scrolling feels choppy and not smooth at all"
+  },
+  {
+    "id": "D08",
+    "domain": "Display",
+    "query": "How do I turn on dark mode on my Galaxy?"
+  },
+  {
+    "id": "B01",
+    "domain": "Battery",
+    "query": "My phone battery dies very fast"
+  },
+  {
+    "id": "B02",
+    "domain": "Battery",
+    "query": "Battery started draining fast after the latest software update"
+  },
+  {
+    "id": "B03",
+    "domain": "Battery",
+    "query": "Phone gets really hot while charging"
+  },
+  {
+    "id": "B04",
+    "domain": "Battery",
+    "query": "My phone won't charge or charges super slowly"
+  },
+  {
+    "id": "B05",
+    "domain": "Battery",
+    "query": "How can I stop my battery from charging all the way to 100%?"
+  },
+  {
+    "id": "B06",
+    "domain": "Battery",
+    "query": "Apps keep running in the background and eating my battery"
+  },
+  {
+    "id": "B07",
+    "domain": "Battery",
+    "query": "Battery percentage suddenly drops from 40 to 5 percent"
+  },
+  {
+    "id": "B08",
+    "domain": "Battery",
+    "query": "Always On Display is using too much battery"
+  },
+  {
+    "id": "C01",
+    "domain": "Camera",
+    "query": "Camera photos come out blurry"
+  },
+  {
+    "id": "C02",
+    "domain": "Camera",
+    "query": "Camera app keeps crashing with a 'Camera failed' warning"
+  },
+  {
+    "id": "C03",
+    "domain": "Camera",
+    "query": "My photos look really dark in low light"
+  },
+  {
+    "id": "C04",
+    "domain": "Camera",
+    "query": "The camera just shows a black screen"
+  },
+  {
+    "id": "C05",
+    "domain": "Camera",
+    "query": "My videos are really shaky"
+  },
+  {
+    "id": "C06",
+    "domain": "Camera",
+    "query": "Camera won't save photos to my SD card"
+  },
+  {
+    "id": "C07",
+    "domain": "Camera",
+    "query": "My selfies come out flipped like a mirror image"
+  },
+  {
+    "id": "C08",
+    "domain": "Camera",
+    "query": "Camera isn't scanning QR codes"
+  },
+  {
+    "id": "P01",
+    "domain": "Performance",
+    "query": "My phone got slow after the update"
+  },
+  {
+    "id": "P02",
+    "domain": "Performance",
+    "query": "Phone is lagging and apps take forever to open"
+  },
+  {
+    "id": "P03",
+    "domain": "Performance",
+    "query": "Apps keep freezing and crashing on my phone"
+  },
+  {
+    "id": "P04",
+    "domain": "Performance",
+    "query": "Phone overheats while I'm gaming"
+  },
+  {
+    "id": "P05",
+    "domain": "Performance",
+    "query": "Storage is full and my phone is running slow"
+  },
+  {
+    "id": "P06",
+    "domain": "Performance",
+    "query": "My phone restarts by itself randomly"
+  },
+  {
+    "id": "P07",
+    "domain": "Performance",
+    "query": "Animations feel slow, how do I make my phone feel faster?"
+  },
+  {
+    "id": "P08",
+    "domain": "Performance",
+    "query": "Phone froze and won't respond to anything"
+  }
+]
