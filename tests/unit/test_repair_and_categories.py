@@ -94,3 +94,13 @@ def test_order_keys_follow_disruption_hierarchy():
     restart = R.order_key("critical", "Restart", ["Tap Restart."])
     reset = R.order_key("critical", "Factory Reset", ["Tap Factory data reset."])
     assert toggle < cache < optimise < manual < restart < reset
+
+
+def test_action_name_repair_keeps_valid_title_case():
+    """Minimal intervention: a valid Title Case name is not re-cased (reference samples use "Turn On ...")."""
+    from app.validation.repair import repair_action_name
+
+    assert repair_action_name("Turn On Power Saving") == "Turn On Power Saving"
+    assert repair_action_name("Turn on Power Saving") == "Turn on Power Saving"
+    assert repair_action_name("turn on power saving") == "Turn on Power Saving"
+    assert repair_action_name("Visit A Service Center.") == "Visit A Service Center"

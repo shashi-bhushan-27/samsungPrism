@@ -56,6 +56,9 @@ class Settings(BaseSettings):
     llm_thinking_level: str = "minimal"
     # Send a duplicate request when the first has not answered after this many seconds (0 = off).
     llm_hedge_after_s: float = 5.0
+    # Backpressure: at most this many model HTTP requests in flight per process (0 = unlimited);
+    # excess calls wait in-process instead of multiplying 429s at the provider.
+    llm_max_concurrency: int = 16
     # How long the cold path waits for LLM paraphrases after extraction finished (else templates).
     variations_grace_s: float = 0.3
     llm_max_output_tokens: int = 4096
@@ -90,7 +93,7 @@ class Settings(BaseSettings):
     cache_write_enabled: bool = True
     semantic_cache_enabled: bool = True
     # Calibrated by scripts/calibrate_cache.py (see artifacts/reports/cache_calibration.json).
-    semantic_cache_threshold: float = 0.76
+    semantic_cache_threshold: float = 0.77
     semantic_cache_threshold_no_concept: float = 0.93
     semantic_cache_margin: float = 0.0
     semantic_cache_top_k: int = 8

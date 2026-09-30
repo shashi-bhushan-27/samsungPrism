@@ -171,3 +171,15 @@ def test_vague_name_is_repaired_to_the_operated_feature():
     assert specific_name("Camera Settings", ["Open the Camera app.", "Tap Settings.",
                                              "Turn on Save selfies as previewed."]) == "Turn on Save Selfies as Previewed"
     assert specific_name("Turn On Power Saving", ["Open Settings.", "Tap Battery.", "Turn on Power saving."]) is None
+
+
+def test_operation_names_are_never_renamed():
+    """Regression (found by tests/regression/test_samples.py): "Update Phone Software" was renamed to the
+    button label "Download and Install", which then failed the one-feature name rule and the critical
+    update action was dropped from the plan."""
+    from app.services.structure_extraction import specific_name
+
+    steps = ["Open Settings.", "Tap Software update.", "Tap Download and install."]
+    assert specific_name("Update Phone Software", steps) is None
+    # even a vague name keeps its original text when the replacement would break a name rule
+    assert specific_name("Software Update Settings", steps) is None

@@ -34,6 +34,11 @@ PLAN_ONLY_QUALIFIER_PENALTY = 0.02
 # A plan that also covers a symptom family the query does not mention (e.g. "storage full AND
 # slow" for a plain "slow" complaint) is slightly less appropriate than an exact-family plan.
 PLAN_ONLY_FAMILY_PENALTY = 0.02
+# Same family, different specific symptom ("battery drains" vs "apps drain battery in the background"):
+# the plan written for the user's specific symptom wins over a sibling plan of the same family.
+PLAN_ONLY_SYMPTOM_PENALTY = 0.02
+# The user states a context that a plan was not written for ("since the update"), while such a plan may exist.
+QUERY_ONLY_QUALIFIER_PENALTY = 0.04
 
 
 def intent_summary(intent: CanonicalIntent) -> dict[str, Any]:
@@ -219,6 +224,8 @@ class PlanCache:
                 best_by_plan[pid] = (float(sims[i]), i)
         qsum = intent_summary(intent)
         q_families = set(intent.features)
+        q_symptoms = set(intent.symptoms)
+        q_disc = set(intent.qualifiers) & DISCRIMINATIVE_QUALIFIERS
         ranked: list[tuple[float, str, int]] = []
         for pid, (sim, i) in best_by_plan.items():
             rec = self._records.get(pid)
@@ -227,9 +234,13 @@ class PlanCache:
             plan_q = set(rec.intent.get("qualifiers") or []) & DISCRIMINATIVE_QUALIFIERS
             if plan_q and not (plan_q & set(intent.qualifiers)):
                 sim -= PLAN_ONLY_QUALIFIER_PENALTY
+            if q_disc and not (q_disc & plan_q):
+                sim -= QUERY_ONLY_QUALIFIER_PENALTY
             if q_families:
                 extra = set(rec.intent.get("families") or []) - q_families
                 sim -= PLAN_ONLY_FAMILY_PENALTY * len(extra)
+            if q_symptoms:
+                sim -= PLAN_ONLY_SYMPTOM_PENALTY * len(set(rec.intent.get("symptoms") or []) - q_symptoms)
             ranked.append((sim, pid, i))
         ranked.sort(key=lambda t: (-t[0], t[1]))
         best_sim = ranked[0][0] if ranked else 0.0

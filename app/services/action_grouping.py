@@ -1,7 +1,7 @@
 """ONE ACTION = ONE PHYSICAL SCREEN OR FEATURE (PDF §4.1, §7.2).
 
-* merge_fragments: "Open Settings" / "Tap Display" / "Tap Navigation bar + select" split into
-  separate actions are merged into the action that actually uses the screen.
+* merge_fragments: "Open Settings" / "Tap Display" / "Tap Navigation bar" / "Select Swipe gestures" split
+  into separate actions are merged into the action that actually uses the screen.
 * split_bundled: an action that starts from a root screen twice (two screens) is split.
 * merge_same_target: two actions resolved to the same catalog screen become one action.
 """
@@ -12,6 +12,7 @@ import re
 from dataclasses import replace
 from typing import Optional
 
+from app.core.constants import CATEGORY_AUTO
 from app.models.internal import ExtractedAction
 from app.retrieval.ui_path import parse_ui_path
 from app.validation import text_rules as T
@@ -32,13 +33,31 @@ def _is_nav_stub(action: ExtractedAction) -> bool:
     return 0 < len(action.steps) <= 2 and all(_NAV_ONLY.match(T.core_clause(s)) for s in action.steps)
 
 
+def _is_nav_only(action: ExtractedAction) -> bool:
+    """Only reaches a screen ("Open Settings. Tap Display. Tap Navigation bar.") without operating anything."""
+    p = parse_ui_path(action.steps)
+    return bool(action.steps) and bool(p.root or p.screens) and not p.interactions
+
+
+def _is_continuation(action: ExtractedAction) -> bool:
+    """Only operates on-screen controls ("Select Swipe gestures."), so it happens on the screen the previous
+    action ended on. Anything physical or unparsed ("Press and hold the Side key.") disqualifies it."""
+    p = parse_ui_path(action.steps)
+    return bool(action.steps) and not p.root and bool(p.elements) and all(
+        e.kind in ("control", "slider", "button", "value") for e in p.elements
+    )
+
+
 def merge_fragments(actions: list[ExtractedAction]) -> tuple[list[ExtractedAction], list[str]]:
     notes: list[str] = []
     out = list(actions)
     i = 0
     while i < len(out) - 1:
         cur, nxt = out[i], out[i + 1]
-        if _is_nav_stub(cur) and nxt.steps and not _is_root(nxt.steps[0]) and cur.category == nxt.category:
+        stub = _is_nav_stub(cur) and bool(nxt.steps) and not _is_root(nxt.steps[0])
+        # Settings fragments only: critical and manual actions are self-contained operations.
+        continuation = cur.category == CATEGORY_AUTO and _is_nav_only(cur) and _is_continuation(nxt)
+        if (stub or continuation) and cur.category == nxt.category:
             merged_steps = T.dedupe_consecutive(cur.steps + nxt.steps)
             prov = {**nxt.provenance, "merged_from": cur.action_name}
             prov["has_grounded_content"] = bool(

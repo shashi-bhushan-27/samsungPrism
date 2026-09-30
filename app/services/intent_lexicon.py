@@ -41,22 +41,29 @@ CONCEPTS: tuple[Concept, ...] = (
         r"\b(?:drain\w*|dies|dying)\b.{0,25}\b(?:fast|quickly|quick|rapidly|so fast)\b",
         r"\bbattery life\b", r"\bdead by\b", r"\bcharge .{0,20}(?:all the time|constantly|again and again)",
         r"\bhalf a day\b", r"\b(?:power|battery) (?:hungry|usage)\b",
+        r"\blos(?:es|ing|t) (?:its |the |a lot of |so much )?(?:charge|power|juice)\b",
+        r"\b(?:charge|juice)\b.{0,25}\b(?:drain\w*|runs? out|disappear\w*|gone (?:fast|quickly))\b",
+        r"\b(?:running|runs?|ran) out of (?:battery|charge|juice|power)\b",
     ], "battery drains quickly", "Battery Drain", "Battery fast drain"),
     _c("charging_issue", "charging", [(B, 1.0)], [
         r"\b(?:not|will not|cannot|does not|did not|no longer|stopped|stops)\b.{0,12}\bcharg\w*",
         r"\bcharg\w*\b.{0,20}\b(?:slow\w*|takes? (?:forever|ages|long)|not working|does not work|properly)\b",
         r"\bslow(?:ly)? charg\w*",
+        r"\b(?:refus\w*|fail\w*|unable) to (?:charge|take a charge)\b", r"\btake a charge\b",
+        r"\bcharg\w*\b.{0,30}\b(?:at an angle|weird angle|wiggl\w*|loose (?:cable|connection))\b",
     ], "phone charges slowly or not at all", "Charging", "Slow charging"),
     _c("overheating", "overheating", [(B, 0.55), (P, 0.45)], [
-        r"\b(?:hot|heats? up|heating up|overheat\w*|warm|burning|temperature)\b",
+        r"\b(?:hot|heats? up|heating up|overheat\w*|warm|burning|temperatures?|thermal)\b",
     ], "phone overheats", "Overheating", "Phone overheating"),
     _c("battery_percentage", "battery_percentage", [(B, 1.0)], [
-        r"\b(?:battery )?(?:percentage|percent|level)\b.{0,40}\b(?:jump\w*|drop\w*|fall\w*|fell|chang\w*|inaccurate|wrong|sudden\w*)",
+        r"\b(?:battery )?(?:percentage|percent|level)\b.{0,40}\b(?:jump\w*|drop\w*|fall\w*|fell|chang\w*|inaccurate|wrong|sudden\w*|plummet\w*|plung\w*)",
         r"\b\d+ percent\b.{0,30}\b(?:then|to)\b.{0,15}\b\d+ percent\b", r"\bshows \d+ percent then\b",
     ], "battery percentage drops suddenly", "Battery Percentage", "Battery percentage drops", priority=2),
     _c("battery_limit", "battery_protection", [(B, 1.0)], [
         r"\b(?:limit|stop|cap|protect\w*)\b.{0,40}\bcharg\w*", r"\bcharg\w*\b.{0,40}\b(?:80|85|90|100) percent\b",
         r"\bmax(?:imum)? charge\b", r"\bbattery protection\b", r"\bcharge limit\b", r"\bstop at 80\b",
+        r"\brestrict\w*\b.{0,30}\bcharg\w*", r"\b(?:preserve|prolong|extend)\w*\b.{0,30}\bbattery (?:health|lifespan|life ?span|longevity)\b",
+        r"\bbattery (?:health|lifespan|longevity)\b",
     ], "limit battery charge to protect the battery", "Battery Protection", "Battery protection setup",
        kind="setup", priority=2),
     _c("background_drain", "battery_drain", [(B, 1.0)], [
@@ -64,9 +71,14 @@ CONCEPTS: tuple[Concept, ...] = (
         r"\b(?:battery|power)\b.{0,40}\bbackground\b",
         r"\bapps? .{0,30}using (?:power|battery) .{0,30}not using\b",
         r"\bkeep using power\b",
+        r"\b(?:apps?|applications?|processes)\b.{0,40}\b(?:keeps?|continu\w*|still|constantly|always)\b.{0,12}\brun\w*\b",
+        r"\b(?:hidden|background) (?:process\w*|activity|activities|apps?)\b",
+        r"\b(?:apps?|applications?)\b.{0,30}\b(?:fail\w* to close|(?:do|does|will) not close|never close)\b",
     ], "apps drain battery in the background", "Background Battery Usage", "Background battery drain", priority=1),
     _c("aod_drain", "aod", [(B, 0.8), (D, 0.2)], [
         r"\balways on display\b", r"\baod\b", r"\balways on screen\b",
+        r"\b(?:screen|display)\b.{0,20}\b(?:always|partially|constantly|permanently) on\b",
+        r"\bclock\b.{0,25}\b(?:always|stays?) on\b",
     ], "always on display uses battery", "Always On Display", "AOD battery drain", priority=2),
     # ------------------------------------------------------------------ Display
     _c("screen_flicker", "flicker", [(D, 1.0)], [
@@ -88,6 +100,7 @@ CONCEPTS: tuple[Concept, ...] = (
         r"\b(?:not|does not|is not|will not) (?:respond\w*|register\w*|detect\w*)\b.{0,15}\b(?:touch\w*|taps?)\b",
         r"\btaps?\b.{0,20}\b(?:not|are not|is not) (?:detected|registered|recogni\w*)\b",
         r"\b(?:screen protector|tempered glass|screen guard|glass protector)\b",
+        r"\bunresponsive to (?:my )?(?:touch\w*|taps?|fingers?)\b", r"\bghost touch\w*\b",
     ], "touchscreen does not respond with a screen protector", "Touchscreen Response", "Unresponsive touchscreen"),
     _c("screen_color", "color", [(D, 1.0)], [
         r"\byellow\w*\b", r"\bwarm (?:tint|colou?r)\b", r"\borange\w*\b", r"\btint\b",
@@ -95,7 +108,7 @@ CONCEPTS: tuple[Concept, ...] = (
     ], "screen colours look yellow", "Screen Colour", "Yellowish screen colours"),
     _c("choppy_scrolling", "smoothness", [(D, 1.0)], [
         r"\bscroll\w*\b.{0,40}\b(?:choppy|stutter\w*|jerky|laggy|not smooth|smoothly|fluid|jitter\w*|refresh)\b",
-        r"\bchoppy\b", r"\brefresh rate\b", r"\bmotion smoothness\b", r"\b(?:60|90|120) ?hz\b", r"\blow frame rate\b",
+        r"\bchoppy\b", r"\brefresh rate\b", r"\b(?:stutter\w*|jerky|jitter\w*|janky)\b.{0,40}\bscroll\w*\b", r"\bmotion smoothness\b", r"\b(?:60|90|120) ?hz\b", r"\blow frame rate\b",
     ], "scrolling is not smooth", "Choppy Scrolling", "Choppy scrolling"),
     _c("dark_mode", "dark_mode", [(D, 1.0)], [
         r"\bdark (?:mode|theme)\b", r"\bblack theme\b", r"\bnight theme\b", r"\bblack instead of white\b",
@@ -108,18 +121,21 @@ CONCEPTS: tuple[Concept, ...] = (
     _c("blurry_photo", "camera_focus", [(C, 1.0)], [
         r"\bblur\w*\b", r"\bout of focus\b", r"\bfuzzy\b", r"\bnot sharp\b", r"\bunfocused\b",
         r"\b(?:not|cannot|does not|will not|never) (?:auto ?)?focus\w*\b", r"\bfocus\w* (?:issue|problem)s?\b",
+        r"\bfog\w*\b", r"\bhaz(?:y|e)\b", r"\b(?:photo|picture|pic|image)s?\b.{0,30}\b(?:not clear|unclear)\b",
     ], "camera photos are blurry", "Blurry Photos", "Blurry camera photos"),
     _c("camera_crash", "camera_crash", [(C, 1.0)], [
-        r"\bcamera\b.{0,40}\b(?:crash\w*|fail\w*|clos\w*|stopped working|stops working|shut\w* down|error|warning|quits?)\b",
+        r"\bcamera\b.{0,60}\b(?:crash\w*|fail\w*|clos\w*|stopped working|stops working|shut\w* down|error|warning|quits?)\b",
+        r"\bcamera\b.{0,40}\b(?:refus\w* to (?:open|start|stay open|load)|(?:will|does) not (?:open|start|load|stay open))\b",
         r"\bcamera failed\b",
         r"\b(?:take|taking) a (?:picture|photo)\b.{0,40}\b(?:error|quits|closes|crash\w*)\b",
     ], "camera app crashes with camera failed error", "Camera Crash", "Camera app crashes", priority=2),
     _c("dark_photo", "camera_exposure", [(C, 1.0)], [
         r"\b(?:photo|picture|pic|shot|image)s?\b.{0,40}\b(?:dark|underexposed|black)\b", r"\blow light\b",
-        r"\bnight (?:photos?|shots?|pictures?)\b", r"\bin the dark\b", r"\bdim light\b",
+        r"\bnight (?:photos?|shots?|pictures?|photography|mode)\b", r"\bin the dark\b", r"\bdim light\b",
+        r"\bunderexposed\b",
     ], "photos are dark in low light", "Low Light Photos", "Dark low-light photos", priority=1),
     _c("camera_black_screen", "camera_black", [(C, 1.0)], [
-        r"\bcamera\b.{0,40}\b(?:black|blank)\b(?! and)", r"\bblack (?:viewfinder|preview)\b", r"\bcamera shows nothing\b",
+        r"\bcamera\b.{0,80}\b(?:black|blank)\b(?! and)", r"\bblack (?:viewfinder|preview)\b", r"\bcamera shows nothing\b",
     ], "camera shows a black screen", "Camera Black Screen", "Camera black screen", priority=3),
     _c("shaky_video", "video_stability", [(C, 1.0)], [
         r"\bshak\w*\b", r"\bwobbl\w*\b", r"\bjitter\w*\b.{0,30}\b(?:video|record\w*)\b", r"\bunstable\b",
@@ -131,30 +147,36 @@ CONCEPTS: tuple[Concept, ...] = (
     _c("selfie_mirror", "selfie", [(C, 1.0)], [
         r"\bselfie\w*\b.{0,40}\b(?:flip\w*|mirror\w*|revers\w*|backwards?)\b", r"\bmirror\w*\b.{0,30}\bselfie\w*\b",
         r"\bfront camera\b.{0,30}\b(?:mirror\w*|flip\w*)\b", r"\bselfies?\b.{0,20}\btext\b.{0,15}\bbackwards\b",
+        r"\b(?:picture|photo|pic|shot)s? of (?:myself|me)\b.{0,60}\b(?:backwards?|flip\w*|mirror\w*|revers\w*|wrong side)\b",
     ], "selfies are flipped", "Selfie Mirroring", "Flipped selfies", priority=2),
     _c("qr_scan", "qr", [(C, 1.0)], [
         r"\bqr\b",
     ], "camera does not scan qr codes", "QR Code Scanning", "QR code scanning", priority=2),
     # -------------------------------------------------------------- Performance
     _c("slow_performance", "slowness", [(P, 1.0)], [
-        r"\bslow\w*\b", r"\blag\w*\b", r"\bsluggish\b", r"\btakes? (?:forever|ages|so long)\b", r"\bsnappier\b",
+        r"\bslow\w*\b", r"\blag\w*\b", r"\bsluggish\w*\b", r"\btakes? (?:forever|ages|so long)\b", r"\bsnappier\b",
         r"\bspeed up\b", r"\bfeel faster\b",
     ], "phone is slow and lags", "Slow Performance", "Slow phone performance"),
     _c("app_crash", "app_crash", [(P, 1.0)], [
         r"\bapp\w*\b.{0,30}\b(?:crash\w*|freez\w*|force clos\w*|keep closing|stop working|shut down|close unexpectedly)\b",
-        r"\bforce closing\b",
+        r"\bforce closing\b", r"\b(?:keeps?|kept|constantly|always) crash\w*\b", r"\bcrash\w* (?:every time|whenever|each time)\b",
     ], "apps crash or freeze", "App Crashes", "Apps keep crashing", priority=1),
     _c("frozen", "frozen", [(P, 1.0)], [
         r"\bfro(?:ze|zen)\b", r"\bfreez\w*\b", r"\bhangs?\b", r"\bstuck\b", r"\b(?:not|will not|does not) (?:respond\w*|react\w*)\b",
-        r"\bunresponsive\b", r"\bnothing works\b",
+        r"\bunresponsive\b", r"\bnothing works\b", r"\block\w* up\b", r"\b(?:will not|does not|cannot|not) wake (?:up|it)\b",
     ], "phone freezes and does not respond", "Frozen Phone", "Frozen phone"),
     _c("storage_full", "storage", [(P, 1.0)], [
         r"\bstorage\b.{0,20}\b(?:full|almost full)\b", r"\bno (?:storage|space)\b", r"\bnot enough (?:storage|space)\b",
         r"\b(?:internal )?memory (?:is )?full\b", r"\bout of (?:storage|space)\b",
+        r"\b(?:storage|memory)\b.{0,30}\b(?:capacity|maxed|reached (?:its |the )?limit|running low|almost gone)\b",
+        r"\b(?:little|no|not enough) (?:free )?(?:space|storage|memory) left\b",
     ], "storage is full", "Storage Full", "Full storage slowdown", priority=1),
     _c("random_restart", "restart", [(P, 1.0)], [
         r"\b(?:restart\w*|reboot\w*)\b.{0,30}\b(?:by itself|on its own|randomly|itself|without)\b",
         r"\bturns? off and (?:back )?on\b", r"\brandom(?:ly)? (?:restart\w*|reboot\w*)\b",
+        r"\b(?:keeps?|kept|constantly) (?:restart\w*|reboot\w*)\b", r"\bboot ?loop\w*\b",
+        r"\b(?:restart\w*|reboot\w*)\b.{0,30}\b(?:out of nowhere|multiple times|again and again|all the time|constantly)\b",
+        r"\bpowers? (?:back )?on (?:by itself|on its own)\b",
     ], "phone restarts by itself", "Random Restarts", "Random restarts", priority=2),
     _c("slow_animation", "animation", [(P, 1.0)], [
         r"\banimation\w*\b", r"\btransition\w*\b",
@@ -163,19 +185,22 @@ CONCEPTS: tuple[Concept, ...] = (
 
 QUALIFIERS: tuple[tuple[str, re.Pattern[str], str], ...] = (
     ("after_update", re.compile(
-        r"\b(?:after|since)\b.{0,25}\b(?:update\w*|upgrad\w*)\b|\bupdate\b.{0,15}\b(?:killed|ruined|broke|made)\b"),
+        r"\b(?:after|since)\b.{0,45}\b(?:update\w*|upgrad\w*)\b|\bupdate\b.{0,15}\b(?:killed|ruined|broke|made)\b"),
      "after software update"),
     ("after_app_install", re.compile(
         r"\b(?:after|since)\b.{0,20}\b(?:install\w*|download\w*|added)\b.{0,15}\b(?:app|application)\b|"
         r"\b(?:after|since)\b.{0,12}\b(?:app|application)s? (?:install\w*|download\w*|update\w*)|"
         r"\b(?:installed|downloaded|added) (?:a |an |some |that |the )?(?:new )?(?:app|application)\b"),
      "after installing an app"),
-    ("while_charging", re.compile(r"\b(?:while|when|during)\b.{0,10}\bcharg\w*|\bplugged in\b|\bwhen i charge\b"),
+    ("while_charging", re.compile(r"\b(?:while|when|during)\b.{0,10}\bcharg\w*|\bplugged in\b|\bwhen i charge\b|"
+                                  r"\b(?:connected|plugged)\b.{0,12}\b(?:to|into|in)\b.{0,10}\bcharg\w*|\bon (?:the )?charger\b"),
      "while charging"),
     ("while_gaming", re.compile(r"\bgam(?:e|es|ing)\b|\bplaying\b"), "while gaming"),
-    ("screen_protector", re.compile(r"\bscreen protector\b|\btempered glass\b|\bscreen guard\b|\bglass protector\b"),
+    ("screen_protector", re.compile(r"\bscreen protector\b|\btempered glass\b|\bscreen guard\b|\bglass protector\b|"
+                                    r"\bprotective (?:glass|film|cover|screen)\b|\bglass (?:cover|protector)\b"),
      "with a screen protector"),
-    ("low_light", re.compile(r"\blow light\b|\bat night\b|\bin the dark\b|\bdim light\b"), "in low light"),
+    ("low_light", re.compile(r"\blow light\b|\bat night\b|\bin the dark\b|\bdim light\b|\bnight (?:photography|photos?|shots?|mode)\b"),
+     "in low light"),
 )
 # Qualifiers that change which troubleshooting plan applies (used by the cache gate).
 DISCRIMINATIVE_QUALIFIERS = frozenset({"after_update", "after_app_install", "while_charging", "while_gaming"})
@@ -188,6 +213,18 @@ SLANG = {
     "im": "i am", "ive": "i have", "idk": "i do not know", "tbh": "", "smh": "", "ugh": "", "bc": "because",
     "aod": "aod", "batt": "battery", "pix": "photos", "selfy": "selfie", "vidz": "videos",
 }
+# Support-ticket style framing ("A customer is frustrated because their phone ...") → first person, so the
+# complaint itself drives the concepts and the embedding.
+THIRD_PERSON_PATTERNS = (
+    (re.compile(
+        r"^(?:a|the|this|one|my)\s+(?:customer|user|person|client|caller|owner|friend)\s+(?:is|was|has been|keeps|says)\s+"
+        r"(?:(?:really|very|extremely|quite|so|increasingly)\s+)?(?:frustrated|annoyed|upset|angry|unhappy|concerned|worried|"
+        r"confused|complaining|reporting|experiencing|having\s+(?:a\s+)?(?:hard|terrible|tough|difficult|rough)\s+time|"
+        r"looking\s+for|asking\s+(?:about|for|how)|expressing\s+(?:frustration|concern)(?:\s+on\s+a\s+forum)?)\s*"
+        r"(?:because|that|about|with|since|as|over|on|how|a)?\s*"), ""),
+    (re.compile(r"\b(?:their|his|her)\s+(?=(?:own\s+)?(?:phone|device|smartphone|mobile|galaxy|battery|screen|display|camera|"
+                r"photos?|pictures?|apps?|charger|storage)\b)"), "my "),
+)
 FILLER_PATTERNS = (
     re.compile(r"^(?:hi|hello|hey|yo|hiya|ok|okay|so|um+|uh+|well)\b[\s,!.]*"),
     re.compile(r"\b(?:please help(?: me)?|help me|can you help(?: me)?|any help|any ideas|thanks(?: in advance)?|thank you)\b[\s,!.?]*"),

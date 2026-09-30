@@ -93,6 +93,7 @@ def build_llm(settings: Settings) -> LLMProvider:
         max_output_tokens=settings.llm_max_output_tokens,
         price_lookup=price_lookup(settings),
         hedge_after_s=settings.llm_hedge_after_s,
+        max_concurrency=settings.llm_max_concurrency,
     )
 
 

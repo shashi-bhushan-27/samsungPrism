@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import contextlib
 import logging
 import time
 from typing import Any, Optional
@@ -15,6 +16,18 @@ from app.models.internal import TokenUsage
 log = logging.getLogger(__name__)
 
 RETRYABLE_STATUS = {429, 500, 502, 503, 504}
+
+
+def _quota_id(r: httpx.Response) -> Optional[str]:
+    """Which quota a 429 hit (e.g. GenerateRequestsPerMinutePerProjectPerModel-FreeTier), for the logs."""
+    try:
+        for d in (r.json().get("error") or {}).get("details") or []:
+            for v in d.get("violations") or []:
+                if v.get("quotaId"):
+                    return str(v["quotaId"])[:120]
+    except Exception:
+        return None
+    return None
 
 
 class GeminiProvider(LLMProvider):
@@ -34,6 +47,7 @@ class GeminiProvider(LLMProvider):
         max_output_tokens: int,
         price_lookup,
         hedge_after_s: float = 0.0,
+        max_concurrency: int = 0,
     ):
         if not api_key:
             raise LLMError("GEMINI_API_KEY is not set", code="llm_not_configured")
@@ -49,6 +63,8 @@ class GeminiProvider(LLMProvider):
         self._price = price_lookup
         self._hedge_after = max(0.0, hedge_after_s)
         self.hedges = 0
+        self._slots = asyncio.Semaphore(max_concurrency) if max_concurrency > 0 else None
+        self.queued = 0  # calls that had to wait for a free slot (backpressure signal)
         self._client = httpx.AsyncClient(
             timeout=httpx.Timeout(timeout_s, connect=10.0),
             limits=httpx.Limits(max_keepalive_connections=20, max_connections=50),
@@ -152,9 +168,10 @@ class GeminiProvider(LLMProvider):
                 t0 = time.perf_counter()
                 body = self._body(m, system, prompt, schema, temperature, max_output_tokens or self._max_out)
                 try:
-                    r = await self._client.post(
-                        f"{self._base}/models/{m}:generateContent", json=body, headers={"x-goog-api-key": self._key}
-                    )
+                    async with self._slot():
+                        r = await self._client.post(
+                            f"{self._base}/models/{m}:generateContent", json=body, headers={"x-goog-api-key": self._key}
+                        )
                 except httpx.TimeoutException:
                     attempts.append({"model": m, "status": "timeout", "ms": round((time.perf_counter() - t0) * 1000)})
                     last_error = LLMError(f"{m} timed out", code="llm_timeout", retryable=True)
@@ -166,7 +183,11 @@ class GeminiProvider(LLMProvider):
                     continue
                 ms = (time.perf_counter() - t0) * 1000
                 attempts.append({"model": m, "status": r.status_code, "ms": round(ms)})
+                if r.status_code == 429:
+                    attempts[-1]["quota"] = _quota_id(r)
                 if r.status_code == 200:
+                    if len(attempts) > 1:  # operational signal: rate limits / overload / fail-over
+                        log.warning("llm call recovered after failed attempts", extra={"event": {"attempts": attempts}})
                     return self._parse(r.json(), m, started, attempts)
                 detail = r.text[:300].lower()
                 if r.status_code == 400:
@@ -196,9 +217,20 @@ class GeminiProvider(LLMProvider):
                 last_error = LLMError(f"{m} error {r.status_code}", code=f"llm_http_{r.status_code}")
                 break  # 404 (model retired) and others: next model
         self.last_ok = False
+        log.warning("llm call failed on every model", extra={"event": {"attempts": attempts}})
         err = last_error or LLMError("all models failed", code="llm_unavailable")
         err.attempts = attempts  # type: ignore[attr-defined]
         raise err
+
+    @contextlib.asynccontextmanager
+    async def _slot(self):
+        if self._slots is None:
+            yield
+            return
+        if self._slots.locked():
+            self.queued += 1
+        async with self._slots:
+            yield
 
     def _parse(self, data: dict, model: str, started: float, attempts: list[dict]) -> LLMResponse:
         cands = data.get("candidates") or []

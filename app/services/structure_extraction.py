@@ -27,6 +27,8 @@ from app.retrieval.text import token_set
 from app.retrieval.ui_path import parse_ui_path, primary_interaction
 from app.services.rules_extractor import extract_rules
 from app.validation import text_rules as T
+from app.validation.business_rules import check_action_name
+from app.validation.report import ValidationReport
 from app.validation.repair import (
     clean_topic,
     repair_action_name,
@@ -305,9 +307,17 @@ class StructureExtractor:
 _GENERIC_NAME_TOKENS = frozenset(token_set("settings setting options option menu screen configure adjust manage open check change set up"))
 
 
+_CONTAINER_WORDS = frozenset({"settings", "setting", "options", "option", "menu", "screen", "page", "preferences"})
+
+
 def specific_name(name: str, steps: list[str]) -> Optional[str]:
-    """Replace a name that only mentions screens on the path ("Camera Settings") while the steps
-    operate one specific control ("Turn on Save selfies as previewed")."""
+    """Replace a name that only designates a screen on the path ("Camera Settings") while the steps
+    operate one specific control ("Turn on Save selfies as previewed").
+
+    A name that states an operation ("Update Phone Software") is never touched, and a replacement
+    that would itself break an actionName rule is discarded (the original name is kept)."""
+    if not _CONTAINER_WORDS & {w.lower() for w in T.words(name)}:
+        return None
     path = parse_ui_path(steps)
     prim = primary_interaction(path, name)
     if prim is None or prim.kind not in ("control", "slider", "button"):
@@ -320,10 +330,14 @@ def specific_name(name: str, steps: list[str]) -> Optional[str]:
         return None
     label = prim.full_label or prim.label
     if prim.kind == "control":
-        return T.to_title_case(f"Turn {prim.state or 'on'} {label}")
-    if prim.kind == "slider":
-        return T.to_title_case(f"Adjust {label}")
-    return T.to_title_case(label)
+        candidate = T.to_title_case(f"Turn {prim.state or 'on'} {label}")
+    elif prim.kind == "slider":
+        candidate = T.to_title_case(f"Adjust {label}")
+    else:
+        candidate = T.to_title_case(label)
+    report = ValidationReport()
+    check_action_name(candidate, "$.actionName", report)
+    return candidate if report.ok else None
 
 
 def _clean_opt(v: Optional[str]) -> Optional[str]:

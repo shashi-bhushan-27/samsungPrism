@@ -341,3 +341,32 @@ def test_multi_intent_query_from_cache(tmp_path):
     assert r.body["meta"]["cache_hit"] is True
     assert len(r.body["response"]["contexts"]) == 2
     assert_contract(c, r.body)
+
+
+def test_llm_mapping_calls_are_billed_and_invented_uris_never_emitted(tmp_path):
+    """Ablation baseline (DEEPLINK_MAPPER=llm): every mapping call is metered like any other model call,
+    and a URI the model invents is recorded but never reaches the response."""
+    from app.llm.prompts import MAPPING_SYSTEM
+
+    invented = "bixby://masked/act/000000000000"
+
+    class MappingLLM(GoldLLM):
+        def _respond(self, system, prompt, schema):
+            if system == MAPPING_SYSTEM:
+                return {"deeplink": invented}
+            return super()._respond(system, prompt, schema)
+
+        def estimate_cost(self, usage, model=None):
+            return 0.001 * usage.calls
+
+    llm = MappingLLM()
+    c = make(tmp_path, llm, deeplink_mapper="llm", cache_read_enabled=False, cache_write_enabled=False)
+    r = run(c, GOLD["B01"]["query"], SIIS["B01"])
+    assert r.status_code == 200
+    assert_contract(c, r.body)
+    mapping_calls = sum(1 for call in llm.calls if call["system"] == MAPPING_SYSTEM)
+    assert mapping_calls >= 1 and r.telemetry["mapping_llm_calls"] == mapping_calls
+    assert r.telemetry["model_calls"] == len(llm.calls)  # extraction + variations + mapping
+    assert r.body["meta"]["cost_usd"] == pytest.approx(0.001 * len(llm.calls))
+    assert invented in r.telemetry["fabricated_uris"]
+    assert invented not in json.dumps(r.body)

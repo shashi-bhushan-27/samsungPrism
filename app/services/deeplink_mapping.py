@@ -35,6 +35,7 @@ class MappingOutcome:
     usage: TokenUsage = field(default_factory=TokenUsage)
     fabricated: Optional[str] = None
     cost_usd: Optional[float] = 0.0
+    model: Optional[str] = None
 
     @property
     def uri(self) -> Optional[str]:
@@ -98,16 +99,17 @@ class DeeplinkMapper:
         usage = TokenUsage()
         fabricated: Optional[str] = None
         cost: Optional[float] = 0.0
+        model: Optional[str] = None
         if self.mode == "rules":
             decision = self._rules(action, domain)
         elif self.mode == "llm":
-            decision, usage, fabricated, cost = await self._llm(action, domain)
+            decision, usage, fabricated, cost, model = await self._llm(action, domain)
         else:
             decision = self.resolver.resolve(action, domain=domain)
         ms = (time.perf_counter() - t0) * 1000
-        return self._outcome(action, decision, ms, usage, fabricated, cost)
+        return self._outcome(action, decision, ms, usage, fabricated, cost, model)
 
-    def _outcome(self, action, decision, ms, usage, fabricated, cost) -> MappingOutcome:
+    def _outcome(self, action, decision, ms, usage, fabricated, cost, model=None) -> MappingOutcome:
         actionable: Optional[schema.Deeplink] = None
         if action.category != CATEGORY_MANUAL:
             if decision.kind == "catalog" and decision.doc is not None:
@@ -121,7 +123,7 @@ class DeeplinkMapper:
                     message=_clean(decision.dummy_message) or "",
                 )
         validation = validation_for(action, decision) if actionable is not None else None
-        return MappingOutcome(decision, actionable, validation, ms, usage, fabricated, cost)
+        return MappingOutcome(decision, actionable, validation, ms, usage, fabricated, cost, model)
 
     # ----------------------------------------------------------- ablation modes
     def _rules(self, action: ExtractedAction, domain: Optional[str]) -> MappingDecision:
@@ -143,9 +145,9 @@ class DeeplinkMapper:
 
         primary = primary_interaction(path, action.action_name, action.description)
         if action.category == CATEGORY_MANUAL:
-            return MappingDecision("none", None, 0.0, "manual_action", path, primary), TokenUsage(), None, 0.0
+            return MappingDecision("none", None, 0.0, "manual_action", path, primary), TokenUsage(), None, 0.0, None
         if self.llm is None:
-            return MappingDecision("none", None, 0.0, "llm_unavailable", path, primary), TokenUsage(), None, None
+            return MappingDecision("none", None, 0.0, "llm_unavailable", path, primary), TokenUsage(), None, None, None
         lines = [
             f"{d.uri} | {d.entry.description} | {d.entry.message or ''} | {(d.entry.qna_description or '')[:90]}"
             for d in r.index.docs
@@ -156,7 +158,7 @@ class DeeplinkMapper:
                 schema=MAPPING_SCHEMA, model=self.llm_model, max_output_tokens=256,
             )
         except LLMError:
-            return MappingDecision("none", None, 0.0, "llm_error", path, primary), TokenUsage(), None, None
+            return MappingDecision("none", None, 0.0, "llm_error", path, primary), TokenUsage(), None, None, None
         cost = self.llm.estimate_cost(resp.usage, resp.model)
         try:
             answer = str(parse_json_loose(resp.text).get("deeplink", "")).strip()
@@ -164,7 +166,7 @@ class DeeplinkMapper:
             answer = resp.text.strip()
         doc = next((d for d in r.index.docs if d.uri == answer), None)
         if doc is not None:
-            return MappingDecision("catalog", doc, 1.0, "llm_choice", path, primary), resp.usage, None, cost
+            return MappingDecision("catalog", doc, 1.0, "llm_choice", path, primary), resp.usage, None, cost, resp.model
         fabricated = answer if answer and answer.upper() != "NONE" else None
         decision = r._fallback(action, path, primary, [], "llm_none" if fabricated is None else "llm_fabricated_uri")
-        return decision, resp.usage, fabricated, cost
+        return decision, resp.usage, fabricated, cost, resp.model

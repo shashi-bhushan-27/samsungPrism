@@ -224,7 +224,7 @@ class TroubleshootingService:
         cacheable_parts: list[tuple[schema.Goal, Source, ExtractionResult]] = []
         for goal, res, src in goals:
             try:
-                built = await self._build_goal(goal, res, src, intent, timer, tel)
+                built = await self._build_goal(goal, res, src, intent, timer, tel, meter)
             except ServiceError:
                 raise
             except Exception as exc:
@@ -342,18 +342,23 @@ class TroubleshootingService:
         return out, resp.usage, cost, resp.model
 
     async def _build_goal(
-        self, goal: ExtractedGoal, res: ExtractionResult, src: Source, intent: CanonicalIntent, timer: StageTimer, tel
+        self, goal: ExtractedGoal, res: ExtractionResult, src: Source, intent: CanonicalIntent, timer: StageTimer, tel,
+        meter: CostMeter,
     ) -> Optional[schema.Goal]:
         actions = list(goal.actions)
         t0 = time.perf_counter()
-        outcomes: list[MappingOutcome] = [await self.mapper.map(a, domain=src.intent.domain or intent.domain) for a in actions]
+        domain = src.intent.domain or intent.domain
+        # gather keeps input order; the hybrid/rules mappers never yield, so they still run one after another.
+        outcomes: list[MappingOutcome] = list(await asyncio.gather(*(self.mapper.map(a, domain=domain) for a in actions)))
         map_ms = (time.perf_counter() - t0) * 1000
         timer.add("deeplink_retrieval", map_ms * 0.5)
         timer.add("deeplink_reranking", map_ms * 0.5)
         for o in outcomes:
-            if o.usage.calls:  # llm mapping mode (ablation)
-                tel.setdefault("mapping_llm_calls", 0)
-                tel["mapping_llm_calls"] += o.usage.calls
+            if o.usage.calls:  # llm mapping mode (ablation baseline): its tokens are billed like any other call
+                meter.add(o.usage, o.cost_usd, o.model)
+                tel["mapping_llm_calls"] = tel.get("mapping_llm_calls", 0) + o.usage.calls
+            if o.fabricated:
+                tel.setdefault("fabricated_uris", []).append(o.fabricated)
         uris = [o.uri if (o.actionable is not None and o.decision.kind == "catalog") else None for o in outcomes]
         actions, kept_uris, notes = merge_same_target(actions, uris)
         tel["notes"].extend(notes)

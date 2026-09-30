@@ -28,6 +28,7 @@ from app.services.intent_lexicon import (
     FILLER_PATTERNS,
     PROBLEM_INDICATORS,
     QUALIFIERS,
+    THIRD_PERSON_PATTERNS,
     SETUP_INDICATORS,
     SLANG,
     Concept,
@@ -202,6 +203,8 @@ class QueryEnricher:
                 words.extend(rep.split())
         words = [self.corrector.correct(w) for w in words]
         text = " ".join(words)
+        for rx, sub in THIRD_PERSON_PATTERNS:
+            text = rx.sub(sub, text)
         for rx in FILLER_PATTERNS:
             text = rx.sub(" ", text)
         out: list[str] = []

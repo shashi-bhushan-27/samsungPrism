@@ -81,7 +81,9 @@ def repair_action_name(name: str, fallback: str = "Review Settings") -> str:
     toks = n.split()[: C.ACTION_NAME_MAX_WORDS]
     if not toks:
         toks = fallback.split()
-    return T.to_title_case(" ".join(toks))
+    cleaned = " ".join(toks)
+    # Minimal intervention: a name that already is Title Case keeps its casing ("Turn On Power Saving").
+    return cleaned if T.is_title_case(cleaned) else T.to_title_case(cleaned)
 
 
 # ----------------------------------------------------------------------- description

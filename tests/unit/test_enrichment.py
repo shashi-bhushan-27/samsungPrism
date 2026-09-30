@@ -103,3 +103,35 @@ def test_finalize_variations_tops_up_and_dedupes():
     assert VARIATIONS_MIN <= len(out) <= VARIATIONS_MAX
     assert out[0] == "My battery drains quickly"
     assert dedupe_variations(q, ["battery dies fast"]) == []
+
+
+@pytest.mark.parametrize("text,symptom,qualifier", [
+    ("my phone keeps rebooting", "random_restart", None),
+    ("apps keep crashing all day", "app_crash", None),
+    ("the whole phone locked up again", "frozen", None),
+    ("phone is losing charge really fast", "battery_drain", None),
+    ("since I installed the new system update the phone lags", "slow_performance", "after_update"),
+    ("stuttering every time I scroll a web page", "choppy_scrolling", None),
+    ("temperatures get really high when it is connected to the charger", "overheating", "while_charging"),
+    ("apps keep running in the background and kill my battery", "background_drain", None),
+    ("the display stays partially on all the time and eats battery", "aod_drain", None),
+    ("my night photography is underexposed", "dark_photo", "low_light"),
+])
+def test_everyday_synonyms_reach_the_right_concept(text, symptom, qualifier):
+    intent = QueryEnricher().analyze(text)
+    assert symptom in intent.symptoms, intent.symptoms
+    if qualifier:
+        assert qualifier in intent.qualifiers
+
+
+def test_support_ticket_framing_is_normalised_to_the_complaint():
+    e = QueryEnricher()
+    intent = e.analyze("A customer is upset because their camera app will not open")
+    assert intent.normalized_query.startswith("my camera app")
+    assert "camera_crash" in intent.symptoms
+
+
+@pytest.mark.parametrize("text", ["How do I change my ringtone?", "Wi-Fi keeps disconnecting", "My screen is cracked",
+                                  "There are green lines on my display", "Bluetooth headphones will not pair"])
+def test_out_of_scope_complaints_stay_concept_free(text):
+    assert QueryEnricher().analyze(text).symptoms == ()
