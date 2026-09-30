@@ -39,9 +39,11 @@ class Settings(BaseSettings):
 
     # ---- LLM -------------------------------------------------------------------
     llm_provider: Literal["gemini", "fake", "none"] = "gemini"
-    llm_model: str = "gemini-3.6-flash"
-    # Tried in order when the primary model is overloaded/unavailable (503/429/404).
-    llm_fallback_models: str = "gemini-3.1-flash-lite,gemini-3.5-flash-lite"
+    # Default chosen by measurement on this key (see metrics.md): best sustained availability,
+    # quality within 0.02 step-accuracy points of gemini-3.6-flash, lowest price.
+    llm_model: str = "gemini-3.1-flash-lite"
+    # Tried in order when the primary model is overloaded/rate-limited/retired (503/429/404).
+    llm_fallback_models: str = "gemini-3.5-flash-lite,gemini-3.6-flash"
     # Model for query variations; empty → llm_model.
     llm_enrichment_model: str = ""
     gemini_api_key: Optional[SecretStr] = None
@@ -51,7 +53,11 @@ class Settings(BaseSettings):
     llm_repair_retries: int = 1
     llm_temperature: float = 0.0
     llm_seed: int = 7
-    llm_thinking_level: str = "low"
+    llm_thinking_level: str = "minimal"
+    # Send a duplicate request when the first has not answered after this many seconds (0 = off).
+    llm_hedge_after_s: float = 5.0
+    # How long the cold path waits for LLM paraphrases after extraction finished (else templates).
+    variations_grace_s: float = 0.3
     llm_max_output_tokens: int = 4096
     llm_price_input_per_mtok: Optional[float] = None
     llm_price_output_per_mtok: Optional[float] = None

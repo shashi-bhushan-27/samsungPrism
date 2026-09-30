@@ -61,10 +61,21 @@ class TroubleshootResponse(BaseModel):
         meta = self.meta.model_dump(mode="json")
         if meta.get("fallback") is None:
             meta.pop("fallback", None)
+        response = self.response.model_dump(mode="json")
+        # Match the worked example: optional Deeplink metadata that is unset is omitted, while
+        # StepGroup.validationDeeplink stays explicit (null) as in Appendix B.
+        for goal in response.get("contexts", []):
+            for action in goal.get("actions", []):
+                for group in action.get("stepGroups", []):
+                    dl = group.get("actionableDeeplink")
+                    if isinstance(dl, dict):
+                        for k in ("classes", "originalType"):
+                            if dl.get(k) is None:
+                                dl.pop(k, None)
         return {
             "query": self.query,
             "query_variations": list(self.query_variations),
-            "response": self.response.model_dump(mode="json"),
+            "response": response,
             "meta": meta,
         }
 
