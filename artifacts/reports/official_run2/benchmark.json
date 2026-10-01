@@ -1,0 +1,1088 @@
+{
+  "started_at": "2026-10-01T21:41:41+00:00",
+  "dataset": "official",
+  "llm_provider": "groq",
+  "llm_model": "openai/gpt-oss-120b",
+  "llm_enrichment_model": "openai/gpt-oss-20b",
+  "llm_fallbacks": [
+    "openai/gpt-oss-20b"
+  ],
+  "llm_thinking_level": "minimal",
+  "llm_hedge_after_s": 5.0,
+  "embedding_model": "fastembed:BAAI/bge-small-en-v1.5",
+  "semantic_threshold": 0.77,
+  "semantic_threshold_no_concept": 0.93,
+  "environment": {
+    "python": "3.11.15",
+    "platform": "Linux-6.18.44-fc-v50-x86_64-with-glibc2.39",
+    "vcpus": 4,
+    "ram_gb": 15.7,
+    "os": "Ubuntu 24.04.4 LTS"
+  },
+  "config": {
+    "cold_rounds": 1,
+    "exact_rounds": 2,
+    "pace_cold_s": 25.0,
+    "pace_after_miss_s": 6.0,
+    "sequential_requests": true
+  },
+  "server_a_startup_s": 5.05,
+  "server_a_rss_mb": 301.0,
+  "server_b_model": "off",
+  "server_b_startup_s": 4.06,
+  "server_b_health": {
+    "status": "ok",
+    "checks": {
+      "catalog": true,
+      "vector_indexes": true,
+      "embedding_model": true,
+      "cache": true,
+      "llm": false
+    },
+    "required": [
+      "catalog",
+      "vector_indexes",
+      "embedding_model",
+      "cache"
+    ],
+    "dataset": "official",
+    "cache_plans": 18,
+    "llm_model": "openai/gpt-oss-120b",
+    "embedding": "fastembed:BAAI/bge-small-en-v1.5:384"
+  },
+  "server_b_rss_mb": 307.9,
+  "server_b_cpu_s": 37.58,
+  "accuracy_cold_rounds": {
+    "1": null,
+    "2": null
+  },
+  "accuracy_cold": null,
+  "accuracy_cold_by_domain": {},
+  "accuracy_cold_by_query_round1": {},
+  "accuracy_prewarmed_plans": null,
+  "determinism": {
+    "pairs": 6,
+    "identical_response": 1,
+    "identical_plan_structure": 1,
+    "identical_deeplinks": 4,
+    "identical_variations": 0
+  },
+  "samples": [
+    {
+      "id": "sample_01_screen_damage",
+      "status": 200,
+      "step_accuracy": 1.0,
+      "deeplink_exact": 0,
+      "deeplink_targets": 1,
+      "expected_actions": [
+        "Back Up Phone Data",
+        "Schedule Screen Repair Service"
+      ],
+      "got_actions": [
+        "Check Extended Care",
+        "Visit Service Center"
+      ],
+      "same_uri_sequence": false,
+      "goal_equal": true,
+      "title_equal": false
+    }
+  ],
+  "latency": {
+    "cold": {
+      "client_ms": {
+        "n": 26,
+        "p50": 2170.61,
+        "p95": 3601.48,
+        "p99": 3734.98,
+        "mean": 2213.05,
+        "max": 3756.29
+      },
+      "server_ms": {
+        "n": 26,
+        "p50": 2166.17,
+        "p95": 3597.36,
+        "p99": 3730.88,
+        "mean": 2208.56,
+        "max": 3752.14
+      }
+    },
+    "cold_by_round": {
+      "1": {
+        "client_ms": {
+          "n": 20,
+          "p50": 2296.74,
+          "p95": 3675.31,
+          "p99": 3740.1,
+          "mean": 2309.87,
+          "max": 3756.29
+        },
+        "server_ms": {
+          "n": 20,
+          "p50": 2292.55,
+          "p95": 3671.34,
+          "p99": 3735.98,
+          "mean": 2305.29,
+          "max": 3752.14
+        }
+      },
+      "2": {
+        "client_ms": {
+          "n": 6,
+          "p50": 1876.64,
+          "p95": 2409.48,
+          "p99": 2469.06,
+          "mean": 1890.29,
+          "max": 2483.95
+        },
+        "server_ms": {
+          "n": 6,
+          "p50": 1872.57,
+          "p95": 2405.33,
+          "p99": 2465.08,
+          "mean": 1886.11,
+          "max": 2480.02
+        }
+      }
+    },
+    "exact_hit": {
+      "client_ms": {
+        "n": 36,
+        "p50": 8.35,
+        "p95": 12.01,
+        "p99": 14.3,
+        "mean": 8.71,
+        "max": 15.52
+      },
+      "server_ms": {
+        "n": 36,
+        "p50": 5.58,
+        "p95": 8.9,
+        "p99": 9.33,
+        "mean": 5.9,
+        "max": 9.44
+      }
+    },
+    "semantic_hit_llm_paraphrases": {
+      "client_ms": {
+        "n": 71,
+        "p50": 25.82,
+        "p95": 36.85,
+        "p99": 50.19,
+        "mean": 26.59,
+        "max": 55.51
+      },
+      "server_ms": {
+        "n": 71,
+        "p50": 23.05,
+        "p95": 32.86,
+        "p99": 47.25,
+        "mean": 23.6,
+        "max": 51.98
+      }
+    },
+    "semantic_hit_manual_paraphrases": {
+      "client_ms": {
+        "n": 0,
+        "p50": null,
+        "p95": null,
+        "p99": null,
+        "mean": null,
+        "max": null
+      },
+      "server_ms": {
+        "n": 0,
+        "p50": null,
+        "p95": null,
+        "p99": null,
+        "mean": null,
+        "max": null
+      }
+    },
+    "all_hits": {
+      "client_ms": {
+        "n": 111,
+        "p50": 22.63,
+        "p95": 36.5,
+        "p99": 47.4,
+        "mean": 21.17,
+        "max": 55.51
+      },
+      "server_ms": {
+        "n": 111,
+        "p50": 20.05,
+        "p95": 32.73,
+        "p99": 44.15,
+        "mean": 18.17,
+        "max": 51.98
+      }
+    }
+  },
+  "cold_path": {
+    "requests": 26,
+    "ok": 26,
+    "errors": {},
+    "model_calls_per_query": 1.923,
+    "input_tokens_per_query": 2089.4,
+    "output_tokens_per_query": 887.3,
+    "cost_usd_per_query": 0.00071647,
+    "cost_usd_p95": 0.00100948,
+    "cost_usd_total": 0.018628,
+    "models": {
+      "openai/gpt-oss-120b": 26
+    },
+    "over_8s": 0
+  },
+  "cache": {
+    "exact": {
+      "n": 40,
+      "cache_mix": {
+        "HIT-SEMANTIC": 4,
+        "HIT-EXACT": 36
+      }
+    },
+    "paraphrase_llm": {
+      "n": 80,
+      "hits": 71,
+      "hit_rate_pct": 88.75,
+      "correct_plan_hits": 68,
+      "correct_hit_rate_pct": 85.0,
+      "wrong_plan_hits": 3,
+      "cache_mix": {
+        "HIT-SEMANTIC": 71,
+        "MISS": 9
+      },
+      "by_style": {
+        "forum_post": {
+          "n": 20,
+          "correct_hits": 18
+        },
+        "keywords": {
+          "n": 20,
+          "correct_hits": 17
+        },
+        "question": {
+          "n": 20,
+          "correct_hits": 16
+        },
+        "text_message": {
+          "n": 20,
+          "correct_hits": 17
+        }
+      },
+      "misses": [
+        "why does my TechCorp A15G screen flash and go blank when opening Gmail emails?",
+        "A15G screen blank Gmail flash",
+        "How do I transfer data from my Nexa Fold X1 when the screen is completely black and unresponsive?",
+        "My tablet screen remains mostly black with only three app icons visible, while the rest are obscured and unresponsive. Because of this, nothing loads up and I am completely unable to use the device.",
+        "dark screen, only 3 icons lit, apps won't open, tablet unresponsive",
+        "How do I get this replaced when my screen is completely wrecked and the device won't turn on?",
+        "ur x1 ultra screen goes crazy flashing when u plug in the charger, makes it unusable for a sec",
+        "I just got my new Nexa A14 and the screen is all messed up right off the bat. I’m hoping someone can help me figure out why this is happening and what I should do next.",
+        "yo my nexa x1 is super laggy rn, touches are delayed and it feels laggy when i try to use it. ugh"
+      ],
+      "wrong_hits": [
+        "urgh my techcorp a15g is acting up. screen flashes then goes black whenever i tap an email in gmail. works for a sec then blank again. help?",
+        "Why is my tablet screen staying dark with only three app icons lit, causing everything else to fail to load?",
+        "cracked hinge, unresponsive touch, display visibility"
+      ],
+      "latency_hits": {
+        "client_ms": {
+          "n": 71,
+          "p50": 25.82,
+          "p95": 36.85,
+          "p99": 50.19,
+          "mean": 26.59,
+          "max": 55.51
+        },
+        "server_ms": {
+          "n": 71,
+          "p50": 23.05,
+          "p95": 32.86,
+          "p99": 47.25,
+          "mean": 23.6,
+          "max": 51.98
+        }
+      },
+      "round": 3,
+      "generator_model": "qwen/qwen3.8-27b",
+      "generated_at": "2026-10-01T21:41:35+00:00",
+      "dropped_as_seen": 0
+    },
+    "paraphrase_llm_older_rounds": {
+      "2": {
+        "n": 80,
+        "hits": 68,
+        "hit_rate_pct": 85.0,
+        "correct_plan_hits": 67,
+        "correct_hit_rate_pct": 83.75,
+        "wrong_plan_hits": 1,
+        "cache_mix": {
+          "MISS": 12,
+          "HIT-SEMANTIC": 68
+        },
+        "by_style": {
+          "non_native": {
+            "n": 20,
+            "correct_hits": 19
+          },
+          "short_angry": {
+            "n": 20,
+            "correct_hits": 18
+          },
+          "spoken": {
+            "n": 20,
+            "correct_hits": 16
+          },
+          "ticket_summary": {
+            "n": 20,
+            "correct_hits": 14
+          }
+        },
+        "misses": [
+          "Okay so yeah I am having a real issue with my TechCorp A15G tablet you know and basically whenever I try to like tap on an email in Gmail the screen just flashes and then goes totally blank and then after like a few seconds it comes back but then it goes blank again so it is just really annoying",
+          "TechCorp A15G screen keeps flashing and going white whenever I open Gmail emails. This is garbage.",
+          "Customer reports screen flashes and goes white intermittently when opening Gmail emails on a TechCorp A15G tablet.",
+          "Customer reports that the display on their TechCorp Nexa A14/A15 device became unresponsive and black after one month of use.",
+          "Tablet screen is half-dead. Only 3 icons show, rest are black and won't open. Useless pile of junk.",
+          "My tablet screen is only three icons show and others are dark. I try to open but nothing work. Device not usable because screen do not full load.",
+          "Customer reports tablet screen displays only three functional app icons with the remaining interface dark and unresponsive, rendering the device unusable.",
+          "um so like my nexa fold x1 just stopped showing anything on the inside screen you know it just went blank and i cant touch it at all but the little outer cover screen is still working so it is on but the main folding part is just black and unresponsive which is really weird",
+          "Customer reports total screen fracture rendering device inoperable.",
+          "Hey so quick question my TechCorp X1 Ultra screen is doing this thing where it just flashes like super fast you know like in milliseconds whenever i plug in the charger and it basically makes the display totally unusable for that short period so i dont really know what to do about it",
+          "Customer reports that the display on their TechCorp X1 Ultra intermittently flashes at high frequency upon connecting a charger, rendering the screen briefly unusable.",
+          "Customer reports recurrent screen cracking at the hinge, partial touch insensitivity, and severe visibility issues on their Nexa Fold X1 device."
+        ],
+        "wrong_hits": [
+          "Okay so my tablet screen is basically dead except for three little icons that are actually lit up like the rest of the screen is just completely dark and nothing loads when I tap them so I literally cannot use the device at all right now"
+        ],
+        "latency_hits": {
+          "client_ms": {
+            "n": 68,
+            "p50": 28.1,
+            "p95": 40.21,
+            "p99": 51.33,
+            "mean": 28.87,
+            "max": 58.97
+          },
+          "server_ms": {
+            "n": 68,
+            "p50": 25.18,
+            "p95": 37.2,
+            "p99": 46.93,
+            "mean": 25.84,
+            "max": 55.5
+          }
+        },
+        "generator_model": "qwen/qwen3.8-27b",
+        "note": "seen while fixing the enrichment lexicon; not an unbiased estimate"
+      }
+    },
+    "paraphrase_manual": {
+      "n": 0,
+      "hits": 0,
+      "hit_rate_pct": null,
+      "correct_plan_hits": 0,
+      "correct_hit_rate_pct": null,
+      "wrong_plan_hits": 0,
+      "cache_mix": {},
+      "by_style": {},
+      "misses": [],
+      "wrong_hits": [],
+      "latency_hits": {
+        "client_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "mean": null,
+          "max": null
+        },
+        "server_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "mean": null,
+          "max": null
+        }
+      }
+    },
+    "hits_total": 179,
+    "hit_cost_usd_values": [
+      0.0
+    ],
+    "hit_model_calls_values": [
+      0
+    ]
+  },
+  "negatives": {
+    "n": 20,
+    "cache_hits": 0,
+    "false_hits": [],
+    "no_siis_context": 20,
+    "kb_grounded_plans": [],
+    "cache_mix": {
+      "MISS": 20
+    }
+  },
+  "edge_cases": [
+    {
+      "id": "E01",
+      "kind": "typo_heavy",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Disable Super Steady Mode",
+        "Adjust Shutter Speed",
+        "Increase Lighting"
+      ],
+      "error_code": null,
+      "client_ms": 1836.9
+    },
+    {
+      "id": "E02",
+      "kind": "colloquial",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Connect USB Mouse and Keyboard",
+        "Inspect Device Hardware",
+        "Charge Device",
+        "Force Restart"
+      ],
+      "error_code": null,
+      "client_ms": 4021.6
+    },
+    {
+      "id": "E03",
+      "kind": "multi_symptom",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Visit Authorized Service Center"
+      ],
+      "error_code": null,
+      "client_ms": 1709.3
+    },
+    {
+      "id": "E04",
+      "kind": "multi_intent",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Open Quick Access Panel",
+        "Remove Shortcut"
+      ],
+      "error_code": null,
+      "client_ms": 1642.4
+    },
+    {
+      "id": "E05",
+      "kind": "unknown_domain",
+      "expected": "no_siis_context",
+      "observed": "no_siis_context",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [],
+      "error_code": null,
+      "client_ms": 23.7
+    },
+    {
+      "id": "E06",
+      "kind": "unsupported_domain",
+      "expected": "no_siis_context",
+      "observed": "no_siis_context",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [],
+      "error_code": null,
+      "client_ms": 11.4
+    },
+    {
+      "id": "E07",
+      "kind": "no_solution_siis",
+      "expected": "no_match",
+      "observed": "no_match",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [],
+      "error_code": null,
+      "client_ms": 1339.3
+    },
+    {
+      "id": "E08",
+      "kind": "irrelevant_siis",
+      "expected": "no_match",
+      "observed": "no_match",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [],
+      "error_code": null,
+      "client_ms": 962.9
+    },
+    {
+      "id": "E09",
+      "kind": "url_injection_query",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Disable Super Steady Mode",
+        "Adjust Shutter Speed",
+        "Increase Lighting"
+      ],
+      "error_code": null,
+      "client_ms": 1908.0
+    },
+    {
+      "id": "E10",
+      "kind": "url_injection_siis",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Disable Adaptive Brightness"
+      ],
+      "error_code": null,
+      "client_ms": 1701.6
+    },
+    {
+      "id": "E11",
+      "kind": "fabricated_uri_siis",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Turn Off Adaptive Brightness"
+      ],
+      "error_code": null,
+      "client_ms": 1595.4
+    },
+    {
+      "id": "E12",
+      "kind": "prompt_injection_siis",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Disable Extra Dim"
+      ],
+      "error_code": null,
+      "client_ms": 1804.6
+    },
+    {
+      "id": "E13",
+      "kind": "hierarchy_variation",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Adjust Font Size",
+        "Adjust Screen Zoom"
+      ],
+      "error_code": null,
+      "client_ms": 1515.2
+    },
+    {
+      "id": "E14",
+      "kind": "long_query",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Inspect Device Exterior",
+        "Charge Device",
+        "Power On Device",
+        "Force Restart Device"
+      ],
+      "error_code": null,
+      "client_ms": 2004.3
+    },
+    {
+      "id": "E15",
+      "kind": "empty_query",
+      "expected": "http_422",
+      "observed": "http_422",
+      "pass": true,
+      "cache": "",
+      "url_leaks": 0,
+      "contract_ok": null,
+      "actions": [],
+      "error_code": "empty_query",
+      "client_ms": 3.2
+    },
+    {
+      "id": "E16",
+      "kind": "whitespace_query",
+      "expected": "http_422",
+      "observed": "http_422",
+      "pass": true,
+      "cache": "",
+      "url_leaks": 0,
+      "contract_ok": null,
+      "actions": [],
+      "error_code": "empty_query",
+      "client_ms": 2.0
+    },
+    {
+      "id": "E17",
+      "kind": "too_long_query",
+      "expected": "http_422",
+      "observed": "http_422",
+      "pass": true,
+      "cache": "",
+      "url_leaks": 0,
+      "contract_ok": null,
+      "actions": [],
+      "error_code": "query_too_long",
+      "client_ms": 2.2
+    },
+    {
+      "id": "E18",
+      "kind": "non_english",
+      "expected": "any",
+      "observed": "no_siis_context",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [],
+      "error_code": null,
+      "client_ms": 19.2
+    }
+  ],
+  "results_jsonl": {
+    "lines": 20,
+    "queries": 20,
+    "missing": []
+  },
+  "compliance": {
+    "lines": 20,
+    "schema_valid_lines": 20,
+    "schema_valid_pct": 100.0,
+    "rule_compliance_goal_title_description_pct": 100.0,
+    "rule_checks_goal_title_description": 242,
+    "rule_compliance_all_rules_pct": 100.0,
+    "rule_checks_all": 1785,
+    "lines_fully_compliant": 20,
+    "lines_fully_compliant_pct": 100.0,
+    "absolute_url_leaks": 0,
+    "deeplinks_emitted": 6,
+    "deeplinks_catalog_valid": 6,
+    "deeplink_catalog_validity_pct": 100.0,
+    "auto_actions": 7,
+    "auto_with_catalog_deeplink": 2,
+    "auto_with_dummy_positive": 0,
+    "auto_with_valid_actionable_pct": 28.57,
+    "auto_with_catalog_actionable_pct": 28.57,
+    "manual_actions_with_actionable_deeplink": 0,
+    "critical_order_violations": 0,
+    "violations_by_rule": {},
+    "checks_by_rule": {
+      "action.name_single_feature": {
+        "checks": 65,
+        "passed": 65
+      },
+      "action.name_title_case": {
+        "checks": 65,
+        "passed": 65
+      },
+      "action.name_words": {
+        "checks": 65,
+        "passed": 65
+      },
+      "action.not_fragmented": {
+        "checks": 49,
+        "passed": 49
+      },
+      "action.single_screen": {
+        "checks": 65,
+        "passed": 65
+      },
+      "action.step_groups": {
+        "checks": 65,
+        "passed": 65
+      },
+      "action.unique_names": {
+        "checks": 16,
+        "passed": 16
+      },
+      "action.unique_targets": {
+        "checks": 16,
+        "passed": 16
+      },
+      "category.valid": {
+        "checks": 65,
+        "passed": 65
+      },
+      "deeplink.catalog_membership": {
+        "checks": 3,
+        "passed": 3
+      },
+      "deeplink.field_integrity": {
+        "checks": 3,
+        "passed": 3
+      },
+      "deeplink.manual_actionable": {
+        "checks": 3,
+        "passed": 3
+      },
+      "description.prefix": {
+        "checks": 65,
+        "passed": 65
+      },
+      "description.word_count": {
+        "checks": 65,
+        "passed": 65
+      },
+      "envelope.query": {
+        "checks": 20,
+        "passed": 20
+      },
+      "fallback.consistency": {
+        "checks": 20,
+        "passed": 20
+      },
+      "goal.has_actions": {
+        "checks": 16,
+        "passed": 16
+      },
+      "goal.syntax": {
+        "checks": 16,
+        "passed": 16
+      },
+      "goal.topic_title_case": {
+        "checks": 16,
+        "passed": 16
+      },
+      "goal.topic_words": {
+        "checks": 16,
+        "passed": 16
+      },
+      "ordering.critical_last": {
+        "checks": 49,
+        "passed": 49
+      },
+      "ordering.critical_rank": {
+        "checks": 16,
+        "passed": 16
+      },
+      "score.range": {
+        "checks": 16,
+        "passed": 16
+      },
+      "score.type": {
+        "checks": 16,
+        "passed": 16
+      },
+      "step.imperative": {
+        "checks": 143,
+        "passed": 143
+      },
+      "step.length": {
+        "checks": 143,
+        "passed": 143
+      },
+      "step.no_duplicate": {
+        "checks": 143,
+        "passed": 143
+      },
+      "step.non_empty": {
+        "checks": 143,
+        "passed": 143
+      },
+      "step.single_interaction": {
+        "checks": 143,
+        "passed": 143
+      },
+      "steps.non_empty": {
+        "checks": 65,
+        "passed": 65
+      },
+      "title.punctuation": {
+        "checks": 16,
+        "passed": 16
+      },
+      "title.sentence_case": {
+        "checks": 16,
+        "passed": 16
+      },
+      "title.word_count": {
+        "checks": 16,
+        "passed": 16
+      },
+      "url.leak": {
+        "checks": 40,
+        "passed": 40
+      },
+      "validation.catalog_membership": {
+        "checks": 3,
+        "passed": 3
+      },
+      "validation.field_integrity": {
+        "checks": 3,
+        "passed": 3
+      },
+      "variations.count": {
+        "checks": 20,
+        "passed": 20
+      },
+      "variations.distinct": {
+        "checks": 20,
+        "passed": 20
+      },
+      "variations.non_empty": {
+        "checks": 20,
+        "passed": 20
+      },
+      "variations.not_query": {
+        "checks": 20,
+        "passed": 20
+      },
+      "variations.type": {
+        "checks": 20,
+        "passed": 20
+      }
+    }
+  },
+  "compliance_all_paths": {
+    "lines": 262,
+    "schema_valid_lines": 262,
+    "schema_valid_pct": 100.0,
+    "rule_compliance_goal_title_description_pct": 100.0,
+    "rule_checks_goal_title_description": 3290,
+    "rule_compliance_all_rules_pct": 100.0,
+    "rule_checks_all": 22976,
+    "lines_fully_compliant": 262,
+    "lines_fully_compliant_pct": 100.0,
+    "absolute_url_leaks": 0,
+    "deeplinks_emitted": 65,
+    "deeplinks_catalog_valid": 65,
+    "deeplink_catalog_validity_pct": 100.0,
+    "auto_actions": 185,
+    "auto_with_catalog_deeplink": 29,
+    "auto_with_dummy_positive": 5,
+    "auto_with_valid_actionable_pct": 18.38,
+    "auto_with_catalog_actionable_pct": 15.68,
+    "manual_actions_with_actionable_deeplink": 0,
+    "critical_order_violations": 0,
+    "violations_by_rule": {},
+    "checks_by_rule": {
+      "action.name_single_feature": {
+        "checks": 868,
+        "passed": 868
+      },
+      "action.name_title_case": {
+        "checks": 868,
+        "passed": 868
+      },
+      "action.name_words": {
+        "checks": 868,
+        "passed": 868
+      },
+      "action.not_fragmented": {
+        "checks": 646,
+        "passed": 646
+      },
+      "action.single_screen": {
+        "checks": 868,
+        "passed": 868
+      },
+      "action.step_groups": {
+        "checks": 868,
+        "passed": 868
+      },
+      "action.unique_names": {
+        "checks": 222,
+        "passed": 222
+      },
+      "action.unique_targets": {
+        "checks": 222,
+        "passed": 222
+      },
+      "category.valid": {
+        "checks": 868,
+        "passed": 868
+      },
+      "deeplink.catalog_membership": {
+        "checks": 30,
+        "passed": 30
+      },
+      "deeplink.dummy_description": {
+        "checks": 5,
+        "passed": 5
+      },
+      "deeplink.dummy_not_allowed": {
+        "checks": 5,
+        "passed": 5
+      },
+      "deeplink.field_integrity": {
+        "checks": 30,
+        "passed": 30
+      },
+      "deeplink.manual_actionable": {
+        "checks": 35,
+        "passed": 35
+      },
+      "description.prefix": {
+        "checks": 868,
+        "passed": 868
+      },
+      "description.word_count": {
+        "checks": 868,
+        "passed": 868
+      },
+      "envelope.query": {
+        "checks": 262,
+        "passed": 262
+      },
+      "fallback.consistency": {
+        "checks": 262,
+        "passed": 262
+      },
+      "goal.has_actions": {
+        "checks": 222,
+        "passed": 222
+      },
+      "goal.syntax": {
+        "checks": 222,
+        "passed": 222
+      },
+      "goal.topic_title_case": {
+        "checks": 222,
+        "passed": 222
+      },
+      "goal.topic_words": {
+        "checks": 222,
+        "passed": 222
+      },
+      "ordering.critical_last": {
+        "checks": 683,
+        "passed": 683
+      },
+      "ordering.critical_rank": {
+        "checks": 185,
+        "passed": 185
+      },
+      "score.range": {
+        "checks": 222,
+        "passed": 222
+      },
+      "score.type": {
+        "checks": 222,
+        "passed": 222
+      },
+      "step.imperative": {
+        "checks": 1737,
+        "passed": 1737
+      },
+      "step.length": {
+        "checks": 1737,
+        "passed": 1737
+      },
+      "step.no_duplicate": {
+        "checks": 1737,
+        "passed": 1737
+      },
+      "step.non_empty": {
+        "checks": 1737,
+        "passed": 1737
+      },
+      "step.single_interaction": {
+        "checks": 1737,
+        "passed": 1737
+      },
+      "steps.non_empty": {
+        "checks": 868,
+        "passed": 868
+      },
+      "title.punctuation": {
+        "checks": 222,
+        "passed": 222
+      },
+      "title.sentence_case": {
+        "checks": 222,
+        "passed": 222
+      },
+      "title.word_count": {
+        "checks": 222,
+        "passed": 222
+      },
+      "url.leak": {
+        "checks": 524,
+        "passed": 524
+      },
+      "validation.catalog_membership": {
+        "checks": 30,
+        "passed": 30
+      },
+      "validation.field_integrity": {
+        "checks": 30,
+        "passed": 30
+      },
+      "variations.count": {
+        "checks": 262,
+        "passed": 262
+      },
+      "variations.distinct": {
+        "checks": 262,
+        "passed": 262
+      },
+      "variations.non_empty": {
+        "checks": 262,
+        "passed": 262
+      },
+      "variations.not_query": {
+        "checks": 262,
+        "passed": 262
+      },
+      "variations.type": {
+        "checks": 262,
+        "passed": 262
+      }
+    }
+  },
+  "finished_at": "2026-10-01T21:59:35+00:00"
+}

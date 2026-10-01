@@ -66,6 +66,7 @@ _COMMON_WORDS = frozenset(
     weird well went were what when where whether which while white who why will with without work worked working works
     worse worst would wrong year yellow yes yesterday yet you your yourself
     annoying frustrating ridiculous horrible awful useless unusable nuts mad insane help
+    hate hated damn trash junk garbage stupid crap pile fix now
     """.split()
 )
 _DOMAIN_WORDS = """
@@ -82,6 +83,8 @@ bluetooth ringtone keyboard contacts fingerprint microphone speaker notification
 fast faster quickly quick slowly phone phones dies dying died keeps keep apps application applications pictures
 galaxy samsung charged charges crashing working stopped suddenly sometimes constantly latest installed installing
 downloaded downloading brightness adaptive smoothness protector sensitivity optimizer tracking autofocus hdr selfie
+blank white cracked crack cracks shattered broken distorted floating circle transfer inner outer cover icons tablet
+fold foldable activation carrier expand image half aspect ratio resolution startup
 """.split()
 
 

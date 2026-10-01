@@ -192,6 +192,66 @@ Severity scale:
 * **Regression test.** `tests/unit/test_enrichment.py::test_charging_to_full_is_not_a_charge_limit_request`.
   E14 passes in the final benchmark (18/18 edge cases).
 
+### H15 — High: the official SIIS answers were refused as "not relevant"
+* **Failure.** On the official data, 4 of the first 20 pre-warm requests returned `no_match` although their SIIS
+  answer had usable steps (for example a screen-blank complaint paired with an e-mail troubleshooting article,
+  a cracked-screen article that offers only repair-service options).
+* **Root cause.** The extraction prompt asked for "only actions relevant to the complaint" and called the device a
+  "Samsung Galaxy phone"; the official SIIS answers are retrieved per query and often describe a related issue,
+  and service steps were not seen as actions.
+* **Fix.** The prompt now treats the SOURCE as the answer retrieved for the complaint: keep the steps that could
+  help, return `no_match` only for a different kind of product or no actionable step, and treat written service
+  steps (check for damage, back up, contact support, book a repair) as manual actions. Generic device wording.
+* **Result.** 19/20 official queries pre-warm with a grounded plan; the remaining one (Multi window article for a
+  dark-screen complaint) is still refused, which is the intended behaviour.
+
+### H16 — High: physical steps labelled "auto" (official data)
+* **Failure.** The model labelled "press and hold the Power button", "connect the charger", "remove the battery",
+  "connect a USB mouse / HDMI adapter" and "increase the lighting" as `auto`; such actions can never carry a link.
+* **Fix.** Deterministic manual rules for power/side-button presses, charging, battery removal, damage
+  inspection and external hardware connection (only when no Settings navigation is involved). "Check for
+  software updates" is now recognised as a software update (critical).
+* **Regression tests.** `tests/unit/test_repair_and_categories.py::test_physical_operations_proposed_auto_become_manual`,
+  `::test_official_data_category_cases`.
+* **Considered and rejected.** Relabelling every `auto` action that has no deeplink as `manual` would raise the
+  "auto with deeplink" metric, but it contradicts the category definition (manual = physical intervention) and
+  broke a reference sample (`Update Your Apps` in the Galaxy Store is auto). It was reverted.
+
+### H17 — Medium: "Tap the switch next to X" mapped to a control named "switch next"
+* **Failure.** "Tap the switch next to Touch sensitivity" produced the dummy link "Tap switch next in Display
+  settings" although the catalog has Touch sensitivity on/off entries.
+* **Fix.** The UI-path parser reads "tap the switch/toggle next to X (to enable/disable it)" as the control X with
+  its state. **Regression test.** `tests/unit/test_repair_and_categories.py::test_switch_next_to_label_is_the_control`.
+
+### H18 — High: semantic cache recall on the official data (55%)
+* **Failure.** On 80 held-out paraphrases of the official queries (round 2, `qwen/qwen3.8-27b`), only 44 (55%)
+  hit the cache; there were 0 wrong-plan hits. Pre-fix report: `artifacts/reports/official_prefix/benchmark.json`.
+* **Root cause.** The lexicon had no screen-fault concepts (black/blank, cracked, partial, scaled-down, distorted
+  screens, floating button, start-up failure), so most official complaints were concept-free and had to clear
+  the strict no-concept threshold (0.93). Two smaller bugs: "hate" was typo-corrected to "rate", and "plug in a
+  charger" was not recognised as *while charging*.
+* **Fix.** Screen-fault concepts and three discriminating qualifiers (data transfer, inner screen, after
+  activation), written from the 20 official complaints and general vocabulary, **not** from the round-2 misses.
+  Common complaint words are protected from typo correction. A black camera preview stays `camera_black_screen`.
+  `PIPELINE_VERSION` 1.2.0; the synthetic-fixture plans were re-keyed without a model call
+  (`scripts/rekey_prewarm.py`).
+* **Measurement.** Round 2 was seen while diagnosing, so the hit rate is re-measured on a fresh round 3
+  generated after the change (`metrics.md` §4).
+* **Regression tests.** `tests/unit/test_enrichment.py::test_official_screen_concepts`,
+  `::test_camera_black_preview_is_not_a_blank_screen`, `::test_common_words_are_not_typo_corrected`.
+
+### H19 — Medium: evaluation runs silently used a stale API key and the fallback model
+* **Failure.** In the first official benchmark, 22 of 26 cold requests were served by the fallback
+  `openai/gpt-oss-20b` because `openai/gpt-oss-120b` answered HTTP 429; a later pre-warm failed on every model.
+* **Root cause.** `scripts/_common.load_env_file` used `os.environ.setdefault`, so a `GROQ_API_KEY` inherited
+  from the shell (an older, exhausted key) silently won over the key file passed with `--env-file`. A secondary
+  factor: Groq admits a request only if `prompt + max_completion_tokens` fits the remaining per-minute budget
+  (8K on the free tier), and `LLM_MAX_OUTPUT_TOKENS=4096` left no room for a second call in the same minute.
+* **Fix.** A key file passed explicitly on the command line now overrides inherited variables. The free-tier
+  evaluation sets `LLM_MAX_OUTPUT_TOKENS=2048` (measured outputs are 500–1,200 tokens including reasoning) and
+  paces cold requests 25 s apart. The provider logs the full quota message, and the report states which model
+  served every request. The first official benchmark is kept as `artifacts/reports/official_prefix/`.
+
 ## Attack coverage
 
 | Attack | Offline evidence (`tests/adversarial/test_attacks.py` unless noted) | Live evidence | Result |
@@ -211,4 +271,4 @@ Severity scale:
 | 13 No source | four out-of-scope complaints → `no_siis_context`, no extraction call | A13 probe; negatives in the benchmark | Fixed (H13); 36/40 negatives → no_siis_context; 1/1 live probes pass |
 | 14 No solution | no-solution SIIS → `no_match`, nothing cached | A14 probe; edge cases E07/E08 | Pass; E07/E08 no_match; 1/1 live probes pass |
 
-Live probe summary (`artifacts/reports/hostile.json`, dev_fixtures (synthetic, NOT OFFICIAL)): 19/19 passed against `groq/openai/gpt-oss-120b`.
+Live probe summary (`artifacts/reports/dev_fixtures/hostile.json`, dev_fixtures (synthetic, NOT OFFICIAL)): 19/19 passed against `groq/openai/gpt-oss-120b`.

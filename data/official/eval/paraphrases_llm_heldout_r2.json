@@ -1,0 +1,498 @@
+{
+  "_notice": "LLM-generated held-out paraphrases (synthetic). Generated after the semantic threshold was frozen; items identical to a cache key were removed.",
+  "generated_at": "2026-10-01T17:42:53+00:00",
+  "round": 2,
+  "styles": {
+    "spoken": "said aloud to a voice assistant: no punctuation, run-on, filler words",
+    "short_angry": "a short, angry message",
+    "non_native": "written by a non-native English speaker, with small grammar mistakes",
+    "ticket_summary": "a one-sentence support-ticket summary written by an agent in the third person"
+  },
+  "generator_model": "qwen/qwen3.8-27b",
+  "temperature": 0.9,
+  "pipeline_version": "1.1.0",
+  "frozen_threshold": 0.77,
+  "dropped_as_seen": 0,
+  "items": [
+    {
+      "query_id": "row_1",
+      "style": "spoken",
+      "text": "Okay so yeah I am having a real issue with my TechCorp A15G tablet you know and basically whenever I try to like tap on an email in Gmail the screen just flashes and then goes totally blank and then after like a few seconds it comes back but then it goes blank again so it is just really annoying",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_1",
+      "style": "short_angry",
+      "text": "TechCorp A15G screen keeps flashing and going white whenever I open Gmail emails. This is garbage.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_1",
+      "style": "non_native",
+      "text": "My TechCorp A15G tablet have a problem. When I tap on Gmail email, the screen flash and then go blank. It wait a little bit and work again, but then go blank one more time.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_1",
+      "style": "ticket_summary",
+      "text": "Customer reports screen flashes and goes white intermittently when opening Gmail emails on a TechCorp A15G tablet.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_2",
+      "style": "spoken",
+      "text": "hey so my little phone the nexa x1 it keeps doing this thing where the screen just goes completely white or totally black and then there is just no text at all like when I try to look up a stock price or open that quick assist app i can see the background but nothing else and it does it with other stuff too which is really annoying",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_2",
+      "style": "short_angry",
+      "text": "Screen freezes on white/blank with no text. Happens in stocks and Quick Assist. Fix it.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_2",
+      "style": "non_native",
+      "text": "My phone screen go black or white when I use stock app or Quick Assist. It stop show text. Happen in other apps also.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_2",
+      "style": "ticket_summary",
+      "text": "Customer reports intermittent full-screen blank or white display with missing text in third-party apps including stock widgets and Quick Assist on Nexa X1.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_3",
+      "style": "spoken",
+      "text": "hey so I'm having a real bad time right now my Nexa Fold X1 screen just went completely black like all of a sudden so I can't even see what's on there and I can't touch anything to make it work and I'm stuck because I need to use data transfer to get my files off but I can't do that if the screen is dead",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_3",
+      "style": "short_angry",
+      "text": "Nexa Fold X1 screen is totally black. Can't backup anything. Useless.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_3",
+      "style": "non_native",
+      "text": "My phone screen Nexa Fold X1 is all black now. I can not see screen or touch it. I want to move my data using Data Transfer but it not working because phone is dead. Please help.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_3",
+      "style": "ticket_summary",
+      "text": "Customer reports black screen on Nexa Fold X1 preventing any interaction and blocking data transfer attempts.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_4",
+      "style": "spoken",
+      "text": "hey can you help me out um so my phone which is the TechCorp Nexa A14 right so after about a month the screen just went completely black and now i cant see anything at all even when i try to turn it on its just blank so i dont know what to do",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_4",
+      "style": "short_angry",
+      "text": "Screen died on my Nexa A14 after a month. Completely unresponsive. Fix it now.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_4",
+      "style": "non_native",
+      "text": "I use my phone TechCorp Nexa A14 for one month. Suddenly the screen is black. I press button but nothing on screen only black. Please help me fix this because I need my phone.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_4",
+      "style": "ticket_summary",
+      "text": "Customer reports that the display on their TechCorp Nexa A14/A15 device became unresponsive and black after one month of use.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_5",
+      "style": "spoken",
+      "text": "hey so my tablet screen is just completely blank like totally nothing there when I try to use that Data Transfer thing to scan the QR code from my Nexa X1 phone and because of that I just cannot get the transfer to go through which is really annoying because I need to move my stuff over",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_5",
+      "style": "short_angry",
+      "text": "Do not work. Blank screen on QR code. Transfer fail. Fix now.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_5",
+      "style": "non_native",
+      "text": "I use Data Transfer with Nexa X1. Screen is blank when scan QR code. Cannot transfer data.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_5",
+      "style": "ticket_summary",
+      "text": "Customer reports a blank tablet screen during the QR code scanning phase of Data Transfer from a Nexa X1, preventing the migration from proceeding.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_7",
+      "style": "spoken",
+      "text": "Okay so my tablet screen is basically dead except for three little icons that are actually lit up like the rest of the screen is just completely dark and nothing loads when I tap them so I literally cannot use the device at all right now",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_7",
+      "style": "short_angry",
+      "text": "Tablet screen is half-dead. Only 3 icons show, rest are black and won't open. Useless pile of junk.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_7",
+      "style": "non_native",
+      "text": "My tablet screen is only three icons show and others are dark. I try to open but nothing work. Device not usable because screen do not full load.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_7",
+      "style": "ticket_summary",
+      "text": "Customer reports tablet screen displays only three functional app icons with the remaining interface dark and unresponsive, rendering the device unusable.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_8",
+      "style": "spoken",
+      "text": "um hi so my screen on my new phone is just staying small and it wont like expand to take up the whole thing and i dont know how to fix it and i have never seen it do this before",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_8",
+      "style": "short_angry",
+      "text": "Display is stuck in small mode. Useless phone.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_8",
+      "style": "non_native",
+      "text": "My new phone have big space around the screen. The picture is small and not fill whole display. I try to make it full screen but imposible. This is new for me.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_8",
+      "style": "ticket_summary",
+      "text": "Customer reports that the screen content on a new device remains scaled down and does not expand to full display size despite attempts to adjust settings.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_9",
+      "style": "spoken",
+      "text": "um so like my nexa fold x1 just stopped showing anything on the inside screen you know it just went blank and i cant touch it at all but the little outer cover screen is still working so it is on but the main folding part is just black and unresponsive which is really weird",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_9",
+      "style": "short_angry",
+      "text": "My Nexa Fold X1 inner screen is completely dead. No image, no touch. Outer screen works fine, so the phone isn't off. Fix this.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_9",
+      "style": "non_native",
+      "text": "My phone is Nexa Fold X1. The inside screen is dead. It does not show picture and no touch works. But outside screen OK. Please help.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_9",
+      "style": "ticket_summary",
+      "text": "Customer reports that the inner display of the Nexa Fold X1 is non-functional with no image or touch response, while the outer cover screen remains operational.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_10",
+      "style": "spoken",
+      "text": "Hey assistant i need help my TechCorp Nexa Fold X1 screen flickers and goes blank every time i open it i cant see anything or access settings it stops me from using the phone",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_10",
+      "style": "short_angry",
+      "text": "TechCorp X1 screen flickers, goes blank, can't use phone, very frustrating!",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_10",
+      "style": "non_native",
+      "text": "My TechCorp Nexa Fold X1 screen flicker and go blank whenever i open it, so i can not see anything or access setting, which stops me from using the phone",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_10",
+      "style": "ticket_summary",
+      "text": "User reports that the TechCorp Nexa Fold X1 screen flickers and goes blank upon opening, preventing access to settings and use of the phone.",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_11",
+      "style": "spoken",
+      "text": "hey so i think my phone got a problem the nexa fold x1 and like half of the screen is just all black and the other half is working fine but i really cant use it so could you help me figure out what is going on",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_11",
+      "style": "short_angry",
+      "text": "Half my screen is dead. Useless piece of trash.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_11",
+      "style": "non_native",
+      "text": "My phone Nexa Fold X1 have problem with screen. One side is black and the other side is good. I can not use phone is not working for me.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_11",
+      "style": "ticket_summary",
+      "text": "Customer reports that the left half of the Nexa Fold X1 display is non-functional and black, rendering the device inoperable.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_12",
+      "style": "spoken",
+      "text": "hey google i have this problem my nexan x1 keep showing a floating circle on my screen and i can’t get rid of it it’s like a shortcut bar and it’s annoying",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_12",
+      "style": "short_angry",
+      "text": "I hate this damn floating circle on my Nexa X1, remove it NOW!",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_12",
+      "style": "non_native",
+      "text": "I have Nexa X1, there is floating circle on screen give me shortcut to recent apps, home, back, screen off, volume, and i want to delete it",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_12",
+      "style": "ticket_summary",
+      "text": "Customer reports persistent floating circle shortcut bar on Nexa X1 screen, requests removal.",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_13",
+      "style": "spoken",
+      "text": "hey voice assistant can you help me i keep my phone on the screen stays blank no activation message after i turned it on the carrier deactivated my old phone i want help",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_13",
+      "style": "short_angry",
+      "text": "This is ridiculous my phone won't show anything after activation",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_13",
+      "style": "non_native",
+      "text": "My Nexa X1 screen is blank, no activation message when I turn on after the carrier deactivate my old phone",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_13",
+      "style": "ticket_summary",
+      "text": "Customer reports that the Nexa X1 screen remains blank without an activation message after the carrier deactivated the previous device.",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_14",
+      "style": "spoken",
+      "text": "Hey so my phone screen is actually just completely shattered like there are cracks everywhere and I literally cant even use it at all right now so I need help fixing this",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_14",
+      "style": "short_angry",
+      "text": "Ripped screen. Totally unusable. Replace it now.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_14",
+      "style": "non_native",
+      "text": "My phone screen have a lot of cracks. It is broken all over. I can no use the device.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_14",
+      "style": "ticket_summary",
+      "text": "Customer reports total screen fracture rendering device inoperable.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_15",
+      "style": "spoken",
+      "text": "Okay so I am trying to turn on my Nexa X1 Ultra and honestly it is just giving me this blue screen or maybe black with like tiny little text on it and it will not boot up and I have tried holding the power button down for like a really long time but it just does not work at all",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_15",
+      "style": "short_angry",
+      "text": "Nexa X1 Ultra is dead. Blue screen of death then tiny text. Holding power button does nothing. Useless brick.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_15",
+      "style": "non_native",
+      "text": "My phone Nexa X1 Ultra is broken. When I press power button, I only see blue screen with small text. It cannot boot in. I hold power button long time but no help. Please fix.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_15",
+      "style": "ticket_summary",
+      "text": "Customer reports Nexa X1 Ultra fails to boot, displaying a blue or black screen with small text, unresponsive to long-press power button reset.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_16",
+      "style": "spoken",
+      "text": "Hey so quick question my TechCorp X1 Ultra screen is doing this thing where it just flashes like super fast you know like in milliseconds whenever i plug in the charger and it basically makes the display totally unusable for that short period so i dont really know what to do about it",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_16",
+      "style": "short_angry",
+      "text": "My TechCorp X1 Ultra screen flashes violently every time I plug it in. Unusable!",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_16",
+      "style": "non_native",
+      "text": "When i connect my charger the screen flash very fast for few milisecond. It make unusable for short time. Phone is TechCorp X1 Ultra.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_16",
+      "style": "ticket_summary",
+      "text": "Customer reports that the display on their TechCorp X1 Ultra intermittently flashes at high frequency upon connecting a charger, rendering the screen briefly unusable.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_17",
+      "style": "spoken",
+      "text": "my nexa x1 screen goes completely blank I can barely see anything and I can't use data transfer it just keeps scrolling",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_17",
+      "style": "short_angry",
+      "text": "Nexa X1 screen is blank, no content, data transfer useless!",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_17",
+      "style": "non_native",
+      "text": "My Nexa X1 screen go blank completely I cannot see any content only scroll, cannot use data transfer",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_17",
+      "style": "ticket_summary",
+      "text": "Customer reports that the Nexa X1 screen becomes completely blank, with only occasional scrolling and no visible content, preventing use of data transfer.",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_19",
+      "style": "spoken",
+      "text": "hey so my nexa fold x1 screen just cracked again like right where it folds which is so annoying and also the touch doesn't really work on certain parts of it and i can barely see anything on the display it's really frustrating",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_19",
+      "style": "short_angry",
+      "text": "Nexa Fold X1 is trash. Screen cracked at the fold, touch dead zones, and I can't even see nothing.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_19",
+      "style": "non_native",
+      "text": "My Nexa Fold X1 screen broken again on the fold line. Touch not working at some parts. I can see very little on display is bad.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_19",
+      "style": "ticket_summary",
+      "text": "Customer reports recurrent screen cracking at the hinge, partial touch insensitivity, and severe visibility issues on their Nexa Fold X1 device.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_20",
+      "style": "spoken",
+      "text": "hey google i just got my nexa a14 and the screen looks all weird distorted right after i opened the box and i want it checked",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_20",
+      "style": "short_angry",
+      "text": "Screen is distorted! Fix now!",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_20",
+      "style": "non_native",
+      "text": "I receive the Nexa A14 and the screen looks distorted right after I get it, need diagnostic test",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_20",
+      "style": "ticket_summary",
+      "text": "Customer reports that the Nexa A14 screen is distorted immediately upon receiving the device and requests a diagnostic test.",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_21",
+      "style": "spoken",
+      "text": "Hey listen I'm having like a really big issue with my Nexa X1 where the screen is just not responding fast enough like everything is laggy and there's this weird delay when I try to touch anything so it's just really annoying",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_21",
+      "style": "short_angry",
+      "text": "Nexa X1 screen is lagging so badly it's unusable. Fix my phone.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_21",
+      "style": "non_native",
+      "text": "My phone Nexa X1 have problem. When I touch screen, it is slow. There is big delay for every tap. Input not instantly work. Very annoying for use phone normal.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_21",
+      "style": "ticket_summary",
+      "text": "Customer reports significant touch input latency and lag on Nexa X1 device.",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "query_id": "row_22",
+      "style": "spoken",
+      "text": "hey voice assistant can you help me i have a new nexax1 ultra phone but the screen is all black i can not turn it on the phone does ring but the screen stays black i need help",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_22",
+      "style": "short_angry",
+      "text": "Nexa X1 Ultra screen is black! Phone works otherwise! Fix this now!",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_22",
+      "style": "non_native",
+      "text": "My Nexa X1 Ultra screen is black and it do not turn on the phone works ring but screen is black no damage on phone",
+      "model": "openai/gpt-oss-20b"
+    },
+    {
+      "query_id": "row_22",
+      "style": "ticket_summary",
+      "text": "Customer reports black screen on Nexa X1 Ultra while phone powers on and rings, with no physical damage",
+      "model": "openai/gpt-oss-20b"
+    }
+  ]
+}

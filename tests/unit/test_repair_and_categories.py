@@ -122,3 +122,20 @@ def test_side_button_settings_screen_stays_auto():
     from app.services.category_rules import classify
 
     assert classify("Configure Side Button", ["Open Settings.", "Tap Advanced features.", "Tap Side button."], "auto").category == "auto"
+
+
+@pytest.mark.parametrize("name,steps,expected", [
+    ("Connect USB Mouse", ["Connect USB mouse and keyboard to phone using a USB adapter."], "manual"),
+    ("Connect HDMI Adapter", ["Connect the adapter to your phone.", "Connect the HDMI cable to the adapter."], "manual"),
+    ("Increase Lighting", ["Increase the lighting in your scene."], "manual"),
+    ("Check for Software Updates", ["Open Settings.", "Check for updates."], "critical"),
+])
+def test_official_data_category_cases(name, steps, expected):
+    assert R.classify(name, steps, "auto").category == expected
+
+
+def test_switch_next_to_label_is_the_control():
+    from app.retrieval.ui_path import parse_ui_path
+
+    els = parse_ui_path(["Open Settings.", "Tap Display.", "Tap the switch next to Touch sensitivity to disable it."]).elements
+    assert (els[-1].label, els[-1].kind, els[-1].state) == ("Touch sensitivity", "control", "off")

@@ -13,7 +13,9 @@ if str(ROOT) not in sys.path:
 
 
 def load_env_file(path: str | None) -> None:
-    """Load KEY=VALUE lines (e.g. a local .env holding GEMINI_API_KEY) without printing values."""
+    """Load KEY=VALUE lines (e.g. a local .env holding GEMINI_API_KEY) without printing values.
+
+    A file passed explicitly on the command line wins over variables inherited from the shell."""
     if not path:
         return
     p = Path(path)
@@ -23,7 +25,7 @@ def load_env_file(path: str | None) -> None:
         line = line.strip()
         if line and not line.startswith("#") and "=" in line:
             k, v = line.split("=", 1)
-            os.environ.setdefault(k.strip(), v.strip())
+            os.environ[k.strip()] = v.strip()
 
 
 def write_json(path: Path, obj) -> None:

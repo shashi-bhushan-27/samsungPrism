@@ -17,6 +17,9 @@ _SECTION = re.compile(
     r"^\s*(?:(?:\d+[.)])|(?:solution|step|option|method|tip)\s*\d*\s*[:.)-]|[-*•])\s*(?P<head>[^\n]*)$",
     re.I | re.M,
 )
+_MD_HEAD = re.compile(r"^\s*#{1,6}\s*(?P<head>.+?)\s*#*\s*$")  # markdown headings (official SIIS articles)
+_STEP_PREFIX = re.compile(r"(?i)^(?:step|solution|option|method|tip)\s*\d+\s*[:.)-]\s*")
+_NOTE = re.compile(r"(?i)^(?:note|notes|important|caution|warning|tip)\b")
 _HEAD_BODY = re.compile(r"^(?P<head>[^:]{3,80}):\s*(?P<body>.+)$", re.S)
 _SENT = re.compile(r"(?<=[.!?])\s+")
 
@@ -28,6 +31,11 @@ def _sections(text: str) -> list[tuple[str, str]]:
     loose: list[str] = []
     for ln in lines:
         if not ln.strip():
+            continue
+        md = _MD_HEAD.match(ln)
+        if md:
+            current = (_STEP_PREFIX.sub("", md.group("head")).strip(), [])
+            sections.append(current)
             continue
         m = _SECTION.match(ln)
         if m:
@@ -42,7 +50,7 @@ def _sections(text: str) -> list[tuple[str, str]]:
             current[1].append(ln.strip())
         else:
             loose.append(ln.strip())
-    out = [(h, " ".join(b)) for h, b in sections]
+    out = [(h, " ".join(b)) for h, b in sections if not _NOTE.match(h)]
     if not out:
         # Unstructured prose: every imperative paragraph becomes a candidate section.
         out = [("", p) for p in loose[1:]] if len(loose) > 1 else [("", " ".join(loose))]
@@ -51,17 +59,21 @@ def _sections(text: str) -> list[tuple[str, str]]:
 
 def _name_from(head: str, steps: list[str]) -> str:
     base = head.strip().rstrip(".:")
-    if not base and steps:
-        base = steps[-1].rstrip(".")
-    words = base.split()[:6]
-    return T.to_title_case(" ".join(words)) if words else "Review Settings"
+    words = base.split()
+    if words and len(words) <= 6:
+        return T.to_title_case(" ".join(words))
+    if steps:  # no usable heading: name the screen or control the steps operate (never a cut-off sentence)
+        from app.services.action_grouping import _derived_name
+
+        return _derived_name(steps)
+    return "Review Settings"
 
 
 def extract_rules(siis_text: str) -> list[ExtractedAction]:
     actions: list[ExtractedAction] = []
     for head, body in _sections(siis_text):
         sentences = [s.strip() for s in _SENT.split(body) if s.strip()]
-        imperative = [s for s in sentences if T.is_imperative(s)[0]]
+        imperative = [s for s in sentences if T.is_imperative(s)[0] and not _NOTE.match(s)]
         steps = repair_steps(imperative)
         steps = [s for s in steps if T.is_imperative(s)[0]]
         if not steps:

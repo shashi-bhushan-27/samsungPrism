@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-PIPELINE_VERSION = "1.1.0"
+PIPELINE_VERSION = "1.2.1"
 
 # Reserved placeholder (PDF §3): only for a step that opens a valid Settings screen
 # that is not indexed in the catalog.

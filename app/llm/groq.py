@@ -213,7 +213,7 @@ class GroqProvider(LLMProvider):
                                    code=f"llm_http_{r.status_code}")
                 if r.status_code in RETRYABLE_STATUS:
                     if r.status_code == 429:
-                        attempts[-1]["quota"] = (err.get("message") or "")[:120]
+                        attempts[-1]["quota"] = (err.get("message") or "")[:400]
                     last_error = LLMError(f"{m} unavailable ({r.status_code})", code="llm_unavailable", retryable=True)
                     if tries < self._attempts:
                         await asyncio.sleep(min(2.0, 0.5 * tries))

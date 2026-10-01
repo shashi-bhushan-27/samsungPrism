@@ -30,6 +30,11 @@ ROUNDS = {
         "short_angry": "a short, angry message",
         "non_native": "written by a non-native English speaker, with small grammar mistakes",
         "ticket_summary": "a one-sentence support-ticket summary written by an agent in the third person"},
+    # Round 3 was generated after the screen-domain lexicon was added for the official data.
+    3: {"text_message": "a casual text message with abbreviations and no capital letters",
+        "question": "a question that starts with 'why' or 'how do I'",
+        "forum_post": "the first two sentences of a detailed forum post",
+        "keywords": "three to six keywords typed into a help search box"},
 }
 
 

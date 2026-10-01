@@ -32,6 +32,7 @@ def _c(id, family, domains, patterns, phrase, topic, title, kind="symptom", prio
 
 B, D, C, P = "Battery", "Display", "Camera", "Performance"
 _BATT = r"(?:battery|batt|charge level|power)"
+_NOT_CAMERA = r"^(?!.*\b(?:camera|viewfinder|cam)\b).*?"  # a black camera preview is camera_black_screen
 
 CONCEPTS: tuple[Concept, ...] = (
     # ------------------------------------------------------------------ Battery
@@ -101,6 +102,7 @@ CONCEPTS: tuple[Concept, ...] = (
         r"\btaps?\b.{0,20}\b(?:not|are not|is not) (?:detected|registered|recogni\w*)\b",
         r"\b(?:screen protector|tempered glass|screen guard|glass protector)\b",
         r"\bunresponsive to (?:my )?(?:touch\w*|taps?|fingers?)\b", r"\bghost touch\w*\b",
+        r"\btouch\w*\b.{0,30}\b(?:lag\w*|delay\w*|slow\w*)\b", r"\binputs?\b.{0,10}\b(?:delay\w*|lag\w*)\b",
     ], "touchscreen does not respond with a screen protector", "Touchscreen Response", "Unresponsive touchscreen"),
     _c("screen_color", "color", [(D, 1.0)], [
         r"\byellow\w*\b", r"\bwarm (?:tint|colou?r)\b", r"\borange\w*\b", r"\btint\b",
@@ -117,6 +119,37 @@ CONCEPTS: tuple[Concept, ...] = (
         r"\bswip\w*\b", r"\bgesture\w*\b", r"\bnavigation (?:bar|buttons?|type|swipes?)\b", r"\bnav bar\b",
         r"\bnavigat\w* .{0,20}\b(?:wrong|broken|messed|weird)\b",
     ], "swipe navigation gestures move in the wrong direction", "Swipe Navigation", "Swipe navigation settings"),
+    # Screen faults (official data: black/blank, cracked, partial, scaled-down, distorted displays).
+    _c("blank_screen", "blank_screen", [(D, 1.0)], [
+        _NOT_CAMERA + r"\b(?:screen|display)\b.{0,40}\b(?:black|blank|dark|white|dead|died|went out)\b",
+        _NOT_CAMERA + r"\b(?:black|blank|dark|dead|white) (?:screen|display)\b",
+        _NOT_CAMERA + r"\b(?:no|nothing on the|without) (?:image|picture|display|text)\b",
+        _NOT_CAMERA + r"\b(?:does not|will not|nothing) (?:display|show)\w*\b", _NOT_CAMERA + r"\bshows? nothing\b",
+    ], "screen stays black or blank", "Blank Screen", "Blank screen", priority=2),
+    _c("screen_damage", "screen_damage", [(D, 1.0)], [
+        r"\bcrack\w*\b", r"\bshatter\w*\b", r"\b(?:broken|smashed|ripped|damaged) (?:screen|display|glass)\b",
+        r"\b(?:screen|display)\b.{0,20}\b(?:broken|smashed|damaged)\b", r"\bbleed\w*\b",
+    ], "screen is cracked or damaged", "Screen Damage", "Cracked screen", priority=3),
+    _c("partial_display", "partial_display", [(D, 1.0)], [
+        r"\bhalf (?:of )?(?:the |my )?(?:screen|display)\b", r"\b(?:one|left|right) (?:side|half)\b.{0,40}\b(?:dark|black|dead)\b",
+        r"\bonly (?:three|3|two|2|a few|some) (?:little )?(?:app )?icons\b", r"\b(?:part|parts|portion) of (?:the )?(?:screen|display)\b",
+        r"\b(?:dead|dark) (?:zones?|areas?|spots?)\b",
+    ], "part of the screen does not work", "Partial Display", "Partial screen failure", priority=3),
+    _c("screen_size", "screen_size", [(D, 1.0)], [
+        r"\b(?:screen|display|picture|image|content)\b.{0,40}\b(?:small|shrunk|scaled down|smaller)\b",
+        r"\b(?:does not|will not|not|cannot) (?:fill|expand|take up)\b", r"\bfull (?:size|screen)\b", r"\baspect ratio\b",
+        r"\bblack bars\b", r"\bbig space around\b",
+    ], "screen content does not fill the display", "Screen Size", "Screen not full size", priority=2),
+    _c("floating_button", "floating_button", [(D, 1.0)], [
+        r"\bfloating\b", r"\bassistant menu\b", r"\b(?:circle|bubble|button|icon)\b.{0,30}\bhover\w*\b", r"\bhover\w*\b.{0,30}\bscreen\b",
+    ], "floating shortcut button stays on the screen", "Floating Button", "Floating shortcut button", priority=3),
+    _c("screen_distortion", "distortion", [(D, 1.0)], [
+        r"\bdistort\w*\b", r"\bwarped\b", r"\bscrambled\b", r"\bgarbled\b", r"\blines on (?:the )?(?:screen|display)\b",
+    ], "screen image looks distorted", "Screen Distortion", "Distorted screen", priority=2),
+    _c("boot_failure", "boot", [(D, 0.5), (P, 0.5)], [
+        r"\b(?:will not|does not|cannot|fails? to|unable to|not) (?:start(?: up)?|boot\w*|power on)\b", r"\bblue screen\b",
+        r"\bfails? to boot\b",
+    ], "phone does not start up", "Startup Failure", "Phone will not start", priority=2),
     # ------------------------------------------------------------------- Camera
     _c("blurry_photo", "camera_focus", [(C, 1.0)], [
         r"\bblur\w*\b", r"\bout of focus\b", r"\bfuzzy\b", r"\bnot sharp\b", r"\bunfocused\b",
@@ -192,18 +225,24 @@ QUALIFIERS: tuple[tuple[str, re.Pattern[str], str], ...] = (
         r"\b(?:after|since)\b.{0,12}\b(?:app|application)s? (?:install\w*|download\w*|update\w*)|"
         r"\b(?:installed|downloaded|added) (?:a |an |some |that |the )?(?:new )?(?:app|application)\b"),
      "after installing an app"),
-    ("while_charging", re.compile(r"\b(?:while|when|during)\b.{0,10}\bcharg\w*|\bplugged in\b|\bwhen i charge\b|"
+    ("while_charging", re.compile(r"\b(?:while|when|during)\b.{0,10}\bcharg\w*|\bplug\w* in\b|\bplug\w* (?:it |the phone |my phone )?(?:in|into) (?:a |the )?charger\b|\bwhen i charge\b|"
                                   r"\b(?:connected|plugged)\b.{0,12}\b(?:to|into|in)\b.{0,10}\bcharg\w*|\bon (?:the )?charger\b"),
      "while charging"),
     ("while_gaming", re.compile(r"\bgam(?:e|es|ing)\b|\bplaying\b"), "while gaming"),
     ("screen_protector", re.compile(r"\bscreen protector\b|\btempered glass\b|\bscreen guard\b|\bglass protector\b|"
                                     r"\bprotective (?:glass|film|cover|screen)\b|\bglass (?:cover|protector)\b"),
      "with a screen protector"),
+    ("data_transfer", re.compile(r"\bdata transfer\b|\btransfer\w* (?:my |the |all )?(?:data|files)\b|\bget my (?:files|data) off\b"),
+     "during data transfer"),
+    ("inner_screen", re.compile(r"\binner (?:screen|display)\b|\b(?:inside|main) (?:screen|display)\b|\bcover screen\b|\bouter (?:cover )?screen\b"),
+     "on the inner screen"),
+    ("after_activation", re.compile(r"\bactivat\w*\b|\bcarrier\b"), "after activation"),
     ("low_light", re.compile(r"\blow light\b|\bat night\b|\bin the dark\b|\bdim light\b|\bnight (?:photography|photos?|shots?|mode)\b"),
      "in low light"),
 )
 # Qualifiers that change which troubleshooting plan applies (used by the cache gate).
-DISCRIMINATIVE_QUALIFIERS = frozenset({"after_update", "after_app_install", "while_charging", "while_gaming"})
+DISCRIMINATIVE_QUALIFIERS = frozenset({"after_update", "after_app_install", "while_charging", "while_gaming", "data_transfer",
+                                       "inner_screen", "after_activation"})
 
 SLANG = {
     "cam": "camera", "pics": "photos", "pic": "photo", "vids": "videos", "vid": "video", "r": "are", "u": "you",

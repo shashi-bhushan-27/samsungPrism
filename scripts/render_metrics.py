@@ -69,6 +69,7 @@ def render() -> str:
     pm = cache.get("paraphrase_manual", {})
     L: list[str] = []
     w = L.append
+    official = b.get("dataset") == "official"
 
     # ------------------------------------------------------------------ header
     models = cold.get("models") or {}
@@ -86,12 +87,23 @@ def render() -> str:
          f"(default `LLM_PROVIDER={shipped[0]}`, `LLM_MODEL={shipped[1]}`); that key's free-tier daily quota was "
          f"exhausted on the evaluation day, so the live measurements use the {prov} provider "
          "(`LLM_PROVIDER=" + prov + "`). Both providers run through the same pipeline and validation gates."
-         if (prov, b.get("llm_model")) != shipped else ""))
+         if (prov, b.get("llm_model")) != shipped and not official else
+         (f" The configuration default is {shipped[0]}/{shipped[1]}; this run and the pre-warmed plans both used "
+          f"`LLM_PROVIDER={prov}`." if (prov, b.get("llm_model")) != shipped else "")))
     w(f"**Embeddings:** {b.get('embedding_model', NM)} (384-d, local ONNX via fastembed)")
     w(f"**Environment:** {env.get('vcpus', NM)} vCPU / {env.get('ram_gb', NM)} GB RAM / {env.get('os', NM)} "
       f"({env.get('platform', '')}, Python {env.get('python', NM)}), single uvicorn worker")
     w("")
-    w(f"> **Dataset: {b.get('dataset', NM)}.** The official starter assets (queries.json, siis_responses.json, "
+    if official:
+        w("> **Dataset: official** (`data/official/`): the organisers' 20 customer complaints (`input.txt`), their SIIS "
+          "answers (`siis_responses.json`), the 578-entry masked deeplink catalog and 1 reference sample. No gold labels "
+          "ship with it, so step accuracy and deeplink relevance can be scored only against the reference sample (§2); "
+          "every other number is measured on all requests. Negatives, edge cases and held-out paraphrases in "
+          "`data/official/eval/` were written by the team (paraphrases LLM-generated) and are labelled as such. The "
+          "semantic-cache threshold was calibrated earlier on the synthetic fixture and frozen; it was not re-tuned "
+          "on the official data. The earlier synthetic-fixture report is kept in `artifacts/reports/dev_fixtures/`.")
+    else:
+      w(f"> **Dataset: {b.get('dataset', NM)}.** The official starter assets (queries.json, siis_responses.json, "
       "deeplinks.json with ~575 entries, samples/) were not supplied, so every number below was measured on the "
       "synthetic development fixture in `data/dev_fixtures/` (110 catalog entries, 32 queries, 4 domains, 5 samples), "
       "whose gold labels were written by the same author as the SIIS texts and catalog. Accuracy on the official data "
@@ -150,7 +162,11 @@ def render() -> str:
 
     # ------------------------------------------------------------------ 2. accuracy
     w("## 2. Accuracy Benchmarks")
-    w("Evaluated against reference ground truth scenarios across Battery, Display, Camera, and Performance.")
+    if official:
+        w("Evaluated against the official reference sample. The official queries have no gold labels, so the "
+          "per-query accuracy table below is empty; see the sample table and §1 for what is measured on every query.")
+    else:
+        w("Evaluated against reference ground truth scenarios across Battery, Display, Camera, and Performance.")
     w("")
     w("| Evaluation Metric | Scale / Anchor | Score |")
     w("| :--- | :--- | :--- |")
@@ -284,7 +300,7 @@ def render() -> str:
     w("| Cache efficacy detail | Measured |")
     w("| :--- | :--- |")
     gen_mix = NM
-    rf = ROOT / "data" / "dev_fixtures" / "eval" / f"paraphrases_llm_heldout_r{pl.get('round')}.json"
+    rf = ROOT / "data" / ("official" if official else "dev_fixtures") / "eval" / f"paraphrases_llm_heldout_r{pl.get('round')}.json"
     if rf.exists():
         from collections import Counter
 
@@ -298,7 +314,7 @@ def render() -> str:
     for r, v in (cache.get("paraphrase_llm_older_rounds") or {}).items():
         w(f"| Round {r} LLM paraphrases ({v.get('generator_model')}; {v.get('note')}) | {v['n']} items; correct-plan hits "
           f"{pct(v.get('correct_hit_rate_pct'))}; wrong-plan hits {v.get('wrong_plan_hits')} (pre-fix measurement: "
-          "HARDENING_REPORT.md H9) |")
+          f"HARDENING_REPORT.md {'H18' if official else 'H9'}) |")
     w(f"| Hand-written test paraphrases (seen while tuning; optimistic) | {pm.get('n', NM)} items; correct-plan hits "
       f"{pct(pm.get('correct_hit_rate_pct'))}; wrong-plan hits {pm.get('wrong_plan_hits', NM)} |")
     neg = b.get("negatives") or {}
@@ -345,8 +361,8 @@ def render() -> str:
           "SIIS text, cache disabled, variants interleaved per query (rotating order) so they share API conditions; only "
           f"the mapper differs. Latency is in-process service time ({ab.get('latency_scope', '')}). The baseline gives the "
           "model the whole catalog (URI + description + message + qna_description) and accepts its answer only if it is "
-          "byte-identical to a catalog URI. Pure rules tie hybrid here because the fixture's catalog labels and gold "
-          "steps share one author; hybrid retrieval is kept for recall on unseen catalog wording.")
+          "byte-identical to a catalog URI." + ("" if official else " Pure rules tie hybrid here because the fixture's "
+          "catalog labels and gold steps share one author; hybrid retrieval is kept for recall on unseen catalog wording."))
         w("")
     if mo:
         w("Mapping only (paired: the same labelled gold actions go through every mapper):")
@@ -375,16 +391,28 @@ def render() -> str:
         for e in edges:
             w(f"| {e['id']} | {e['kind']} | {e['expected']} | {e['observed']} | {'pass' if e['pass'] else 'FAIL'} |")
         w("")
-    for line in limitations(b, ab, st):
+    for line in limitations(b, ab, st, official):
         w(f"* {line}")
     w("")
     return "\n".join(L)
 
 
-def limitations(b: dict, ab: dict, st: dict) -> list[str]:
+def _no_match_count() -> str:
+    rep = load("prewarm_report.json") or {}
+    items = rep.get("items") or []
+    return str(sum(1 for i in items if i.get("fallback") == "no_match")) if items else NM
+
+
+def limitations(b: dict, ab: dict, st: dict, official: bool = False) -> list[str]:
     out = []
     pl = (b.get("cache") or {}).get("paraphrase_llm") or {}
-    if pl.get("wrong_plan_hits"):
+    if pl.get("wrong_plan_hits") and official:
+        wh = pl.get("wrong_hits") or []
+        out.append(f"**Wrong-plan cache hits ({pl['wrong_plan_hits']} of {pl.get('n')} unseen paraphrases).** A sibling "
+                   "plan was served for a paraphrase of a different official complaint; the 20 official complaints are "
+                   "all screen/display issues, so many are near neighbours. Examples: "
+                   + "; ".join(f"“{(x.get('text') if isinstance(x, dict) else x)}”" for x in wh[:3]) + ".")
+    elif pl.get("wrong_plan_hits"):
         out.append(f"**Wrong-plan cache hits ({pl['wrong_plan_hits']} of {pl.get('n')} unseen paraphrases).** A sibling plan "
                    "was served: “froze and won't respond to touch or buttons” matched the touchscreen plan (touch "
                    "concept subsumes freeze), “phone is completely full and freezing” missed the storage concept, and a "
@@ -402,30 +430,50 @@ def limitations(b: dict, ab: dict, st: dict) -> list[str]:
     if grounded:
         out.append("**Borderline complaints can be answered from a related knowledge-base article** "
                    f"({len(grounded)} of {neg.get('n')} negatives): " + "; ".join(f"“{g}”" for g in grounded[:4]) + ".")
+    if official:
+        out.extend([
+            "**Knowledge scope.** The official knowledge base holds 20 SIIS articles, all about screen and display "
+            "problems. Out-of-scope complaints return `contexts: []` with `fallback: no_siis_context` unless an SIIS "
+            "text is supplied; non-English complaints are not translated (E18 records the observed behaviour).",
+            "**SIIS answers that do not address the complaint.** Some official SIIS answers describe a related "
+            "feature rather than the reported symptom (for example a Multi window article for a dark-screen "
+            "complaint). The model then returns `no_match` instead of inventing steps; "
+            f"{_no_match_count()} official queries end this way in the pre-warmed cache. Borderline cases are "
+            "judgement calls and can flip between runs.",
+            "**Catalog coverage.** Screens named in the SIIS text that have no catalog entry (app storage, Smart View, "
+            "Quick Access panel) get `voiceassist://dummy_positive` for auto actions, or no link when no Settings "
+            "screen is identified (quick-panel gestures, the Apps screen). Physical steps (power button, charging, "
+            "battery removal, damage inspection) are classified manual by deterministic rules and never get a link.",
+            "**Accuracy is not measured at scale.** With one reference sample and no gold labels for the 20 queries, "
+            "step accuracy and deeplink relevance are reported only for the sample.",
+        ])
+    else:
+        out.extend([
+        "**Domain gaps.** Only Battery, Display, Camera and Performance knowledge exists. Out-of-scope complaints "
+            "(connectivity, audio, accessories, other devices) return `contexts: []` with `fallback: no_siis_context` "
+            "unless an SIIS text is supplied; non-English complaints are not translated (E18 records the observed behaviour).",
+            "**Settings hierarchy variations.** Step paths from different One UI versions (`Battery` vs `Battery and device "
+            "care > Battery`, `Lock screen` vs `Lock screen and AOD`) are resolved by label matching on the target control, "
+            "not by the path prefix. A screen missing from the catalog gets `bixby://dummy_positive` (auto actions only) "
+            "and never its parent menu; critical actions get a catalog link or none. With the official ~575-entry catalog, "
+            "near-duplicate labels will produce more ambiguity fallbacks (dummy_positive or no link) than on the 110-entry "
+            "fixture.",
+        ])
     out.extend([
         "**Multi-intent queries** are split only when each part maps to a known symptom family; each part is grounded "
         "and cached separately. A request-scoped `siis_response` that covers only one of the intents yields a plan for "
         "that intent alone; the uncovered intent is not mentioned (no hallucinated steps), and a single goal is never "
         "merged across unrelated intents.",
-        "**Domain gaps.** Only Battery, Display, Camera and Performance knowledge exists. Out-of-scope complaints "
-        "(connectivity, audio, accessories, other devices) return `contexts: []` with `fallback: no_siis_context` "
-        "unless an SIIS text is supplied; non-English complaints are not translated (E18 records the observed behaviour).",
-        "**Settings hierarchy variations.** Step paths from different One UI versions (`Battery` vs `Battery and device "
-        "care > Battery`, `Lock screen` vs `Lock screen and AOD`) are resolved by label matching on the target control, "
-        "not by the path prefix. A screen missing from the catalog gets `bixby://dummy_positive` (auto actions only) "
-        "and never its parent menu; critical actions get a catalog link or none. With the official ~575-entry catalog, "
-        "near-duplicate labels will produce more ambiguity fallbacks (dummy_positive or no link) than on the 110-entry "
-        "fixture.",
         "**Determinism.** The same input is answered identically from the cache. Without the cache, the model call "
         "(temperature 0, fixed seed) is not guaranteed to be byte-identical; §2 reports the measured agreement. "
         "Plans are cached only when produced by the model path (rules-fallback plans are served but never cached).",
         "**Cold-path latency depends on the remote model**: rate limiting (HTTP 429) and overload (503) trigger "
         "fail-over to the next model and a hedged duplicate request; the tokens of a cancelled hedge are not "
         "reported by the API, so the cost of a hedged request can be slightly under-counted.",
-        "**Evaluation bias.** Gold labels, SIIS texts and the catalog of the dev fixture share one author, and the "
+        *([] if official else ["**Evaluation bias.** Gold labels, SIIS texts and the catalog of the dev fixture share one author, and the "
         "deterministic rules extractor was tuned on the same formatting, so the rules-based numbers are optimistic. "
         "The hand-written paraphrase test split was inspected while tuning the cache; the LLM-generated paraphrases "
-        "were created afterwards with a different model and are the reported hit rate.",
+        "were created afterwards with a different model and are the reported hit rate."]),
     ])
     return out
 

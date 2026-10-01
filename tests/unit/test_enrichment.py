@@ -131,7 +131,7 @@ def test_support_ticket_framing_is_normalised_to_the_complaint():
     assert "camera_crash" in intent.symptoms
 
 
-@pytest.mark.parametrize("text", ["How do I change my ringtone?", "Wi-Fi keeps disconnecting", "My screen is cracked",
+@pytest.mark.parametrize("text", ["How do I change my ringtone?", "Wi-Fi keeps disconnecting", "My speaker sounds muffled",
                                   "There are green lines on my display", "Bluetooth headphones will not pair"])
 def test_out_of_scope_complaints_stay_concept_free(text):
     assert QueryEnricher().analyze(text).symptoms == ()
@@ -146,3 +146,29 @@ def test_charging_to_full_is_not_a_charge_limit_request():
     assert "charging_issue" in e.analyze("my phone is not charging").symptoms
     assert "charging_issue" in e.analyze("it stopped fast charging").symptoms
     assert "battery_limit" in e.analyze("I want my phone to only charge up to 85 percent").symptoms
+
+
+@pytest.mark.parametrize("text,concept,qualifier", [
+    ("My Nexa Fold X1 screen went completely black, so I cannot use Data Transfer", "blank_screen", "data_transfer"),
+    ("My smartphone's screen is completely cracked", "screen_damage", None),
+    ("My Nexa Fold X1 screen is half black, one side of the display is dark", "partial_display", None),
+    ("My new phone's main screen stays small and doesn't fill the whole display", "screen_size", None),
+    ("I hate this floating circle that hovers on my screen", "floating_button", None),
+    ("My screen looks distorted right after I received the phone", "screen_distortion", None),
+    ("The screen flashes whenever I plug in a charger", "screen_flicker", "while_charging"),
+    ("My inner screen shows no image but the cover screen works", "blank_screen", "inner_screen"),
+])
+def test_official_screen_concepts(text, concept, qualifier):
+    intent = QueryEnricher().analyze(text)
+    assert concept in intent.symptoms
+    if qualifier:
+        assert qualifier in intent.qualifiers
+
+
+def test_camera_black_preview_is_not_a_blank_screen():
+    intent = QueryEnricher().analyze("The camera just shows a black screen")
+    assert "camera_black_screen" in intent.symptoms and "blank_screen" not in intent.symptoms
+
+
+def test_common_words_are_not_typo_corrected():
+    assert "hate" in QueryEnricher().analyze("I hate this floating circle").normalized_query

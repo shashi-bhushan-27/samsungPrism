@@ -82,3 +82,24 @@ def test_official_files_load():
     assert reg.dummy_uri == "voiceassist://dummy_positive" and len(reg) == 577
     docs, issues = parse_siis(read_json(ROOT / "data" / "official" / "siis_responses.json"))
     assert len(docs) == 20 and not [i for i in issues if i.code == "missing_text"]
+
+
+def test_rules_extractor_reads_markdown_articles():
+    from app.services.rules_extractor import extract_rules
+
+    text = ("Screen issues\n\n# Troubleshooting\n## Step 1: Restart in Safe Mode\nPress and hold the Power button.\n"
+            "Tap Safe mode.\n## Note\nNote: Safe mode is not supported on every model.\n"
+            "## Check the display\nNavigate to Settings. Tap Display. Tap Touch sensitivity.")
+    names = [a.action_name for a in extract_rules(text)]
+    assert "Restart in Safe Mode" in names
+    assert not any(n.startswith("#") or n.lower().startswith("note") for n in names)
+
+
+def test_enable_name_selects_the_on_entry_when_steps_only_tap_the_item():
+    from app.models.internal import ExtractedAction
+    from app.retrieval.reranker import TargetResolver
+
+    path = TargetResolver._path_with_hints(ExtractedAction(
+        action_name="Enable Touch Sensitivity", description="", category="auto",
+        steps=["Open Settings.", "Tap Display.", "Tap Touch sensitivity."]))
+    assert (path.elements[-1].kind, path.elements[-1].state) == ("control", "on")

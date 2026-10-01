@@ -1,352 +1,373 @@
 {
   "summary": {
-    "exported_plans": 19,
+    "exported_plans": 18,
     "path": "/home/user/samsungPrism/artifacts/cache/prewarm_plans.jsonl",
     "statuses": {
-      "cached": 19,
-      "not_cached": 1
-    }
+      "not_cached": 2,
+      "cached": 18
+    },
+    "passes": "pass 1: --fresh over all 20 queries; pass 2: only queries without a cached plan (--retries 3)"
   },
   "items": [
     {
       "id": "row_1",
-      "status": "cached",
-      "ms": 3684,
-      "modes": [
-        "llm"
-      ],
-      "actions": 7,
-      "tokens": {
-        "input": 1993,
-        "output": 1200,
-        "thinking": 577,
-        "total": 3770
-      },
-      "cost_usd": 0.001209,
-      "fallback": null
-    },
-    {
-      "id": "row_2",
-      "status": "cached",
-      "ms": 2521,
-      "modes": [
-        "llm"
-      ],
-      "actions": 5,
-      "tokens": {
-        "input": 1887,
-        "output": 883,
-        "thinking": 433,
-        "total": 3203
-      },
-      "cost_usd": 0.0009216,
-      "fallback": null
-    },
-    {
-      "id": "row_3",
-      "status": "cached",
-      "ms": 2003,
-      "modes": [
-        "llm"
-      ],
-      "actions": 4,
-      "tokens": {
-        "input": 2038,
-        "output": 729,
-        "thinking": 316,
-        "total": 3083
-      },
-      "cost_usd": 0.00078675,
-      "fallback": null
-    },
-    {
-      "id": "row_4",
-      "status": "cached",
-      "ms": 2963,
-      "modes": [
-        "llm"
-      ],
-      "actions": 4,
-      "tokens": {
-        "input": 1889,
-        "output": 794,
-        "thinking": 438,
-        "total": 3121
-      },
-      "cost_usd": 0.00087292,
-      "fallback": null
-    },
-    {
-      "id": "row_5",
-      "status": "cached",
-      "ms": 3968,
-      "modes": [
-        "llm"
-      ],
-      "actions": 4,
-      "tokens": {
-        "input": 1585,
-        "output": 862,
-        "thinking": 411,
-        "total": 2858
-      },
-      "cost_usd": 0.00085905,
-      "fallback": null
-    },
-    {
-      "id": "row_7",
       "status": "not_cached",
-      "ms": 2075,
+      "ms": 996,
       "modes": [
         "llm"
       ],
       "actions": 0,
       "tokens": {
-        "input": 3351,
-        "output": 466,
-        "thinking": 36,
-        "total": 3853
+        "input": 1999,
+        "output": 428,
+        "thinking": 55,
+        "total": 2482
       },
-      "cost_usd": 0.00065025,
-      "fallback": "no_match"
+      "cost_usd": 0.0004485,
+      "fallback": "no_match",
+      "pass": 2
     },
     {
-      "id": "row_8",
+      "id": "row_2",
       "status": "cached",
-      "ms": 2953,
-      "modes": [
-        "llm"
-      ],
-      "actions": 1,
-      "tokens": {
-        "input": 3190,
-        "output": 550,
-        "thinking": 77,
-        "total": 3817
-      },
-      "cost_usd": 0.00070597,
-      "fallback": null
-    },
-    {
-      "id": "row_9",
-      "status": "cached",
-      "ms": 4268,
-      "modes": [
-        "llm"
-      ],
-      "actions": 5,
-      "tokens": {
-        "input": 1858,
-        "output": 766,
-        "thinking": 239,
-        "total": 2863
-      },
-      "cost_usd": 0.0007476,
-      "fallback": null
-    },
-    {
-      "id": "row_10",
-      "status": "cached",
-      "ms": 2717,
+      "ms": 2998,
       "modes": [
         "llm"
       ],
       "actions": 4,
       "tokens": {
-        "input": 1565,
-        "output": 769,
-        "thinking": 383,
-        "total": 2717
+        "input": 1906,
+        "output": 842,
+        "thinking": 402,
+        "total": 3150
       },
-      "cost_usd": 0.0007659,
-      "fallback": null
+      "cost_usd": 0.00088125,
+      "fallback": null,
+      "pass": 1
     },
     {
-      "id": "row_11",
+      "id": "row_3",
       "status": "cached",
-      "ms": 2445,
-      "modes": [
-        "llm"
-      ],
-      "actions": 4,
-      "tokens": {
-        "input": 2032,
-        "output": 721,
-        "thinking": 289,
-        "total": 3042
-      },
-      "cost_usd": 0.00076957,
-      "fallback": null
-    },
-    {
-      "id": "row_12",
-      "status": "cached",
-      "ms": 1663,
-      "modes": [
-        "llm"
-      ],
-      "actions": 1,
-      "tokens": {
-        "input": 3369,
-        "output": 602,
-        "thinking": 191,
-        "total": 4162
-      },
-      "cost_usd": 0.00081757,
-      "fallback": null
-    },
-    {
-      "id": "row_13",
-      "status": "cached",
-      "ms": 2366,
-      "modes": [
-        "llm"
-      ],
-      "actions": 4,
-      "tokens": {
-        "input": 1875,
-        "output": 761,
-        "thinking": 245,
-        "total": 2881
-      },
-      "cost_usd": 0.00075375,
-      "fallback": null
-    },
-    {
-      "id": "row_14",
-      "status": "cached",
-      "ms": 1545,
-      "modes": [
-        "llm"
-      ],
-      "actions": 1,
-      "tokens": {
-        "input": 1588,
-        "output": 341,
-        "thinking": 113,
-        "total": 2042
-      },
-      "cost_usd": 0.0004191,
-      "fallback": null
-    },
-    {
-      "id": "row_15",
-      "status": "cached",
-      "ms": 3679,
-      "modes": [
-        "llm"
-      ],
-      "actions": 4,
-      "tokens": {
-        "input": 1899,
-        "output": 823,
-        "thinking": 366,
-        "total": 3088
-      },
-      "cost_usd": 0.00082995,
-      "fallback": null
-    },
-    {
-      "id": "row_16",
-      "status": "cached",
-      "ms": 3693,
-      "modes": [
-        "llm"
-      ],
-      "actions": 4,
-      "tokens": {
-        "input": 1892,
-        "output": 703,
-        "thinking": 287,
-        "total": 2882
-      },
-      "cost_usd": 0.0007497,
-      "fallback": null
-    },
-    {
-      "id": "row_17",
-      "status": "cached",
-      "ms": 2432,
-      "modes": [
-        "llm"
-      ],
-      "actions": 4,
-      "tokens": {
-        "input": 2040,
-        "output": 722,
-        "thinking": 407,
-        "total": 3169
-      },
-      "cost_usd": 0.00085387,
-      "fallback": null
-    },
-    {
-      "id": "row_19",
-      "status": "cached",
-      "ms": 2236,
+      "ms": 2190,
       "modes": [
         "llm"
       ],
       "actions": 3,
       "tokens": {
-        "input": 1664,
-        "output": 609,
-        "thinking": 175,
-        "total": 2448
+        "input": 2060,
+        "output": 566,
+        "thinking": 285,
+        "total": 2911
       },
-      "cost_usd": 0.00057757,
-      "fallback": null
+      "cost_usd": 0.00070155,
+      "fallback": null,
+      "pass": 1
     },
     {
-      "id": "row_20",
+      "id": "row_4",
       "status": "cached",
-      "ms": 1712,
+      "ms": 3854,
+      "modes": [
+        "llm"
+      ],
+      "actions": 5,
+      "tokens": {
+        "input": 1908,
+        "output": 896,
+        "thinking": 524,
+        "total": 3328
+      },
+      "cost_usd": 0.00098858,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_5",
+      "status": "cached",
+      "ms": 2644,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 1594,
+        "output": 739,
+        "thinking": 322,
+        "total": 2655
+      },
+      "cost_usd": 0.0007314,
+      "fallback": null,
+      "pass": 2
+    },
+    {
+      "id": "row_7",
+      "status": "not_cached",
+      "ms": 1105,
+      "modes": [
+        "llm"
+      ],
+      "actions": 0,
+      "tokens": {
+        "input": 3378,
+        "output": 436,
+        "thinking": 41,
+        "total": 3855
+      },
+      "cost_usd": 0.0006495,
+      "fallback": "no_match",
+      "pass": 2
+    },
+    {
+      "id": "row_8",
+      "status": "cached",
+      "ms": 2876,
+      "modes": [
+        "llm"
+      ],
+      "actions": 2,
+      "tokens": {
+        "input": 3215,
+        "output": 683,
+        "thinking": 216,
+        "total": 4114
+      },
+      "cost_usd": 0.00087593,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_9",
+      "status": "cached",
+      "ms": 2424,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 1868,
+        "output": 773,
+        "thinking": 120,
+        "total": 2761
+      },
+      "cost_usd": 0.0006816,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_10",
+      "status": "cached",
+      "ms": 2214,
       "modes": [
         "llm"
       ],
       "actions": 1,
       "tokens": {
-        "input": 1561,
-        "output": 132,
-        "thinking": 58,
-        "total": 1751
+        "input": 1571,
+        "output": 593,
+        "thinking": 201,
+        "total": 2365
       },
-      "cost_usd": 0.00034815,
-      "fallback": null
+      "cost_usd": 0.0005445,
+      "fallback": null,
+      "pass": 1
     },
     {
-      "id": "row_21",
+      "id": "row_11",
       "status": "cached",
-      "ms": 3424,
+      "ms": 2311,
+      "modes": [
+        "llm"
+      ],
+      "actions": 5,
+      "tokens": {
+        "input": 2059,
+        "output": 799,
+        "thinking": 154,
+        "total": 3012
+      },
+      "cost_usd": 0.00073492,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_12",
+      "status": "cached",
+      "ms": 2208,
+      "modes": [
+        "llm"
+      ],
+      "actions": 1,
+      "tokens": {
+        "input": 3390,
+        "output": 617,
+        "thinking": 165,
+        "total": 4172
+      },
+      "cost_usd": 0.00080963,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_13",
+      "status": "cached",
+      "ms": 2500,
       "modes": [
         "llm"
       ],
       "actions": 6,
       "tokens": {
-        "input": 2360,
-        "output": 934,
-        "thinking": 432,
-        "total": 3726
+        "input": 1896,
+        "output": 875,
+        "thinking": 213,
+        "total": 2984
       },
-      "cost_usd": 0.00104857,
-      "fallback": null
+      "cost_usd": 0.0008019,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_14",
+      "status": "cached",
+      "ms": 1333,
+      "modes": [
+        "llm"
+      ],
+      "actions": 2,
+      "tokens": {
+        "input": 1607,
+        "output": 395,
+        "thinking": 140,
+        "total": 2142
+      },
+      "cost_usd": 0.00047175,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_15",
+      "status": "cached",
+      "ms": 2426,
+      "modes": [
+        "llm"
+      ],
+      "actions": 5,
+      "tokens": {
+        "input": 1924,
+        "output": 827,
+        "thinking": 292,
+        "total": 3043
+      },
+      "cost_usd": 0.0008019,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_16",
+      "status": "cached",
+      "ms": 2611,
+      "modes": [
+        "llm"
+      ],
+      "actions": 6,
+      "tokens": {
+        "input": 1894,
+        "output": 768,
+        "thinking": 406,
+        "total": 3068
+      },
+      "cost_usd": 0.0008562,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_17",
+      "status": "cached",
+      "ms": 2387,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 2062,
+        "output": 682,
+        "thinking": 184,
+        "total": 2928
+      },
+      "cost_usd": 0.00069788,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_19",
+      "status": "cached",
+      "ms": 1654,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 1669,
+        "output": 606,
+        "thinking": 154,
+        "total": 2429
+      },
+      "cost_usd": 0.00056482,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_20",
+      "status": "cached",
+      "ms": 2466,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 1926,
+        "output": 642,
+        "thinking": 252,
+        "total": 2820
+      },
+      "cost_usd": 0.00071167,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_21",
+      "status": "cached",
+      "ms": 4480,
+      "modes": [
+        "llm"
+      ],
+      "actions": 8,
+      "tokens": {
+        "input": 2369,
+        "output": 940,
+        "thinking": 360,
+        "total": 3669
+      },
+      "cost_usd": 0.00101753,
+      "fallback": null,
+      "pass": 1
     },
     {
       "id": "row_22",
       "status": "cached",
-      "ms": 2959,
+      "ms": 2162,
       "modes": [
         "llm"
       ],
-      "actions": 4,
+      "actions": 5,
       "tokens": {
-        "input": 1881,
-        "output": 790,
-        "thinking": 409,
-        "total": 3080
+        "input": 1900,
+        "output": 848,
+        "thinking": 267,
+        "total": 3015
       },
-      "cost_usd": 0.00085162,
-      "fallback": null
+      "cost_usd": 0.00080377,
+      "fallback": null,
+      "pass": 1
     }
   ]
 }

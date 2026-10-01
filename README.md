@@ -9,13 +9,13 @@ The model is an **assistant, not the controller**. It reads messy language and e
 supplied reference text. Code does the rest: retrieval, exact-screen resolution, parent-menu protection, catalog
 URI selection, grouping, sequencing, URL scrubbing, validation, caching, cost and latency accounting.
 
-> **Dataset.** The official starter assets (`queries.json`, `siis_responses.json`, `deeplinks.json` with ~575
-> entries, `samples/`) were not available when this was built. Everything runs on a clearly labelled synthetic
-> development fixture in `data/dev_fixtures/` (110 catalog entries, 32 queries over Battery / Display / Camera /
-> Performance, 5 reference samples, gold labels). To use the official data, copy the files into `data/official/`
-> (same names, `samples/` as a sub-folder). The loaders accept several layouts, and `DATA_DIR` overrides the choice.
-> Then re-run `make indexes prewarm calibrate paraphrases evaluate`. Gold-label accuracy needs an `eval/gold.json`;
-> without one, accuracy is reported as *not measured*.
+> **Dataset.** The service runs on the **official starter data** in `data/official/` (picked automatically when
+> `deeplinks.json` is present; `DATA_DIR` overrides it): 20 customer complaints (`input.txt` → `queries.json`),
+> their SIIS answers (`siis_responses.json`, `{title, content}` objects), the 578-entry masked deeplink catalog
+> (`voiceassist://`, including its own `dummy_positive` placeholder), `schema.py` and one reference sample.
+> The synthetic development fixture used while building the system is kept in `data/dev_fixtures/`, and its
+> earlier report in `artifacts/reports/dev_fixtures/`. The official data has no gold labels, so step accuracy
+> is scored only against the reference sample.
 
 ## Deliverables
 

@@ -39,6 +39,11 @@ _TOGGLE_RE = re.compile(
     r"(?i)^(?:turn|toggle|switch)\s+(?P<state>on|off)\s+(?:the\s+)?(?P<label>.+?)"
     r"(?:\s+(?:to|so|if|until|when|while|for|in\s+order\s+to)\s+.*)?[.!]?$"
 )
+# "Tap the switch next to Touch sensitivity to disable it" operates the Touch sensitivity control.
+_SWITCH_NEXT_RE = re.compile(
+    r"(?i)^(?:tap|touch|press|click)\s+(?:on\s+)?(?:the\s+)?(?:switch|toggle)\s+(?:next\s+to|beside|for)\s+(?:the\s+)?"
+    r"(?P<label>.+?)(?:\s+to\s+(?P<verb>enable|disable|turn\s+(?:it\s+)?on|turn\s+(?:it\s+)?off)\b.*)?(?:\s+(?:to|so|if|until|when)\s+.*)?[.!]?$"
+)
 _ENABLE_RE = re.compile(
     r"(?i)^(?P<verb>enable|activate|disable|deactivate)\s+(?:the\s+)?(?P<label>.+?)(?:\s+(?:to|so|if|until|when|while)\s+.*)?[.!]?$"
 )
@@ -146,6 +151,12 @@ def parse_ui_path(steps: Sequence[str]) -> UiPath:
             continue
         if _HARDWARE_RE.match(clause):
             path.elements.append(UiElement(_clean_label(clause), "other", None, i))
+            continue
+        m = _SWITCH_NEXT_RE.match(clause)
+        if m:
+            verb = (m.group("verb") or "").lower()
+            state = "off" if ("disable" in verb or verb.endswith("off")) else ("on" if verb else None)
+            path.elements.append(UiElement(_clean_label(m.group("label")), "control", state, i))
             continue
         m = _TOGGLE_RE.match(clause)
         if m:

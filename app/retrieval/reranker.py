@@ -101,6 +101,11 @@ def _lower_label(label: str) -> str:
     return " ".join(out)
 
 
+_NAME_STATE = re.compile(
+    r"(?i)^(?P<verb>enable|disable|activate|deactivate|turn on|turn off|switch on|switch off)\s+(?:the\s+)?(?P<label>.+)$"
+)
+
+
 def dummy_texts(path: UiPath, primary: Optional[UiElement]) -> tuple[str, str]:
     """Deterministic target description for bixby://dummy_positive (Appendix B style)."""
     screens = path.screens
@@ -166,6 +171,14 @@ class TargetResolver:
             if nav:
                 path.root = "Settings" if nav[0].lower() == "settings" else nav[0]
                 path.elements = [UiElement(p, "screen") for p in nav[1:]]
+        # "Enable Touch Sensitivity" whose last step only taps "Touch sensitivity": the tapped item is the
+        # control the name switches on/off (the catalog may hold only its on/off entries).
+        m = _NAME_STATE.match(action.action_name or "")
+        if m and path.elements and all(e is path.elements[-1] for e in path.interactions):
+            last = path.elements[-1]
+            if last.kind in ("screen", "button") and last.tokens and last.tokens <= token_set(m.group("label")):
+                state = "off" if m.group("verb").lower() in ("disable", "turn off", "deactivate", "switch off") else "on"
+                path.elements[-1] = UiElement(last.label, "control", state, last.step_index, last.full_label)
         return path
 
     @staticmethod
