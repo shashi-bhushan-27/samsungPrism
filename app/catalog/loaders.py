@@ -162,9 +162,16 @@ def parse_catalog(obj: Any, source: str = "deeplinks.json") -> tuple[list[Catalo
     return entries, issues
 
 
+def content_fingerprint(data: Any) -> str:
+    """Hash of the parsed content: identical on every OS (CRLF checkouts, re-indented files)."""
+    canonical = json.dumps(data, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def load_catalog(path: Path) -> tuple[list[CatalogEntry], list[LoadIssue], str]:
-    entries, issues = parse_catalog(read_json(path), path.name)
-    return entries, issues, file_fingerprint(path)
+    raw = read_json(path)
+    entries, issues = parse_catalog(raw, path.name)
+    return entries, issues, content_fingerprint(raw)
 
 
 # ------------------------------------------------------------------------- queries

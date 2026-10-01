@@ -134,3 +134,24 @@ def test_samples_load(tmp_path):
 def test_label_and_adjective_boundaries(step, n):
     assert T.count_interactions(step) == n
     assert T.is_imperative(step)[0]
+
+
+def test_catalog_fingerprint_ignores_line_endings_and_formatting(tmp_path):
+    """Regression: a Windows (CRLF) checkout changed the byte hash, so every shipped pre-warmed plan was
+    discarded as built for another catalog (startup log: plans=0)."""
+    import json as _json
+
+    from app.catalog.loaders import load_catalog
+
+    src = Path(__file__).resolve().parents[2] / "data" / "dev_fixtures" / "deeplinks.json"
+    crlf = tmp_path / "crlf.json"
+    crlf.write_bytes(src.read_bytes().replace(b"\n", b"\r\n"))
+    reindented = tmp_path / "reindented.json"
+    reindented.write_text(_json.dumps(_json.loads(src.read_text(encoding="utf-8")), indent=4), encoding="utf-8")
+    fp = load_catalog(src)[2]
+    assert load_catalog(crlf)[2] == fp and load_catalog(reindented)[2] == fp
+    changed = _json.loads(src.read_text(encoding="utf-8"))
+    changed[0]["description"] += " (edited)"
+    edited = tmp_path / "edited.json"
+    edited.write_text(_json.dumps(changed), encoding="utf-8")
+    assert load_catalog(edited)[2] != fp  # a real content change still invalidates cached plans

@@ -1,0 +1,3 @@
+# Data, cache exports and reports are byte-stable across operating systems.
+*.json text eol=lf
+*.jsonl text eol=lf
