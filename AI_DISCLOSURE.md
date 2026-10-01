@@ -10,8 +10,8 @@ direction of the team. Its work covered:
 * the code, tests, benchmark scripts and documentation;
 * the synthetic development fixture.
 
-Every commit made with it carries a `Co-Authored-By: Claude` trailer, so its contributions are visible in
-`git log`.
+The commits are authored under the team's account; this file is the record of how AI was involved. Most of
+the code, tests and documents were written by the assistant and reviewed and directed by the team.
 
 How the AI-written work was checked:
 
