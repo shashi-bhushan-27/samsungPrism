@@ -111,6 +111,22 @@ def render() -> str:
     w(f"> Measured {b.get('started_at', NM)} → {b.get('finished_at', NM)} (UTC) over real HTTP against a real uvicorn "
       "server and the live " + b.get("llm_provider", "gemini").capitalize() + " API. Raw data: `artifacts/reports/*.json`, `results.jsonl`, "
       "`artifacts/reports/results_all.jsonl` + `results_index.jsonl`.")
+    fallback_n = sum(n for m_, n in models.items() if m_ != b.get("llm_model"))
+    if official and fallback_n:
+        ref = json.loads((REPORTS / "official_run2" / "benchmark.json").read_text()) if (REPORTS / "official_run2" / "benchmark.json").exists() else {}
+        w("")
+        w(f"> **Run conditions.** {fallback_n} of {sum(models.values())} cold requests were served by the fail-over "
+          f"model because the primary model's free-tier **daily** token quota (200K tokens/day) ran out during the "
+          "run (`HARDENING_REPORT.md` H19). Answers from the smaller model decline borderline SIIS articles more "
+          "often (`no_match`), which shows in the reference sample and edge cases E03/E04 below."
+          + (f" The previous run ({ref.get('started_at', NM)}, code before the last mapping/category fixes, every cold "
+             f"request on {', '.join(f'{m_} ×{n}' for m_, n in (ref.get('cold_path') or {}).get('models', {}).items())}) "
+             f"is archived in `artifacts/reports/official_run2/`: reference-sample step accuracy "
+             f"{num((ref.get('samples') or [{}])[0].get('step_accuracy'))}, edge cases "
+             f"{sum(1 for e in ref.get('edge_cases', []) if e.get('pass'))}/{len(ref.get('edge_cases', []))}, cold P95 "
+             f"{ms((ref.get('latency', {}).get('cold', {}).get('server_ms') or {}).get('p95'))} ms, correct-plan "
+             f"paraphrase hits {pct((ref.get('cache', {}).get('paraphrase_llm') or {}).get('correct_hit_rate_pct'))}."
+             if ref else ""))
     w("")
     w("---")
     w("")
@@ -173,7 +189,11 @@ def render() -> str:
     w(f"| Step accuracy (completeness, correctness, ordering) | 0.0 - 3.0 | {num(acc.get('step_accuracy'))} |")
     w(f"| Deeplink relevance (exact target screen vs. parent menu) | 0.0 - 2.0 | {num(acc.get('deeplink_relevance'))} |")
     w("")
-    w(f"Cold full pipeline (request SIIS text, cache disabled), {acc.get('queries', NM)} scored responses "
+    if official and not acc:
+        w("Without gold labels the cold responses cannot be scored per query; the reference sample below is the only "
+          "accuracy anchor, and §1 applies every rule check to every response.")
+    if not (official and not acc):
+      w(f"Cold full pipeline (request SIIS text, cache disabled), {acc.get('queries', NM)} scored responses "
       f"(every query of queries.json once). Step accuracy = completeness "
       f"{num(acc.get('completeness'))} + correctness {num(acc.get('correctness'))} + ordering {num(acc.get('ordering'))}. "
       f"Deeplink relevance over {acc.get('deeplink_targets', NM)} gold targets, outcomes "
@@ -181,12 +201,13 @@ def render() -> str:
       f"0 = wrong/missing/fabricated); links attached to actions whose gold has no Settings target: "
       f"{acc.get('false_links', NM)}. Scoring code: `app/evaluation/scoring.py`.")
     w("")
-    w("| Domain | Responses | Step accuracy | Deeplink relevance | Deeplink outcomes |")
-    w("| :--- | :--- | :--- | :--- | :--- |")
-    for d, v in (b.get("accuracy_cold_by_domain") or {}).items():
-        w(f"| {d} | {v['queries']} | {num(v['step_accuracy'])} | {num(v['deeplink_relevance'])} | "
-          f"{', '.join(f'{k} {n}' for k, n in v['deeplink_outcomes'].items())} |")
-    w("")
+    if b.get("accuracy_cold_by_domain"):
+        w("| Domain | Responses | Step accuracy | Deeplink relevance | Deeplink outcomes |")
+        w("| :--- | :--- | :--- | :--- | :--- |")
+        for d, v in (b.get("accuracy_cold_by_domain") or {}).items():
+            w(f"| {d} | {v['queries']} | {num(v['step_accuracy'])} | {num(v['deeplink_relevance'])} | "
+              f"{', '.join(f'{k} {n}' for k, n in v['deeplink_outcomes'].items())} |")
+        w("")
     rounds = b.get("accuracy_cold_rounds") or {}
     pre = b.get("accuracy_prewarmed_plans") or {}
     det = b.get("determinism") or {}
@@ -315,7 +336,8 @@ def render() -> str:
         w(f"| Round {r} LLM paraphrases ({v.get('generator_model')}; {v.get('note')}) | {v['n']} items; correct-plan hits "
           f"{pct(v.get('correct_hit_rate_pct'))}; wrong-plan hits {v.get('wrong_plan_hits')} (pre-fix measurement: "
           f"HARDENING_REPORT.md {'H18' if official else 'H9'}) |")
-    w(f"| Hand-written test paraphrases (seen while tuning; optimistic) | {pm.get('n', NM)} items; correct-plan hits "
+    if pm.get("n"):
+        w(f"| Hand-written test paraphrases (seen while tuning; optimistic) | {pm.get('n', NM)} items; correct-plan hits "
       f"{pct(pm.get('correct_hit_rate_pct'))}; wrong-plan hits {pm.get('wrong_plan_hits', NM)} |")
     neg = b.get("negatives") or {}
     w(f"| Out-of-scope / borderline queries (must not hit) | {neg.get('n', NM)} queries; cache hits {neg.get('cache_hits', NM)}; "
@@ -331,52 +353,64 @@ def render() -> str:
     w("")
 
     # ------------------------------------------------------------------ 5. ablation
+    if official and not ab:
+        w("## 5. Architectural Ablation Analysis")
+        w("")
+        w("Not run on the official data. The full-LLM baseline sends the whole 577-entry catalog with every mapping "
+          "call (about 25K tokens), which exceeds the free-tier limit of 8K tokens per minute, and the mapping-only "
+          "comparison needs gold actions, which the official data does not have. The measured ablation on the "
+          "synthetic fixture (same code path) is archived in `artifacts/reports/dev_fixtures/ablation.json` and "
+          "`artifacts/reports/dev_fixtures/metrics.md` §5.")
+        w("")
+        w("---")
+        w("")
     e2e = ab.get("end_to_end") or {}
     mo = ab.get("mapping_only") or {}
-    w("## 5. Architectural Ablation Analysis")
-    w("")
-    w("| Architecture Variant | Step Accuracy | Latency (P95) | Cost / Query | Key Observations |")
-    w("| :--- | :--- | :--- | :--- | :--- |")
-    labels = {"baseline_llm": ("Baseline: Full LLM Deeplink Mapping", "llm"),
-              "variant_a_hybrid": ("Variant A: Hybrid BM25 + Dense Embedding Retrieval", "hybrid"),
-              "variant_b_rules": ("Variant B: Pure Rules-Based Deeplink Mapping", "rules")}
-    for key, (label, mode) in labels.items():
-        v = e2e.get(key)
-        m = mo.get(mode) or {}
-        if not v:
-            w(f"| {label} | {NM} | {NM} | {NM} | |")
-            continue
-        a = v.get("accuracy") or {}
-        obs = (f"Deeplink relevance {num(a.get('deeplink_relevance'))} end to end, {num(m.get('deeplink_relevance'))} on "
-               f"gold actions (exact {m.get('outcomes', {}).get('exact', 0)}, parent {m.get('outcomes', {}).get('parent', 0)}, "
-               f"wrong {m.get('outcomes', {}).get('wrong', 0)}, missing {m.get('outcomes', {}).get('missing', 0)} of "
-               f"{m.get('targets', NM)}); mapping stage P95 {ms((v.get('mapping_stage_ms') or {}).get('p95'))} ms; "
-               f"{v.get('mapping_llm_calls_per_query', 0)} extra model calls/query; invented URIs rejected: "
-               f"{v.get('fabricated_uris', 0) + (m.get('fabricated_uris') or 0)}")
-        w(f"| {label} | {num(a.get('step_accuracy'))} | {ms((v.get('latency_ms') or {}).get('p95'))} ms | "
-          f"{usd(v.get('cost_usd_per_query'))} | {obs} |")
-    w("")
-    if e2e:
-        w(f"End to end: the full pipeline on all {e2e.get('variant_a_hybrid', {}).get('requests', NM)} queries with their "
-          "SIIS text, cache disabled, variants interleaved per query (rotating order) so they share API conditions; only "
-          f"the mapper differs. Latency is in-process service time ({ab.get('latency_scope', '')}). The baseline gives the "
-          "model the whole catalog (URI + description + message + qna_description) and accepts its answer only if it is "
-          "byte-identical to a catalog URI." + ("" if official else " Pure rules tie hybrid here because the fixture's "
-          "catalog labels and gold steps share one author; hybrid retrieval is kept for recall on unseen catalog wording."))
+    if not (official and not ab):
+        w("## 5. Architectural Ablation Analysis")
         w("")
-    if mo:
-        w("Mapping only (paired: the same labelled gold actions go through every mapper):")
+        w("| Architecture Variant | Step Accuracy | Latency (P95) | Cost / Query | Key Observations |")
+        w("| :--- | :--- | :--- | :--- | :--- |")
+        labels = {"baseline_llm": ("Baseline: Full LLM Deeplink Mapping", "llm"),
+                  "variant_a_hybrid": ("Variant A: Hybrid BM25 + Dense Embedding Retrieval", "hybrid"),
+                  "variant_b_rules": ("Variant B: Pure Rules-Based Deeplink Mapping", "rules")}
+        for key, (label, mode) in labels.items():
+            v = e2e.get(key)
+            m = mo.get(mode) or {}
+            if not v:
+                w(f"| {label} | {NM} | {NM} | {NM} | |")
+                continue
+            a = v.get("accuracy") or {}
+            obs = (f"Deeplink relevance {num(a.get('deeplink_relevance'))} end to end, {num(m.get('deeplink_relevance'))} on "
+                   f"gold actions (exact {m.get('outcomes', {}).get('exact', 0)}, parent {m.get('outcomes', {}).get('parent', 0)}, "
+                   f"wrong {m.get('outcomes', {}).get('wrong', 0)}, missing {m.get('outcomes', {}).get('missing', 0)} of "
+                   f"{m.get('targets', NM)}); mapping stage P95 {ms((v.get('mapping_stage_ms') or {}).get('p95'))} ms; "
+                   f"{v.get('mapping_llm_calls_per_query', 0)} extra model calls/query; invented URIs rejected: "
+                   f"{v.get('fabricated_uris', 0) + (m.get('fabricated_uris') or 0)}")
+            w(f"| {label} | {num(a.get('step_accuracy'))} | {ms((v.get('latency_ms') or {}).get('p95'))} ms | "
+              f"{usd(v.get('cost_usd_per_query'))} | {obs} |")
         w("")
-        w("| Mapper | Deeplink relevance (0–2) | Exact | Parent | Wrong | Missing | Abstain correct | P95 ms / action | Cost / action | Invented URIs |")
-        w("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
-        for mode, v in mo.items():
-            o = v.get("outcomes", {})
-            w(f"| {mode} | {num(v.get('deeplink_relevance'))} | {o.get('exact', 0)} | {o.get('parent', 0)} | {o.get('wrong', 0)} | "
-              f"{o.get('missing', 0)} | {pct(v.get('abstain_accuracy_pct'))} | {ms((v.get('latency_ms_per_action') or {}).get('p95'))} | "
-              f"{usd(v.get('cost_usd_per_action'))} | {v.get('fabricated_uris', 0)} |")
+        if e2e:
+            w(f"End to end: the full pipeline on all {e2e.get('variant_a_hybrid', {}).get('requests', NM)} queries with their "
+              "SIIS text, cache disabled, variants interleaved per query (rotating order) so they share API conditions; only "
+              f"the mapper differs. Latency is in-process service time ({ab.get('latency_scope', '')}). The baseline gives the "
+              "model the whole catalog (URI + description + message + qna_description) and accepts its answer only if it is "
+              "byte-identical to a catalog URI." + ("" if official else " Pure rules tie hybrid here because the fixture's "
+              "catalog labels and gold steps share one author; hybrid retrieval is kept for recall on unseen catalog wording."))
+            w("")
+        if mo:
+            w("Mapping only (paired: the same labelled gold actions go through every mapper):")
+            w("")
+            w("| Mapper | Deeplink relevance (0–2) | Exact | Parent | Wrong | Missing | Abstain correct | P95 ms / action | Cost / action | Invented URIs |")
+            w("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+            for mode, v in mo.items():
+                o = v.get("outcomes", {})
+                w(f"| {mode} | {num(v.get('deeplink_relevance'))} | {o.get('exact', 0)} | {o.get('parent', 0)} | {o.get('wrong', 0)} | "
+                  f"{o.get('missing', 0)} | {pct(v.get('abstain_accuracy_pct'))} | {ms((v.get('latency_ms_per_action') or {}).get('p95'))} | "
+                  f"{usd(v.get('cost_usd_per_action'))} | {v.get('fabricated_uris', 0)} |")
+            w("")
+        w("---")
         w("")
-    w("---")
-    w("")
 
     # ------------------------------------------------------------------ 6. limitations
     w("## 6. Known Edge Cases & System Limitations")
@@ -397,6 +431,33 @@ def render() -> str:
     return "\n".join(L)
 
 
+def _auto_breakdown() -> Optional[dict]:
+    """Where the auto actions without a deeplink come from (results_all.jsonl + results_index.jsonl)."""
+    ip, ap = REPORTS / "results_index.jsonl", REPORTS / "results_all.jsonl"
+    if not (ip.exists() and ap.exists()):
+        return None
+    from app.core.constants import is_dummy_uri
+
+    idx = [json.loads(x) for x in ip.read_text().splitlines()]
+    lines = [json.loads(x) for x in ap.read_text().splitlines()]
+    out = {"auto": 0, "linked": 0, "unlinked_model": 0, "unlinked_rules": 0}
+    for i in idx:
+        if i.get("status") != 200 or i.get("line") is None:
+            continue
+        rules_path = i.get("cache") == "MISS" and str(i.get("path", "")).startswith("paraphrase")
+        for g in lines[i["line"]]["response"]["contexts"]:
+            for a in g["actions"]:
+                if a.get("category") != "auto":
+                    continue
+                out["auto"] += 1
+                ad = a["stepGroups"][0].get("actionableDeeplink")
+                if ad:
+                    out["linked"] += 1
+                else:
+                    out["unlinked_rules" if rules_path else "unlinked_model"] += 1
+    return out
+
+
 def _no_match_count() -> str:
     rep = load("prewarm_report.json") or {}
     items = rep.get("items") or []
@@ -408,9 +469,16 @@ def limitations(b: dict, ab: dict, st: dict, official: bool = False) -> list[str
     pl = (b.get("cache") or {}).get("paraphrase_llm") or {}
     if pl.get("wrong_plan_hits") and official:
         wh = pl.get("wrong_hits") or []
+        rep = load("prewarm_report.json") or {}
+        uncached = {i["id"] for i in rep.get("items", []) if i.get("status") != "cached"}
+        rnd = ROOT / "data" / "official" / "eval" / f"paraphrases_llm_heldout_r{pl.get('round')}.json"
+        qid = {x["text"]: x["query_id"] for x in json.loads(rnd.read_text())["items"]} if rnd.exists() else {}
+        orphan = sum(1 for x in wh if qid.get(x if isinstance(x, str) else x.get("text")) in uncached)
         out.append(f"**Wrong-plan cache hits ({pl['wrong_plan_hits']} of {pl.get('n')} unseen paraphrases).** A sibling "
-                   "plan was served for a paraphrase of a different official complaint; the 20 official complaints are "
-                   "all screen/display issues, so many are near neighbours. Examples: "
+                   f"plan was served for a paraphrase of a different official complaint; {orphan} of them paraphrase a "
+                   f"query that has no cached plan of its own ({', '.join(sorted(uncached)) or 'none'} ended `no_match`), "
+                   "so only a sibling could match. The 20 official complaints are all screen/display issues, so many are "
+                   "near neighbours. Examples: "
                    + "; ".join(f"“{(x.get('text') if isinstance(x, dict) else x)}”" for x in wh[:3]) + ".")
     elif pl.get("wrong_plan_hits"):
         out.append(f"**Wrong-plan cache hits ({pl['wrong_plan_hits']} of {pl.get('n')} unseen paraphrases).** A sibling plan "
@@ -444,6 +512,15 @@ def limitations(b: dict, ab: dict, st: dict, official: bool = False) -> list[str
             "Quick Access panel) get `voiceassist://dummy_positive` for auto actions, or no link when no Settings "
             "screen is identified (quick-panel gestures, the Apps screen). Physical steps (power button, charging, "
             "battery removal, damage inspection) are classified manual by deterministic rules and never get a link.",
+            *([("**Auto actions without a deeplink (target ≥ 90% not met).** Of {auto} auto actions in all responses, "
+                "{linked} carry a catalog or placeholder link. {unlinked_rules} of the unlinked ones come from the warm "
+                "server's rules fallback (it ran without a model, so its cache misses were extracted by the deterministic "
+                "parser, which cannot tell a Settings change from an app or panel gesture); {unlinked_model} come from "
+                "model-extracted plans. In the official SIIS articles most auto steps happen outside Settings (Quick "
+                "Settings panel, Quick Access panel, Data Transfer and Smart View apps, Camera Pro mode), where the "
+                "catalog has no entry and no Settings screen can be identified, so no link is attached rather than a "
+                "guessed one. Relabelling such actions as manual would raise the number but contradicts the category "
+                "definition (`HARDENING_REPORT.md` H16).").format(**_ab)] if (_ab := _auto_breakdown()) else []),
             "**Accuracy is not measured at scale.** With one reference sample and no gold labels for the 20 queries, "
             "step accuracy and deeplink relevance are reported only for the sample.",
         ])

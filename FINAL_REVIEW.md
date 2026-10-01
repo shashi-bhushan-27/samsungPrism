@@ -1,12 +1,14 @@
 # Final Production-Readiness Review
 
-**Verdict: not "production ready".** One mandatory target is only partly met: the semantic cache serves 4 wrong
-plans on 128 unseen paraphrases. All evidence was measured on a synthetic fixture, because the official datasets
-were not supplied. Every other target was measured and met.
+**Verdict: not "production ready".** Measured on the official data, two mandatory targets are not met:
+auto actions carrying a valid deeplink (24.5% against ≥ 90%), and cache precision (4 wrong-plan hits on 80 unseen
+paraphrases, 3 of them for queries that have no cached plan of their own). Every other measured target is met.
 
-The numbers below come from `metrics.md`, which is rendered from `artifacts/reports/*.json`. The live runs
-(2026-10-01) used the Groq API: `openai/gpt-oss-120b` for extraction and `openai/gpt-oss-20b` for query
-variations. The shipped default provider is Gemini; its free-tier daily quota was exhausted on the evaluation day.
+The numbers below come from `metrics.md`, rendered from `artifacts/reports/*.json` (official dataset, run
+2026-10-01). Models: Groq `openai/gpt-oss-120b` for extraction and `openai/gpt-oss-20b` for variations and
+fail-over. The free-tier daily token quota ran out during the final run, so 18 of 26 cold requests were served by
+the fail-over model; the previous run with every cold request on `gpt-oss-120b` is archived in
+`artifacts/reports/official_run2/`.
 
 ## Architecture summary
 
@@ -39,54 +41,52 @@ The model reads language and extracts structure from the reference text. Code en
 * **Tooling.** Benchmark, ablation, stress, hostile-probe, calibration and paraphrase-generation scripts; a
   Dockerfile.
 
-## Measured metrics: targets vs actual
+## Measured metrics: targets vs actual (official data)
 
 | Target | Actual | Status |
 | :--- | :--- | :--- |
-| Schema-valid lines ≥ 99% | 100% (447/447) | Met |
-| Goal / title / description rule compliance ≥ 95% | 100% (5,325 checks); all business rules 100% (44,463 checks) | Met |
+| Schema-valid lines ≥ 99% | 100% (262/262) | Met |
+| Goal / title / description rule compliance ≥ 95% | 100% (3,171 checks); all business rules 100% (23,899 checks) | Met |
 | Absolute URL leaks = 0 | 0 | Met |
-| Deeplink catalog validity = 100% | 100% (1,024/1,024 URIs) | Met |
-| Auto actions with a valid actionable deeplink ≥ 90% | 91.5% (86.6% real catalog links, the rest `dummy_positive`) | Met |
-| Cache hit P95 ≤ 300 ms (exact) | 10.0 ms (N = 64) | Met |
-| Cache hit P95 ≤ 300 ms (unseen paraphrase) | 24.2 ms (N = 116) | Met |
-| Cold full pipeline P95 ≤ 8 s | 2.55 s (N = 40, all model-served) | Met |
-| Cache hit inference cost $0.00 | $0.00 (334 hits, 0 model calls) | Met |
-| Cold cost tracked | $0.000527 per query (P95 $0.000723) | Met |
-| Semantic hit rate ≥ 80% on unseen paraphrases | 87.5% correct-plan hits (112/128, fresh round 2) | Met |
-| No wrong-plan hits (cache precision) | **4/128 wrong-plan hits** | **Not met** |
-| Step accuracy (0–3) | 2.902 | reported |
-| Deeplink relevance (0–2) | 1.896 (63/67 exact, 1 parent, 3 unmatched actions) | reported |
-| Deterministic execution | Cached repeats identical. The live model gives an identical plan structure for 5 of 8 repeated inputs | **Partial** |
-| Hostile probes | 19/19 live; 14 attack classes offline | Met |
-| Edge cases | 18/18 | Met |
-| Load | 0 errors, 0 contract failures. P95 ≤ 300 ms up to 8 concurrent requests per worker | Met at ≤ 8 per worker |
+| Deeplink catalog validity = 100% | 100% (83/83 URIs) | Met |
+| Auto actions with a valid actionable deeplink ≥ 90% | 24.5% (27 catalog + 9 placeholder of 147) | **Not met** |
+| Cache hit P95 ≤ 300 ms (exact) | 9.8 ms (N = 36) | Met |
+| Cache hit P95 ≤ 300 ms (unseen paraphrase) | 29.9 ms (N = 71) | Met |
+| Cold full pipeline P95 ≤ 8 s | 2.17 s (N = 26, 0 over 8 s) | Met |
+| Cache hit inference cost $0.00 | $0.00 (179 hits, 0 model calls) | Met |
+| Cold cost tracked | $0.000370 per query (P95 $0.000456) | Met |
+| Semantic hit rate ≥ 80% on unseen paraphrases | 83.75% correct-plan hits (67/80, fresh round 3) | Met |
+| No wrong-plan hits (cache precision) | **4/80** (3 for queries without a cached plan) | **Not met** |
+| Official queries with a grounded plan | 18/20 (2 `no_match`) | reported |
+| Reference sample (step accuracy 0–3) | 0.0 in the final run (fail-over model answered `no_match`); 1.0 in the all-120b run | **Partial** |
+| Deterministic execution | cached repeats identical; live model identical plan structure 4/6 | **Partial** |
+| Edge cases | 16/18 (E03, E04 `no_match` from the fail-over model; 18/18 in the all-120b run) | **Partial** |
+| Negatives (out of scope) | 20/20 `no_siis_context`, 0 cache hits | Met |
+| Load | 0 unexpected errors, 0 contract failures up to 64 concurrent requests and a 200-request burst | Met |
+| Hostile probes | 19/19 live on the synthetic fixture; 14 attack classes offline (390 offline tests) | Met (not re-run live on official data) |
 
 ## Failed or partial targets
 
-1. **Wrong-plan cache hits (4/128).** "Froze, won't respond to touch or buttons" is subsumed into the
-   touchscreen concept. "Phone is completely full" is not recognised as storage. A symptom-less "battery life is
-   a joke" matched a sibling battery plan. The issue is tracked as a strict xfail; any fix must be measured on a
-   fresh held-out round.
-2. **Live-model determinism.** Temperature 0 and a fixed seed do not give byte-identical output from the
-   provider. The cache makes repeat answers identical.
-3. **Official data.** Not supplied; all accuracy numbers are on a self-authored fixture and are optimistic.
+1. **Auto actions without a deeplink.** Most auto steps in the official SIIS articles happen outside Settings
+   (Quick Settings and Quick Access panels, the Data Transfer and Smart View apps, Camera Pro mode). The catalog has
+   no entry for them and no Settings screen can be identified, so no link is attached instead of a guessed one.
+   Relabelling them as manual was tried and rejected (H16).
+2. **Wrong-plan cache hits.** Two official queries have no cached plan (their SIIS article does not address the
+   complaint), so paraphrases of them can only match a sibling plan.
+3. **Model quota.** The free-tier daily quota (200K tokens/day per model) bounds how much can be measured on the
+   primary model in one day; the final run fell back to the smaller model for 18 of 26 cold requests.
+4. **Accuracy at scale.** The official data has one reference sample and no gold labels.
 
 ## Known limitations
 
-See `metrics.md` §6 and `HARDENING_REPORT.md`. In brief:
-
-* **Domain coverage.** Only the four fixture domains are covered.
-* **Language.** Non-English complaints are not translated.
-* **Throughput.** One worker saturates at about 230 req/s for exact hits and about 44 req/s for semantic hits;
-  scale out with workers.
-* **Provider quotas.** Free-tier quotas bound live throughput (Gemini 500 requests/day per model; Groq 8K
-  tokens/min and 200K tokens/day per model).
+See `metrics.md` §6 and `HARDENING_REPORT.md` (H15–H19 cover the official data). In brief: knowledge limited
+to the 20 official screen/display articles; non-English complaints are not translated; one worker saturates at
+about 100 req/s for exact hits and about 29 req/s for semantic hits; free-tier quotas bound live throughput.
 
 ## Reproducibility
 
 ```bash
-make install && make indexes && make test           # offline: 361 tests pass + 1 documented strict xfail
+make install && make indexes && make test           # offline: 390 tests pass + 1 documented strict xfail
 cp .env.example .env                                 # set GEMINI_API_KEY or GROQ_API_KEY (+ LLM_PROVIDER)
 make serve                                           # API on :8000, demo page on /demo
 make prewarm calibrate                               # build the cache, choose the threshold (calibration split only)
@@ -98,8 +98,8 @@ make docker-build && make docker-run ENV_FILE=.env   # container healthy in ~5 s
 The Groq configuration used for the reported numbers:
 
 ```bash
-LLM_PROVIDER=groq LLM_MODEL=openai/gpt-oss-120b LLM_FALLBACK_MODELS=openai/gpt-oss-20b,qwen/qwen3.8-27b \
-LLM_ENRICHMENT_MODEL=openai/gpt-oss-20b
+LLM_PROVIDER=groq LLM_MODEL=openai/gpt-oss-120b LLM_FALLBACK_MODELS=openai/gpt-oss-20b \
+LLM_ENRICHMENT_MODEL=openai/gpt-oss-20b LLM_MAX_OUTPUT_TOKENS=2048
 ```
 
 ## Model, provider and configuration requirements

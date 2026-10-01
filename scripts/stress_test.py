@@ -94,7 +94,8 @@ def main() -> int:
     docs, _ = parse_siis(read_json(data / "siis_responses.json"))
     links, _ = link_queries_to_siis(queries, docs)
     doc_text = {d.id: d.text for d in docs}
-    para = json.loads((data / "eval" / "paraphrases_llm_heldout.json").read_text())["items"]
+    rounds = sorted((data / "eval").glob("paraphrases_llm_heldout*.json"))  # newest held-out round last
+    para = json.loads(rounds[-1].read_text())["items"]
     negatives = json.loads((data / "eval" / "negatives.json").read_text())["unrelated"]
     rng = random.Random(7)
     levels = [int(x) for x in args.levels.split(",")]

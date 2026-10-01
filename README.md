@@ -27,26 +27,31 @@ URI selection, grouping, sequencing, URL scrubbing, validation, caching, cost an
 | `REQUIREMENTS_TRACEABILITY.md` | Requirement → implementation → test → status → evidence |
 | `FINAL_REVIEW.md` | Production-readiness review: targets vs measured values, limitations, commands |
 | `AUDIT.md` | Phase 0 audit of the problem statement, assets and interpretation decisions |
-| `docs/Smart_Troubleshooting_Engine.pptx` | Presentation (11 slides, every number generated from the reports) |
-| `docs/demo.webm` | Demo video (56 s): a real browser driving the live API through `/demo`: exact hit, paraphrase hit, live extraction with URL/prompt-injection scrubbing, out-of-scope fallback, 422 |
+| `docs/CollegeName_TeamName_Submission.pptx` | Submission deck on the official template (team fields marked [TO FILL]); every number from the reports |
+| `docs/LangAI3.0_AI_Disclosure.docx` | Filled AI-usage disclosure form (team fields marked [TO FILL]) |
+| `docs/Smart_Troubleshooting_Engine.pptx` | Earlier technical deck (synthetic-fixture numbers) |
+| `docs/demo.webm` | Demo video (56 s, recorded on the synthetic fixture before the official data arrived): a real browser driving the live API through `/demo`: exact hit, paraphrase hit, live extraction with URL/prompt-injection scrubbing, out-of-scope fallback, 422 |
 | `AI_DISCLOSURE.md` | How AI was used to build the project, which models run inside it, and which data is AI-generated |
 
-## Results at a glance (live model, real HTTP; full detail in `metrics.md`)
+## Results at a glance (official data, live model, real HTTP; full detail in `metrics.md`)
 
 | Check | Target | Measured |
 | :--- | :--- | :--- |
-| Schema-valid outputs | ≥ 99% | 100% (447/447) |
-| Goal / title / description rules | ≥ 95% | 100% |
+| Schema-valid outputs | ≥ 99% | 100% (262/262) |
+| Goal / title / description rules | ≥ 95% | 100% (3,171 checks) |
 | URL leaks | 0 | 0 |
-| Deeplinks found verbatim in the catalog | 100% | 100% |
-| Auto actions with a valid deeplink | ≥ 90% | 91.5% |
-| P95 exact / unseen-paraphrase cache hit | ≤ 300 ms | 10 ms / 24 ms |
-| P95 cold full pipeline | ≤ 8 s | 2.55 s |
-| Unseen paraphrases served the correct plan | ≥ 80% | 87.5% (4/128 wrong-plan hits: known limitation) |
-| Step accuracy / deeplink relevance | 0–3 / 0–2 | 2.902 / 1.896 |
+| Deeplinks found verbatim in the catalog | 100% | 100% (83/83) |
+| Auto actions with a valid deeplink | ≥ 90% | **24.5% — not met** (most official auto steps are outside Settings; see `metrics.md` §6) |
+| P95 exact / unseen-paraphrase cache hit | ≤ 300 ms | 9.8 ms / 29.9 ms |
+| P95 cold full pipeline | ≤ 8 s | 2.17 s |
+| Unseen paraphrases served the correct plan | ≥ 80% | 83.75% (67/80; 4 wrong-plan hits) |
+| Official queries with a grounded plan | — | 18/20 (2 `no_match`: the SIIS article does not address the complaint) |
+| Edge cases / negatives | — | 16/18 / 0 false cache hits on 20 out-of-scope queries |
 
-Measured on the synthetic dev fixture with Groq `openai/gpt-oss-120b`; see `FINAL_REVIEW.md` for what is and is
-not met.
+Measured with Groq `openai/gpt-oss-120b` (extraction) and `openai/gpt-oss-20b` (variations, fail-over). The
+free-tier daily token quota ran out during the final run, so 18 of its 26 cold requests were served by the
+fail-over model; the previous run with every cold request on `gpt-oss-120b` is archived in
+`artifacts/reports/official_run2/`. See `FINAL_REVIEW.md` for what is and is not met.
 
 ## Pipeline
 
@@ -79,7 +84,7 @@ POST /v1/troubleshoot {query, siis_response?}
 make install                                   # Python 3.11+; FastAPI, pydantic, httpx, numpy, fastembed
 cp .env.example .env && $EDITOR .env           # set GEMINI_API_KEY, or LLM_PROVIDER=groq + GROQ_API_KEY (never commit keys)
 make indexes                                   # BM25 + dense indexes → artifacts/indexes/
-make test                                      # offline suite: unit, integration, regression, adversarial
+make test                                      # offline suite (390 tests): unit, integration, regression, adversarial
 make serve                                     # http://localhost:8000
                                                # demo UI: http://localhost:8000/demo
 ```
@@ -87,7 +92,7 @@ make serve                                     # http://localhost:8000
 ```bash
 curl -s localhost:8000/health                  # {"status":"ok"} once catalog, indexes, cache and model are ready
 curl -s localhost:8000/v1/troubleshoot -H 'content-type: application/json' \
-     -d '{"query":"phone swipe gestures wrong direction after app install"}'
+     -d '{"query":"My smartphone screen is completely cracked and I cannot use the device"}'
 ```
 
 The committed pre-warmed plans (`artifacts/cache/prewarm_plans.jsonl`) are imported at start-up, so the queries of

@@ -1,0 +1,371 @@
+{
+  "dataset": "official",
+  "server": "uvicorn, 1 worker",
+  "levels": [
+    1,
+    8,
+    32,
+    64
+  ],
+  "requests_per_run": 320,
+  "startup_s": 4.08,
+  "first_request_after_healthy": {
+    "ms": 43.02,
+    "cache": "HIT-SEMANTIC",
+    "status": 200
+  },
+  "rss_mb_idle": 307.1,
+  "rss_mb_after_load": 324.2,
+  "server_cpu_s_during_load": 273.52,
+  "runs": {
+    "exact_hits@1": {
+      "requests": 320,
+      "concurrency": 1,
+      "wall_s": 3.588,
+      "throughput_rps": 89.2,
+      "latency_ms_200": {
+        "n": 320,
+        "p50": 8.56,
+        "p95": 31.81,
+        "p99": 44.07,
+        "mean": 11.17,
+        "max": 69.24
+      },
+      "statuses": {
+        "200": 320
+      },
+      "cache": {
+        "HIT-EXACT": 293,
+        "HIT-SEMANTIC": 27
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0
+    },
+    "semantic_hits@1": {
+      "requests": 320,
+      "concurrency": 1,
+      "wall_s": 29.46,
+      "throughput_rps": 10.9,
+      "latency_ms_200": {
+        "n": 320,
+        "p50": 24.32,
+        "p95": 46.01,
+        "p99": 1572.14,
+        "mean": 92.02,
+        "max": 2159.43
+      },
+      "statuses": {
+        "200": 320
+      },
+      "cache": {
+        "HIT-SEMANTIC": 289,
+        "MISS": 31
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0031
+    },
+    "mixed@1": {
+      "requests": 320,
+      "concurrency": 1,
+      "wall_s": 5.136,
+      "throughput_rps": 62.3,
+      "latency_ms_200": {
+        "n": 302,
+        "p50": 8.23,
+        "p95": 28.59,
+        "p99": 33.31,
+        "mean": 16.84,
+        "max": 1507.48
+      },
+      "statuses": {
+        "200": 302,
+        "422": 18
+      },
+      "cache": {
+        "HIT-EXACT": 225,
+        "HTTP_422": 18,
+        "MISS": 19,
+        "HIT-SEMANTIC": 58
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0
+    },
+    "exact_hits@8": {
+      "requests": 320,
+      "concurrency": 8,
+      "wall_s": 3.024,
+      "throughput_rps": 105.8,
+      "latency_ms_200": {
+        "n": 320,
+        "p50": 70.72,
+        "p95": 115.18,
+        "p99": 125.65,
+        "mean": 73.75,
+        "max": 131.15
+      },
+      "statuses": {
+        "200": 320
+      },
+      "cache": {
+        "HIT-EXACT": 281,
+        "HIT-SEMANTIC": 39
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0
+    },
+    "semantic_hits@8": {
+      "requests": 320,
+      "concurrency": 8,
+      "wall_s": 11.023,
+      "throughput_rps": 29.0,
+      "latency_ms_200": {
+        "n": 320,
+        "p50": 137.48,
+        "p95": 1897.72,
+        "p99": 2402.86,
+        "mean": 256.19,
+        "max": 2731.62
+      },
+      "statuses": {
+        "200": 320
+      },
+      "cache": {
+        "HIT-SEMANTIC": 288,
+        "MISS": 32
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0
+    },
+    "mixed@8": {
+      "requests": 320,
+      "concurrency": 8,
+      "wall_s": 5.927,
+      "throughput_rps": 54.0,
+      "latency_ms_200": {
+        "n": 308,
+        "p50": 66.52,
+        "p95": 173.24,
+        "p99": 2007.79,
+        "mean": 120.27,
+        "max": 2085.18
+      },
+      "statuses": {
+        "200": 308,
+        "422": 12
+      },
+      "cache": {
+        "HIT-EXACT": 205,
+        "HIT-SEMANTIC": 78,
+        "HTTP_422": 12,
+        "MISS": 25
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0
+    },
+    "exact_hits@32": {
+      "requests": 320,
+      "concurrency": 32,
+      "wall_s": 3.153,
+      "throughput_rps": 101.5,
+      "latency_ms_200": {
+        "n": 320,
+        "p50": 290.56,
+        "p95": 462.35,
+        "p99": 467.59,
+        "mean": 298.76,
+        "max": 469.59
+      },
+      "statuses": {
+        "200": 320
+      },
+      "cache": {
+        "HIT-EXACT": 283,
+        "HIT-SEMANTIC": 37
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0
+    },
+    "semantic_hits@32": {
+      "requests": 320,
+      "concurrency": 32,
+      "wall_s": 11.634,
+      "throughput_rps": 27.5,
+      "latency_ms_200": {
+        "n": 320,
+        "p50": 512.68,
+        "p95": 5187.96,
+        "p99": 9791.49,
+        "mean": 1021.95,
+        "max": 10616.99
+      },
+      "statuses": {
+        "200": 320
+      },
+      "cache": {
+        "HIT-SEMANTIC": 270,
+        "MISS": 50
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0
+    },
+    "mixed@32": {
+      "requests": 320,
+      "concurrency": 32,
+      "wall_s": 4.764,
+      "throughput_rps": 67.2,
+      "latency_ms_200": {
+        "n": 302,
+        "p50": 372.48,
+        "p95": 612.57,
+        "p99": 2700.55,
+        "mean": 425.29,
+        "max": 3622.27
+      },
+      "statuses": {
+        "422": 18,
+        "200": 302
+      },
+      "cache": {
+        "HTTP_422": 18,
+        "HIT-EXACT": 205,
+        "HIT-SEMANTIC": 76,
+        "MISS": 21
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0
+    },
+    "exact_hits@64": {
+      "requests": 320,
+      "concurrency": 64,
+      "wall_s": 4.396,
+      "throughput_rps": 72.8,
+      "latency_ms_200": {
+        "n": 320,
+        "p50": 630.28,
+        "p95": 2045.94,
+        "p99": 2612.13,
+        "mean": 786.02,
+        "max": 3247.96
+      },
+      "statuses": {
+        "200": 320
+      },
+      "cache": {
+        "HIT-EXACT": 293,
+        "HIT-SEMANTIC": 27
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0
+    },
+    "semantic_hits@64": {
+      "requests": 320,
+      "concurrency": 64,
+      "wall_s": 12.787,
+      "throughput_rps": 25.0,
+      "latency_ms_200": {
+        "n": 320,
+        "p50": 1544.52,
+        "p95": 4063.95,
+        "p99": 10048.97,
+        "mean": 1912.31,
+        "max": 11786.11
+      },
+      "statuses": {
+        "200": 320
+      },
+      "cache": {
+        "MISS": 33,
+        "HIT-SEMANTIC": 287
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0
+    },
+    "mixed@64": {
+      "requests": 320,
+      "concurrency": 64,
+      "wall_s": 7.08,
+      "throughput_rps": 45.2,
+      "latency_ms_200": {
+        "n": 310,
+        "p50": 915.88,
+        "p95": 1767.52,
+        "p99": 4821.82,
+        "mean": 1037.8,
+        "max": 5502.08
+      },
+      "statuses": {
+        "200": 310,
+        "422": 10
+      },
+      "cache": {
+        "HIT-EXACT": 193,
+        "HIT-SEMANTIC": 83,
+        "MISS": 34,
+        "HTTP_422": 10
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0
+    },
+    "same_query_burst@200": {
+      "requests": 200,
+      "concurrency": 200,
+      "wall_s": 6.686,
+      "throughput_rps": 29.9,
+      "latency_ms_200": {
+        "n": 200,
+        "p50": 5985.27,
+        "p95": 6520.39,
+        "p99": 6602.46,
+        "mean": 6031.62,
+        "max": 6612.48
+      },
+      "statuses": {
+        "200": 200
+      },
+      "cache": {
+        "HIT-SEMANTIC": 200
+      },
+      "unexpected_errors": 0,
+      "unexpected_examples": [],
+      "contract_failures": 0,
+      "url_leaks": 0,
+      "model_calls_per_request": 0.0
+    }
+  }
+}

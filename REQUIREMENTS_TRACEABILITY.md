@@ -5,8 +5,9 @@ Status is **Complete** only when executable evidence exists. Other values:
 * **Partial**: implemented, but a target is only partly met or a gap is documented.
 * **Not met**: measured and below the target.
 
-The measured values are in `metrics.md`, rendered from `artifacts/reports/*.json`. The dataset is the
-synthetic dev fixture (`AUDIT.md` D10).
+The measured values are in `metrics.md`, rendered from `artifacts/reports/*.json`. The dataset is the official
+starter data (`data/official/`); the earlier synthetic-fixture evidence (gold-label accuracy, ablation, live hostile
+probes) is archived in `artifacts/reports/dev_fixtures/`.
 
 ## Problem statement — pipeline (PDF §2) and contract (PDF §4)
 
@@ -30,7 +31,7 @@ synthetic dev fixture (`AUDIT.md` D10).
 | Critical actions ordered last (least disruptive first) | `sequencing.py`, critical ranks | attack 6 | Complete | `critical_order_violations = 0` |
 | One Action = One Screen (no fragmentation, no bundling) | `action_grouping.py` (H3, H4) | attacks 4 and 5; `test_fragmented…`, `test_bundled…` | Complete | A4, A5 probes |
 | `actionableDeeplink` copied verbatim from the catalog | `CatalogEntry.to_deeplink`; registry objects only | attack 2; `deeplink_validator` field-integrity checks | Complete | catalog validity 100% (`compliance_all_paths`) |
-| `bixby://dummy_positive` only for an unindexed valid Settings screen | resolver `dummy` decision (auto only) | `test_parent_menu_is_never_returned_for_unindexed_child` | Complete | sample D01 = Appendix B |
+| The catalog's `dummy_positive` placeholder (`voiceassist://dummy_positive` on the official catalog) only for an unindexed valid Settings screen | resolver `dummy` decision (auto only) | `test_parent_menu_is_never_returned_for_unindexed_child` | Complete | sample D01 = Appendix B |
 | Zero URL leaks | `url_safety.sanitize_*`, `scan_payload` gate | attack 1 (10 URL forms × every field) | Complete | `absolute_url_leaks = 0`; A1 probes |
 | Pure JSON delivery, no markdown or prose | FastAPI `JSONResponse`; strict JSON loading | `tests/integration/test_api.py` | Complete | `results.jsonl` parses line by line |
 | Matching on metadata, never on the masked URI string | `CatalogEntry.semantic_text` excludes the URI | `test_retrieval.py` | Complete | — |
@@ -46,7 +47,7 @@ synthetic dev fixture (`AUDIT.md` D10).
 | Parent-menu protection | parent penalty; exactness by label cover | attack 3; `test_vague_llm_action_name…` (H7) | Complete | A3 probes; 0 parent outcomes on the live cold path |
 | Duplicate and ambiguous catalog candidates | registry duplicates; ambiguity fallback | `test_duplicate_metadata_resolves_deterministically` | Complete | — |
 | Exact cache | `PlanCache.lookup_exact` | `tests/unit/test_cache.py` | Complete | exact-hit latency (`metrics.md` §3) |
-| Semantic cache with calibrated threshold | `PlanCache.lookup_semantic`, `scripts/calibrate_cache.py` | `test_cache.py`; attack 9 | **Partial** | ≥ 80% target met on fresh held-out round 2, with 4 wrong-plan hits (strict xfail `test_attack9_no_wrong_plan_is_ever_served`) |
+| Semantic cache with calibrated threshold | `PlanCache.lookup_semantic`, `scripts/calibrate_cache.py` | `test_cache.py`; attack 9 | **Partial** | official data: 83.75% correct-plan hits on fresh held-out round 3, with 4 wrong-plan hits (3 for queries without a cached plan); synthetic fixture: strict xfail `test_attack9_no_wrong_plan_is_ever_served` |
 | Cache-poisoning protection | concept, qualifier and domain gates; scope isolation | attack 8 (constant embedder); `test_request_scoped_plan…` | Complete | A8 probes |
 | Persistent cache with versioned invalidation | `SqliteCacheStore`; catalog fingerprint + `PIPELINE_VERSION` | `test_sqlite_persistence_and_version_invalidation` | Complete | — |
 | Cache stores only validated plans; hits re-validated | `put` validator; revalidation on hit | `test_invalid_plan_is_never_cached`, `test_hit_that_fails_revalidation_is_evicted` | Complete | — |
@@ -73,4 +74,5 @@ synthetic dev fixture (`AUDIT.md` D10).
 | Docker build | `Dockerfile` (non-root, model and indexes baked in) | — | Complete | `docker_verification.json` |
 | Regression and adversarial tests | `tests/regression`, `tests/adversarial` | `pytest` | Complete | full suite green; one documented strict xfail |
 | Benchmark reproducibility | `Makefile`, fixed seeds, frozen held-out sets | — | Partial | live-model runs vary between runs (see determinism) and are bound by provider quotas |
-| Official datasets (`queries.json`, `siis_responses.json`, ~575-entry `deeplinks.json`, `samples/`) | format-tolerant loaders; `data/official/` drop-in | `test_loaders_registry.py` | **Not met (not supplied)** | every metric is on the synthetic fixture |
+| Official datasets (`input.txt`, `siis_responses.json`, 578-entry `deeplinks.json`, sample) | format-tolerant loaders (`voiceassist://` URIs, `{title, content}` SIIS objects, catalog-defined placeholder) | `test_official_format.py` | Complete | `metrics.md` (dataset: official); 18/20 queries grounded |
+| Auto actions with a valid deeplink ≥ 90% | resolver + catalog placeholder | `test_resolver.py` | **Not met** | 24.5% on official data: most official auto steps are outside Settings (`metrics.md` §6, H16) |
