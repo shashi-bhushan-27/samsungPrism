@@ -46,7 +46,7 @@ CONCEPTS: tuple[Concept, ...] = (
         r"\b(?:running|runs?|ran) out of (?:battery|charge|juice|power)\b",
     ], "battery drains quickly", "Battery Drain", "Battery fast drain"),
     _c("charging_issue", "charging", [(B, 1.0)], [
-        r"\b(?:not|will not|cannot|does not|did not|no longer|stopped|stops)\b.{0,12}\bcharg\w*",
+        r"\b(?:not|will not|cannot|does not|did not|no longer|stopped|stops)\s+(?:\w+\s+)?charg\w*",
         r"\bcharg\w*\b.{0,20}\b(?:slow\w*|takes? (?:forever|ages|long)|not working|does not work|properly)\b",
         r"\bslow(?:ly)? charg\w*",
         r"\b(?:refus\w*|fail\w*|unable) to (?:charge|take a charge)\b", r"\btake a charge\b",
@@ -60,7 +60,7 @@ CONCEPTS: tuple[Concept, ...] = (
         r"\b\d+ percent\b.{0,30}\b(?:then|to)\b.{0,15}\b\d+ percent\b", r"\bshows \d+ percent then\b",
     ], "battery percentage drops suddenly", "Battery Percentage", "Battery percentage drops", priority=2),
     _c("battery_limit", "battery_protection", [(B, 1.0)], [
-        r"\b(?:limit|stop|cap|protect\w*)\b.{0,40}\bcharg\w*", r"\bcharg\w*\b.{0,40}\b(?:80|85|90|100) percent\b",
+        r"\b(?:limit|stop|cap|protect\w*)\b.{0,40}\bcharg\w*", r"\b(?:only|just|up to|max(?:imum)?|stop(?:s|ping)? at|limit\w*(?: it)? to|cap\w*(?: it)? (?:at|to))\b.{0,15}\b(?:80|85|90|95) percent\b",
         r"\bmax(?:imum)? charge\b", r"\bbattery protection\b", r"\bcharge limit\b", r"\bstop at 80\b",
         r"\brestrict\w*\b.{0,30}\bcharg\w*", r"\b(?:preserve|prolong|extend)\w*\b.{0,30}\bbattery (?:health|lifespan|life ?span|longevity)\b",
         r"\bbattery (?:health|lifespan|longevity)\b",

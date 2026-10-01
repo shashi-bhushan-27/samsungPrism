@@ -16,7 +16,8 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 # as output. Prices marked "through December 31, 2026" change on 2027-01-01; override
 # with LLM_PRICE_INPUT_PER_MTOK / LLM_PRICE_OUTPUT_PER_MTOK when they do. A model that is
 # absent here reports cost as unavailable (null) instead of a guessed number.
-PRICING_SOURCE = "https://ai.google.dev/gemini-api/docs/pricing (retrieved 2026-09-30)"
+PRICING_SOURCE = ("https://ai.google.dev/gemini-api/docs/pricing (retrieved 2026-09-30); "
+                  "https://console.groq.com/docs/models (retrieved 2026-10-01)")
 MODEL_PRICING_USD_PER_MTOK: dict[str, tuple[float, float]] = {
     "gemini-3.6-flash": (0.75, 3.75),
     "gemini-3.7-flash": (0.75, 3.75),
@@ -26,6 +27,10 @@ MODEL_PRICING_USD_PER_MTOK: dict[str, tuple[float, float]] = {
     "gemini-3.1-flash-lite": (0.25, 1.50),
     "gemini-2.5-flash": (0.30, 2.50),
     "gemini-2.5-flash-lite": (0.10, 0.40),
+    # Groq (OpenAI-compatible API)
+    "openai/gpt-oss-120b": (0.15, 0.60),
+    "openai/gpt-oss-20b": (0.075, 0.30),
+    "qwen/qwen3.8-27b": (0.80, 4.00),
 }
 
 
@@ -38,7 +43,7 @@ class Settings(BaseSettings):
     artifacts_dir: Path = REPO_ROOT / "artifacts"
 
     # ---- LLM -------------------------------------------------------------------
-    llm_provider: Literal["gemini", "fake", "none"] = "gemini"
+    llm_provider: Literal["gemini", "groq", "fake", "none"] = "gemini"
     # Default chosen by measurement on this key (see metrics.md): best sustained availability,
     # quality within 0.02 step-accuracy points of gemini-3.6-flash, lowest price.
     llm_model: str = "gemini-3.1-flash-lite"
@@ -48,6 +53,10 @@ class Settings(BaseSettings):
     llm_enrichment_model: str = ""
     gemini_api_key: Optional[SecretStr] = None
     gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta"
+    groq_api_key: Optional[SecretStr] = None
+    groq_base_url: str = "https://api.groq.com/openai/v1"
+    # Reasoning models (gpt-oss): low effort keeps the cold path fast; extraction is grounded copying.
+    groq_reasoning_effort: str = "low"
     llm_timeout_s: float = 20.0
     llm_attempts_per_model: int = 2
     llm_repair_retries: int = 1

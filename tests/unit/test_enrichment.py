@@ -135,3 +135,14 @@ def test_support_ticket_framing_is_normalised_to_the_complaint():
                                   "There are green lines on my display", "Bluetooth headphones will not pair"])
 def test_out_of_scope_complaints_stay_concept_free(text):
     assert QueryEnricher().analyze(text).symptoms == ()
+
+
+def test_charging_to_full_is_not_a_charge_limit_request():
+    """Regression (edge case E14): describing a full overnight charge is a drain complaint, not a request to
+    limit charging; the false second concept made KB retrieval decline the right article."""
+    e = QueryEnricher()
+    assert e.analyze("the battery just does not last, I charge it overnight to 100 percent and by lunch it is at "
+                     "20 percent, my battery dies very fast").symptoms == ("battery_drain",)
+    assert "charging_issue" in e.analyze("my phone is not charging").symptoms
+    assert "charging_issue" in e.analyze("it stopped fast charging").symptoms
+    assert "battery_limit" in e.analyze("I want my phone to only charge up to 85 percent").symptoms

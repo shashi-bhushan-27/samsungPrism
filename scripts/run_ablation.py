@@ -87,9 +87,10 @@ async def run(args) -> dict:
     links, _ = link_queries_to_siis(queries, docs)
     doc_text = {d.id: d.text for d in docs}
     resolver, registry, llm = comps.resolver, comps.registry, comps.llm
-    mappers = {m: DeeplinkMapper(resolver, registry, mode=m, llm=llm, llm_model=s.llm_model) for m in MAPPING_MODES}
+    mapping_model = args.mapping_model or s.llm_model
+    mappers = {m: DeeplinkMapper(resolver, registry, mode=m, llm=llm, llm_model=mapping_model) for m in MAPPING_MODES}
     out: dict = {"started_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
-                 "dataset": s.dataset_label, "llm_model": s.llm_model, "llm_fallbacks": s.fallback_models,
+                 "dataset": s.dataset_label, "llm_provider": s.llm_provider, "llm_model": s.llm_model, "mapping_model": mapping_model, "llm_fallbacks": s.fallback_models,
                  "embedding_model": f"{s.embedding_provider}:{s.embedding_model}", "catalog_entries": len(registry.entries),
                  "latency_scope": "in-process service latency (no HTTP), cache disabled, sequential requests; "
                                   "variant latency = measured model phase of the real run + measured replay"}
@@ -238,6 +239,7 @@ def main() -> int:
     ap.add_argument("--env-file", default=None)
     ap.add_argument("--pace", type=float, default=12.0, help="seconds between queries (provider RPM limits)")
     ap.add_argument("--pace-mapping", type=float, default=4.0)
+    ap.add_argument("--mapping-model", default="", help="model for the full-LLM mapping baseline (default: LLM_MODEL)")
     ap.add_argument("--skip-e2e", action="store_true")
     ap.add_argument("--limit", type=int, default=0, help="only the first N queries / gold queries (smoke tests)")
     ap.add_argument("--out", default="ablation.json")

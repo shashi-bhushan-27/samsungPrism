@@ -209,7 +209,8 @@ def main() -> int:
             all_bodies.append(call.body)
 
     client = httpx.Client(timeout=120.0, trust_env=False)
-    out: dict = {"started_at": started, "dataset": s.dataset_label, "llm_model": s.llm_model,
+    out: dict = {"started_at": started, "dataset": s.dataset_label, "llm_provider": s.llm_provider,
+                 "llm_model": s.llm_model, "llm_enrichment_model": s.enrichment_model,
                  "llm_fallbacks": s.fallback_models, "llm_thinking_level": s.llm_thinking_level,
                  "llm_hedge_after_s": s.llm_hedge_after_s,
                  "embedding_model": f"{s.embedding_provider}:{s.embedding_model}",

@@ -122,6 +122,7 @@ All settings are environment variables (see `.env.example`, with defaults in `ap
 | Variable | Default | Purpose |
 | :--- | :--- | :--- |
 | `GEMINI_API_KEY` | — | Model access (required for cold requests; cache hits work without it) |
+| `LLM_PROVIDER` | `gemini` | `gemini` or `groq` (OpenAI-compatible; `GROQ_API_KEY`, e.g. `openai/gpt-oss-120b`); `none` serves cache hits and grounded rules fallbacks only |
 | `LLM_MODEL` / `LLM_FALLBACK_MODELS` | `gemini-3.1-flash-lite` / `gemini-3.5-flash-lite,gemini-3.6-flash` | Primary model and fail-over chain (429/5xx/404) |
 | `LLM_THINKING_LEVEL`, `LLM_HEDGE_AFTER_S`, `LLM_MAX_CONCURRENCY` | `minimal`, `5.0`, `16` | Latency controls and backpressure |
 | `EMBEDDING_PROVIDER` / `EMBEDDING_MODEL` | `fastembed` / `BAAI/bge-small-en-v1.5` | Local ONNX embeddings (no network at request time) |

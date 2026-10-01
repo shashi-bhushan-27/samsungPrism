@@ -74,14 +74,18 @@ def render() -> str:
     mix = ", ".join(f"{m} ×{n}" for m, n in sorted(models.items(), key=lambda t: -t[1]))
     from app.core.config import Settings
 
-    shipped = Settings.model_fields["llm_model"].default
+    prov = b.get("llm_provider", "gemini")
+    shipped = (Settings.model_fields["llm_provider"].default, Settings.model_fields["llm_model"].default)
     w("# System Performance Metrics & Evaluation Report")
-    w(f"**Model(s):** gemini/{b.get('llm_model', NM)} (primary during this evaluation; fail-over chain: "
-      f"{' → '.join('gemini/' + m for m in b.get('llm_fallbacks', [])) or 'none'}; thinking level "
-      f"`{b.get('llm_thinking_level', NM)}`). Models that actually served the cold requests: {mix or NM}."
-      + (f" The shipped default primary is gemini/{shipped}: its free-tier daily quota (500 requests) was used up "
-         "during development on the evaluation day, so the measurements below were taken with the next model of "
-         "the fail-over chain as primary." if shipped != b.get("llm_model") else ""))
+    w(f"**Model(s):** {prov}/{b.get('llm_model', NM)} (structure extraction, primary) · {prov}/"
+      f"{b.get('llm_enrichment_model', NM)} (query variations) · fail-over chain: "
+      f"{' → '.join(prov + '/' + m for m in b.get('llm_fallbacks', [])) or 'none'}. "
+      f"Models that actually served the cold requests: {mix or NM}."
+      + (f" The pre-warmed cache plans (served on hits) were produced earlier with the {shipped[0]} chain "
+         f"(default `LLM_PROVIDER={shipped[0]}`, `LLM_MODEL={shipped[1]}`); that key's free-tier daily quota was "
+         f"exhausted on the evaluation day, so the live measurements use the {prov} provider "
+         "(`LLM_PROVIDER=" + prov + "`). Both providers run through the same pipeline and validation gates."
+         if (prov, b.get("llm_model")) != shipped else ""))
     w(f"**Embeddings:** {b.get('embedding_model', NM)} (384-d, local ONNX via fastembed)")
     w(f"**Environment:** {env.get('vcpus', NM)} vCPU / {env.get('ram_gb', NM)} GB RAM / {env.get('os', NM)} "
       f"({env.get('platform', '')}, Python {env.get('python', NM)}), single uvicorn worker")

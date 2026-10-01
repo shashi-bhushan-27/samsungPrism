@@ -74,6 +74,27 @@ def build_llm(settings: Settings) -> LLMProvider:
         return NullLLMProvider()
     if settings.llm_provider == "fake":
         return FakeLLMProvider()
+    if settings.llm_provider == "groq":
+        from app.llm.groq import GroqProvider
+
+        gkey = settings.groq_api_key.get_secret_value() if settings.groq_api_key else ""
+        if not gkey:
+            log.warning("GROQ_API_KEY is not set: LLM disabled, cold requests use the rules extractor")
+            return NullLLMProvider()
+        return GroqProvider(
+            api_key=gkey,
+            model=settings.llm_model,
+            fallback_models=settings.fallback_models,
+            base_url=settings.groq_base_url,
+            timeout_s=settings.llm_timeout_s,
+            attempts_per_model=settings.llm_attempts_per_model,
+            seed=settings.llm_seed,
+            max_output_tokens=settings.llm_max_output_tokens,
+            price_lookup=price_lookup(settings),
+            reasoning_effort=settings.groq_reasoning_effort,
+            hedge_after_s=settings.llm_hedge_after_s,
+            max_concurrency=settings.llm_max_concurrency,
+        )
     from app.llm.gemini import GeminiProvider
 
     key = settings.gemini_api_key.get_secret_value() if settings.gemini_api_key else ""
