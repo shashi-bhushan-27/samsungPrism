@@ -154,7 +154,10 @@ class Settings(BaseSettings):
         return (
             Path(self.cache_prewarm_path)
             if self.cache_prewarm_path
-            else self.artifacts_dir / "cache" / "prewarm_plans.jsonl"
+            else self.artifacts_dir / "cache" / (
+                "prewarm_plans.jsonl" if self.dataset_label == "official"
+                else f"prewarm_plans_{self.resolved_data_dir.name}.jsonl"
+            )
         )
 
     @property

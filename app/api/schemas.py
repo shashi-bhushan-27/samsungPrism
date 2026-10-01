@@ -7,6 +7,7 @@ from typing import Any, List, Optional
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 import schema
+from app.catalog.loaders import siis_text
 from app.core.constants import FALLBACK_CODES
 
 
@@ -14,7 +15,8 @@ class TroubleshootRequest(BaseModel):
     model_config = ConfigDict(extra="ignore", str_strip_whitespace=False)
 
     query: str = Field(..., description="Customer complaint in natural language")
-    siis_response: Optional[str] = Field(None, description="Optional raw SIIS reference text")
+    siis_response: Optional[str] = Field(
+        None, description="Optional SIIS reference: plain text or an article object {title, content}")
 
     @field_validator("query", mode="before")
     @classmethod
@@ -25,10 +27,13 @@ class TroubleshootRequest(BaseModel):
 
     @field_validator("siis_response", mode="before")
     @classmethod
-    def _siis_is_string(cls, v: Any) -> Any:
-        if v is not None and not isinstance(v, str):
-            raise ValueError("siis_response must be a string when provided")
-        return v
+    def _siis_to_text(cls, v: Any) -> Any:
+        if v is None or isinstance(v, str):
+            return v
+        text = siis_text(v) if isinstance(v, dict) else None
+        if text is None:
+            raise ValueError("siis_response must be text or an object with title/content")
+        return text
 
 
 class Meta(BaseModel):

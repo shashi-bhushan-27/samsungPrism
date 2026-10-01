@@ -14,7 +14,7 @@ from typing import Any, Optional
 
 import schema
 from app.catalog.registry import CatalogRegistry
-from app.core.constants import CATEGORY_AUTO, CATEGORY_MANUAL, DUMMY_POSITIVE_URI
+from app.core.constants import CATEGORY_AUTO, CATEGORY_MANUAL
 from app.llm.base import LLMError, LLMProvider
 from app.llm.parsing import ParseError, parse_json_loose
 from app.llm.prompts import MAPPING_SCHEMA, MAPPING_SYSTEM, mapping_prompt
@@ -118,7 +118,7 @@ class DeeplinkMapper:
                     actionable = entry.to_deeplink()
             elif decision.kind == "dummy" and action.category == CATEGORY_AUTO:
                 actionable = schema.Deeplink(
-                    deeplink=DUMMY_POSITIVE_URI,
+                    deeplink=self.registry.dummy_uri,
                     description=_clean(decision.dummy_description) or "Open the Settings screen for this step",
                     message=_clean(decision.dummy_message) or "",
                 )

@@ -149,4 +149,7 @@ def test_scan_payload_skips_catalog_deeplinks_but_flags_web_urls():
     payload = {"deeplink": "bixby://masked/act/1", "steps": ["Open https://evil.com"], "nested": {"deeplink": "http://x.y"}}
     leaks = scan_payload(payload)
     kinds = sorted(l.kind for l in leaks)
-    assert kinds == ["non_bixby_deeplink", "scheme_url"]
+    assert kinds == ["non_catalog_deeplink", "scheme_url"]
+    # any opaque catalog scheme is allowed in a deeplink field (official catalog: voiceassist://)
+    assert scan_payload({"deeplink": "voiceassist://masked/act/aa73a35e8d"}) == []
+    assert scan_payload({"deeplink": "voiceassist://dummy_positive"}) == []

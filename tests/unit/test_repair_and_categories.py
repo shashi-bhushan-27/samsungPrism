@@ -104,3 +104,21 @@ def test_action_name_repair_keeps_valid_title_case():
     assert repair_action_name("Turn on Power Saving") == "Turn on Power Saving"
     assert repair_action_name("turn on power saving") == "Turn on Power Saving"
     assert repair_action_name("Visit A Service Center.") == "Visit A Service Center"
+
+
+@pytest.mark.parametrize("name,steps", [
+    ("Attempt Power On", ["Disconnect the phone from the charger.", "Press and hold the Power button for 15 to 20 seconds."]),
+    ("Charge Device", ["Connect your phone to its appropriate charger.", "Let it charge for at least 1 hour."]),
+    ("Inspect Device For Damage", ["Inspect the phone, charger and USB cable for damage."]),
+    ("Remove Battery", ["If the device has a removable battery, remove the battery.", "Reinsert the battery."]),
+])
+def test_physical_operations_proposed_auto_become_manual(name, steps):
+    from app.services.category_rules import classify
+
+    assert classify(name, steps, "auto").category == "manual"
+
+
+def test_side_button_settings_screen_stays_auto():
+    from app.services.category_rules import classify
+
+    assert classify("Configure Side Button", ["Open Settings.", "Tap Advanced features.", "Tap Side button."], "auto").category == "auto"

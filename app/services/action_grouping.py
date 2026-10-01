@@ -12,7 +12,7 @@ import re
 from dataclasses import replace
 from typing import Optional
 
-from app.core.constants import CATEGORY_AUTO
+from app.core.constants import CATEGORY_AUTO, is_dummy_uri
 from app.models.internal import ExtractedAction
 from app.retrieval.ui_path import parse_ui_path
 from app.validation import text_rules as T
@@ -138,7 +138,7 @@ def merge_same_target(
     out_u: list[Optional[str]] = []
     first_idx: dict[str, int] = {}
     for a, u in zip(actions, uris):
-        if u is None or u == "bixby://dummy_positive":
+        if u is None or is_dummy_uri(u):
             out_a.append(a)
             out_u.append(u)
             continue

@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Optional, Protocol
 
 import schema
-from app.core.constants import CATEGORY_AUTO, CATEGORY_MANUAL, DUMMY_POSITIVE_URI
+from app.core.constants import CATEGORY_AUTO, CATEGORY_MANUAL, is_dummy_uri
 from app.models.catalog import CatalogEntry, ValidationRule
 from app.validation.report import ValidationReport
 
@@ -36,7 +36,7 @@ def validate_actionable(
         path,
         "manual actions must not carry an actionable deeplink",
     )
-    if uri == DUMMY_POSITIVE_URI:
+    if is_dummy_uri(uri):
         report.check(
             "deeplink.dummy_not_allowed",
             category == CATEGORY_AUTO,
@@ -91,6 +91,6 @@ def validate_validation(
 def is_valid_catalog_deeplink(uri: object, catalog: CatalogLookup, *, allow_dummy: bool = True) -> bool:
     if not isinstance(uri, str):
         return False
-    if uri == DUMMY_POSITIVE_URI:
-        return allow_dummy
+    if is_dummy_uri(uri):
+        return allow_dummy and uri == getattr(catalog, "dummy_uri", uri)
     return catalog.get_entry(uri) is not None

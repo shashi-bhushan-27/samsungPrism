@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 from types import MappingProxyType
 from typing import Any, Iterable, Mapping, Optional
@@ -28,6 +29,8 @@ VALIDATION_KEYS = (
     "validation", "validationDeeplink", "validation_deeplink", "validationDeepLink", "toggle_validation",
     "validationRule", "validation_rule",
 )
+_SCHEME = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*://\S+$")
+_WEB_SCHEME = re.compile(r"^(?:https?|ftp|file|mailto|javascript|data)://", re.I)
 LIST_CONTAINER_KEYS = ("deeplinks", "items", "data", "entries", "catalog", "records", "queries", "responses", "siis")
 QUERY_TEXT_KEYS = ("query", "text", "question", "complaint", "utterance", "user_query")
 SIIS_TEXT_KEYS = ("siis_response", "siis", "response", "text", "content", "answer", "body", "reference", "article")
@@ -116,7 +119,7 @@ def parse_catalog(obj: Any, source: str = "deeplinks.json") -> tuple[list[Catalo
     entries: list[CatalogEntry] = []
     for idx, (outer_key, rec) in enumerate(_records(obj, source, issues)):
         if not isinstance(rec, dict):
-            if isinstance(rec, str) and outer_key and outer_key.startswith("bixby://"):
+            if isinstance(rec, str) and outer_key and _SCHEME.match(outer_key):
                 rec = {"deeplink": outer_key, "description": rec}
             else:
                 issues.append(LoadIssue(source, "record_not_object", f"record {idx}"))
@@ -124,12 +127,12 @@ def parse_catalog(obj: Any, source: str = "deeplinks.json") -> tuple[list[Catalo
         _, uri = _first(rec, URI_KEYS)
         if isinstance(uri, dict):
             _, uri = _first(uri, ("deeplink", "uri", "url"))
-        if uri is None and outer_key and outer_key.startswith("bixby://"):
+        if uri is None and outer_key and _SCHEME.match(outer_key):
             uri = outer_key
         if not isinstance(uri, str) or not uri:
             issues.append(LoadIssue(source, "missing_uri", f"record {idx}"))
             continue
-        if not uri.startswith("bixby://"):
+        if not _SCHEME.match(uri) or _WEB_SCHEME.match(uri):
             issues.append(LoadIssue(source, "malformed_uri", f"record {idx}: {uri[:80]!r}"))
             continue
         if uri != uri.strip():
@@ -145,6 +148,8 @@ def parse_catalog(obj: Any, source: str = "deeplinks.json") -> tuple[list[Catalo
         ctl_key, ctl = _first(rec, CONTROL_KEYS)
         if isinstance(ctl, dict):
             ctl = ctl.get("type") or ctl.get("name")
+        if isinstance(ctl, (int, float)) and not isinstance(ctl, bool):
+            ctl = str(ctl)
         entries.append(
             CatalogEntry(
                 uri=uri,
@@ -206,6 +211,23 @@ def parse_queries(obj: Any, source: str = "queries.json") -> tuple[list[QueryRec
 
 
 # ---------------------------------------------------------------------------- SIIS
+def siis_text(value: Any) -> Optional[str]:
+    """SIIS payload → reference text. Accepts plain text or an article object such as
+    {"title": ..., "content": ...} (official siis_responses.json); the title is kept as the first line."""
+    if value is None or isinstance(value, str):
+        return value
+    if isinstance(value, (list, tuple)):
+        parts = [siis_text(v) for v in value]
+        return "\n".join(p for p in parts if p)
+    if isinstance(value, dict):
+        title = value.get("title") if isinstance(value.get("title"), str) else None
+        _, body = _first(value, ("content", "text", "body", "article", "answer", "siis_response", "response"))
+        body = siis_text(body)
+        parts = [t.strip() for t in (title, body) if isinstance(t, str) and t.strip()]
+        return "\n\n".join(parts) if parts else None
+    return None
+
+
 def parse_siis(obj: Any, source: str = "siis_responses.json") -> tuple[list[SiisDoc], list[LoadIssue]]:
     issues: list[LoadIssue] = []
     out: list[SiisDoc] = []
@@ -214,14 +236,14 @@ def parse_siis(obj: Any, source: str = "siis_responses.json") -> tuple[list[Siis
         if isinstance(rec, str):
             text, did, title, domain, qid, qtext, raw = rec, outer_key, None, None, outer_key, None, {"text": rec}
         elif isinstance(rec, dict):
-            _, text = _first(rec, SIIS_TEXT_KEYS)
-            if isinstance(text, (list, tuple)):
-                text = "\n".join(str(t) for t in text)
+            _, payload = _first(rec, SIIS_TEXT_KEYS)
+            text = siis_text(payload)
             did = rec.get("id") or rec.get("siis_id") or rec.get("doc_id") or outer_key
-            title = rec.get("title")
+            title = rec.get("title") or (payload.get("title") if isinstance(payload, dict) else None)
             domain = rec.get("domain") or rec.get("category")
             qid = rec.get("query_id") or rec.get("queryId") or rec.get("qid")
-            qtext = rec.get("query") if isinstance(rec.get("query"), str) and rec.get("query") != text else None
+            q = rec.get("query") if isinstance(rec.get("query"), str) else rec.get("original_query")
+            qtext = q if isinstance(q, str) and q != text else None
             raw = rec
         else:
             issues.append(LoadIssue(source, "record_not_object", f"record {idx}"))

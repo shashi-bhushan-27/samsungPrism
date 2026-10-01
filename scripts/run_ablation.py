@@ -30,7 +30,7 @@ import _common
 from bench_lib import percentiles
 from app.catalog.loaders import link_queries_to_siis, parse_queries, parse_siis, read_json
 from app.core.config import Settings
-from app.core.constants import DUMMY_POSITIVE_URI
+from app.core.constants import is_dummy_uri
 from app.core.container import build_components
 from app.evaluation.scoring import aggregate, score_plan
 from app.models.internal import ExtractedAction, TokenUsage
@@ -201,7 +201,7 @@ async def run(args) -> dict:
             got = o.uri
             target = ga.get("target_uri")
             if target is None:
-                outcomes["abstain_ok" if got in (None, DUMMY_POSITIVE_URI) else "false_link"] += 1
+                outcomes["abstain_ok" if got is None or is_dummy_uri(got) else "false_link"] += 1
             elif got in {target, *ga.get("alt_uris", [])}:
                 outcomes["exact"] += 1
             elif got in set(ga.get("parent_uris", [])):
@@ -210,7 +210,7 @@ async def run(args) -> dict:
                 outcomes["missing"] += 1
             else:
                 outcomes["wrong"] += 1
-            if got is not None and got != DUMMY_POSITIVE_URI and registry.get_entry(got) is None:
+            if got is not None and not is_dummy_uri(got) and registry.get_entry(got) is None:
                 raise AssertionError(f"non-catalog URI emitted by {mode}: {got}")  # must never happen
             if mode == "llm":
                 await asyncio.sleep(args.pace_mapping)

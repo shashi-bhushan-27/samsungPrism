@@ -14,7 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Optional
 
-from app.core.constants import DUMMY_POSITIVE_URI
+from app.core.constants import is_dummy_uri
 from app.retrieval.text import overlap_f1, token_set
 
 STEP_MATCH_F1 = 0.6
@@ -125,7 +125,7 @@ def score_plan(query_id: str, response: dict[str, Any], gold: dict[str, Any]) ->
         pi = amap.get(j)
         puri = _uri_of(pred[pi]) if pi is not None else None
         if target is None:
-            if pi is not None and puri not in (None, DUMMY_POSITIVE_URI):
+            if pi is not None and puri is not None and not is_dummy_uri(puri):
                 qs.false_links += 1
             elif pi is not None:
                 qs.abstained_ok += 1

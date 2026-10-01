@@ -7,7 +7,7 @@ import re
 from collections import defaultdict
 from typing import Iterable, Optional
 
-from app.core.constants import DUMMY_POSITIVE_URI
+from app.core.constants import DUMMY_POSITIVE_URI, is_dummy_uri
 from app.models.catalog import CatalogEntry, ValidationRule
 from app.models.internal import LoadIssue
 
@@ -29,7 +29,12 @@ class CatalogRegistry:
         self._by_uri: dict[str, CatalogEntry] = {}
         self.duplicate_uris: dict[str, list[int]] = {}
         ordered: list[CatalogEntry] = []
+        self.dummy_uri: str = DUMMY_POSITIVE_URI
+        self.dummy_entry: Optional[CatalogEntry] = None
         for e in entries:
+            if is_dummy_uri(e.uri):  # the reserved placeholder is never a retrievable target
+                self.dummy_uri, self.dummy_entry = e.uri, e
+                continue
             if e.uri in self._by_uri:
                 first = self._by_uri[e.uri]
                 self.duplicate_uris.setdefault(e.uri, [first.index]).append(e.index)
@@ -57,8 +62,6 @@ class CatalogRegistry:
         self.fingerprint = fingerprint or hashlib.sha256(
             "\n".join(f"{e.uri}\t{e.description}" for e in self.entries).encode("utf-8")
         ).hexdigest()
-        if DUMMY_POSITIVE_URI in self._by_uri:
-            self.issues.append(LoadIssue("deeplinks.json", "dummy_in_catalog", "dummy_positive present as a record"))
 
     # --- exact lookups -------------------------------------------------------------
     def __len__(self) -> int:
@@ -76,8 +79,8 @@ class CatalogRegistry:
     def is_valid_catalog_deeplink(self, uri: object, *, allow_dummy: bool = False) -> bool:
         if not isinstance(uri, str):
             return False
-        if uri == DUMMY_POSITIVE_URI:
-            return allow_dummy
+        if is_dummy_uri(uri):
+            return allow_dummy and uri == self.dummy_uri
         return uri in self._by_uri
 
     def get_validation_rule(self, uri: str) -> Optional[ValidationRule]:

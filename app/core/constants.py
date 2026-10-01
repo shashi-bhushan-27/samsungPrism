@@ -6,7 +6,12 @@ PIPELINE_VERSION = "1.1.0"
 
 # Reserved placeholder (PDF §3): only for a step that opens a valid Settings screen
 # that is not indexed in the catalog.
-DUMMY_POSITIVE_URI = "bixby://dummy_positive"
+DUMMY_POSITIVE_URI = "bixby://dummy_positive"  # default; a catalog may define its own (e.g. voiceassist://)
+
+
+def is_dummy_uri(uri: object) -> bool:
+    """The reserved placeholder in any URI scheme (bixby://dummy_positive, voiceassist://dummy_positive, ...)."""
+    return isinstance(uri, str) and uri.split("://", 1)[-1] == "dummy_positive" and "://" in uri
 
 # Fallback codes (PDF §4.2.3 and §8 Phase 4).
 FALLBACK_NO_MATCH = "no_match"

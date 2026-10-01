@@ -75,6 +75,9 @@ class UrlLeak:
     match: str
 
 
+_DEEPLINK_ID = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*://\S+$")
+_WEB_ID = re.compile(r"^(?:https?|ftp|file|mailto|javascript|data)://|^www\.", re.I)
+
 def _valid_ip(candidate: str) -> bool:
     host = candidate.split("/")[0].split(":")[0]
     try:
@@ -200,9 +203,9 @@ def scan_payload(obj: Any, *, path: str = "$", deeplink_keys: Iterable[str] = ("
         elif isinstance(node, str):
             if key in keys:
                 # Deeplink identifiers are opaque catalog values (membership is checked by the
-                # deeplink validator); anything that is not a bixby:// URI is a leak.
-                if not node.startswith("bixby://"):
-                    leaks.append(UrlLeak(p, "non_bixby_deeplink", node))
+                # deeplink validator); a web address in a deeplink field is a leak.
+                if not _DEEPLINK_ID.match(node) or _WEB_ID.match(node):
+                    leaks.append(UrlLeak(p, "non_catalog_deeplink", node))
                 return
             leaks.extend(UrlLeak(p, f.kind, f.match) for f in find_urls(node))
 

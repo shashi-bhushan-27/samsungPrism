@@ -28,7 +28,7 @@ from bench_lib import Call, Server, dump_jsonl, percentiles, post
 from app.catalog.loaders import link_queries_to_siis, load_catalog, load_samples, parse_queries, parse_siis, read_json
 from app.catalog.registry import CatalogRegistry
 from app.core.config import Settings
-from app.core.constants import DUMMY_POSITIVE_URI
+from app.core.constants import is_dummy_uri
 from app.evaluation.scoring import aggregate, score_plan
 from app.validation.business_rules import validate_envelope
 from app.validation.report import ValidationReport
@@ -90,7 +90,7 @@ def compliance(bodies: list[dict], registry: CatalogRegistry) -> dict:
                         if isinstance(d, dict) and d.get("deeplink"):
                             uris += 1
                             u = d["deeplink"]
-                            valid = (u == DUMMY_POSITIVE_URI and d is dl) or registry.get_entry(u) is not None \
+                            valid = (is_dummy_uri(u) and d is dl) or registry.get_entry(u) is not None \
                                 or registry.get_validation_rule(u) is not None
                             catalog_ok += 1 if valid else 0
                 if cat == "auto":
@@ -98,7 +98,7 @@ def compliance(bodies: list[dict], registry: CatalogRegistry) -> dict:
                     links = [g.get("actionableDeeplink") for g in a.get("stepGroups", []) if g.get("actionableDeeplink")]
                     if any(registry.get_entry(d["deeplink"]) for d in links):
                         auto_catalog += 1
-                    elif any(d["deeplink"] == DUMMY_POSITIVE_URI for d in links):
+                    elif any(is_dummy_uri(d["deeplink"]) for d in links):
                         auto_dummy += 1
     syntax_rules = {k: v for k, v in field_checks.items() if k.startswith(RULE_FIELDS)}
     n_syntax = sum(v[0] for v in syntax_rules.values())

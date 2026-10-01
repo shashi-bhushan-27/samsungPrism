@@ -47,8 +47,26 @@ _LABEL_PATTERNS = (
 )
 
 
+# Generated-catalog phrasing: "Opens the X settings page in device Settings on the device.",
+# "Enables X via device Settings on the device.", "Adjusts X to a specified value via TV Settings".
+_GENERATED_DESC = re.compile(
+    r"(?i)^(?:opens|enables|disables|updates|configures|adjusts|sets)\s+(?:the\s+)?(?P<l>.+?)"
+    r"(?:\s+settings\s+page)?(?:\s+to\s+a\s+specified\s+value)?\s+(?:via|in|on)\s+(?:the\s+)?"
+    r"(?:(?:device|tv|tablet|phone)\s+settings|device)\b"
+)
+
+
+def _readable_key(entry: CatalogEntry) -> Optional[str]:
+    """The validation key names the on-screen control ("Use 24-hour format") when it is human readable."""
+    key = entry.validation.key.strip() if entry.validation and entry.validation.key else ""
+    return key if key and "_" not in key else None
+
+
 def candidate_label(entry: CatalogEntry) -> str:
     desc = (entry.description or "").strip().rstrip(".")
+    m = _GENERATED_DESC.match(desc)
+    if m:
+        return _readable_key(entry) or m.group("l").strip()
     for rx in _LABEL_PATTERNS:
         m = rx.match(desc)
         if m:

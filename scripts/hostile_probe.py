@@ -19,7 +19,7 @@ from bench_lib import Server
 from app.catalog.loaders import load_catalog
 from app.catalog.registry import CatalogRegistry
 from app.core.config import Settings
-from app.core.constants import DUMMY_POSITIVE_URI
+from app.core.constants import is_dummy_uri
 from app.validation.business_rules import validate_envelope
 from app.validation.url_safety import scan_payload
 
@@ -88,7 +88,7 @@ def main() -> int:
         if r.status_code == 200:
             results["contract_valid"] = validate_envelope(body, registry).ok
             results["zero_url_leaks"] = scan_payload(body) == []
-            results["all_uris_in_catalog"] = all(u == DUMMY_POSITIVE_URI or registry.get_entry(u) is not None
+            results["all_uris_in_catalog"] = all(is_dummy_uri(u) or registry.get_entry(u) is not None
                                                  or registry.get_validation_rule(u) is not None for u in uris(body))
             for name, fn in checks.items():
                 try:
@@ -127,7 +127,7 @@ def main() -> int:
     # ATTACK 3 — parent menus
     if {"display", "settings", "aod"} <= set(uri_of) and "D01" in queries:  # needs labelled catalog ids
         probe("A3-unindexed-child", "parent_menus", queries["D01"], None,
-              {"dummy_not_parent": lambda b: any(link_of(a) == DUMMY_POSITIVE_URI for a in actions(b))
+              {"dummy_not_parent": lambda b: any(is_dummy_uri(link_of(a)) for a in actions(b))
                and not ({uri_of["display"], uri_of["settings"]} & {link_of(a) for a in actions(b)})})
         probe("A3-toggle-vs-screen", "parent_menus", "How do I turn off the always on display to save battery?",
               "Turn off Always On Display\n\nOpen Settings, tap Lock screen and AOD, and then turn off Always On Display.",

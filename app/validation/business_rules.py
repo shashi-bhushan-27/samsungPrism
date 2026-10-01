@@ -188,7 +188,7 @@ def check_goal_actions(goal: schema.Goal, path: str, report: ValidationReport) -
         g.actionableDeeplink.deeplink
         for a in actions
         for g in a.stepGroups
-        if g.actionableDeeplink is not None and g.actionableDeeplink.deeplink != C.DUMMY_POSITIVE_URI
+        if g.actionableDeeplink is not None and not C.is_dummy_uri(g.actionableDeeplink.deeplink)
     ]
     report.check(
         "action.unique_targets",
