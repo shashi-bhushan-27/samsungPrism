@@ -250,3 +250,10 @@ def test_request_id_is_propagated(api):
     client, _ = api
     r = client.post("/v1/troubleshoot", json={"query": GOLD["C05"]["query"]}, headers={"X-Request-ID": "abc-123"})
     assert r.headers["X-Request-ID"] == "abc-123"
+
+
+def test_demo_page_is_served_and_only_calls_the_api(api):
+    client, _ = api
+    r = client.get("/demo")
+    assert r.status_code == 200 and "text/html" in r.headers["content-type"]
+    assert 'fetch("/v1/troubleshoot"' in r.text and "://" not in r.text  # same-origin API only, no external links

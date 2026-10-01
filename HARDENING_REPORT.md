@@ -180,21 +180,35 @@ Severity scale:
 * **Regression test.** `tests/adversarial/test_attacks.py::test_attack13_neural_retrieval_never_grounds_an_out_of_scope_complaint`
   (production neural embedder).
 
+### H14 — Medium: a long complaint got no plan because of two false concepts (edge case E14)
+* **Failure.** A long, rambling battery complaint returned `no_siis_context` instead of a plan.
+* **Root cause.** Two lexicon patterns were too loose:
+  * "the battery just does **not** last, I **charge** it…" matched the charging-fault negation pattern.
+  * "charge it overnight to 100 percent" matched the charge-limit (set-up) concept.
+  * The false concepts put two articles in close competition, so the retriever's margin rule declined both.
+* **Fix.** The charging negation must govern the charging verb (at most one word in between). A charge-limit
+  request needs limiting language ("only", "up to", "stop at", "limit to" 80–95 percent). No stored pre-warmed
+  intent changed, and the calibration result is unchanged.
+* **Regression test.** `tests/unit/test_enrichment.py::test_charging_to_full_is_not_a_charge_limit_request`.
+  E14 passes in the final benchmark (18/18 edge cases).
+
 ## Attack coverage
 
 | Attack | Offline evidence (`tests/adversarial/test_attacks.py` unless noted) | Live evidence | Result |
 | :--- | :--- | :--- | :--- |
-| 1 URL leaks | 10 URL forms injected into title, topic, name, description, steps, query and SIIS; URL-only source → `no_match` | hostile A1-* probes; URL-leak gate over every benchmark line | see below |
-| 2 Fabricated deeplinks | model-supplied URIs in extra fields and steps; validator rejects an edited or extended URI; LLM-mapping baseline invents a URI (integration test) | A2 probe; ablation `fabricated_uris`; catalog gate over every line | see below |
-| 3 Parent menus | all 67 gold targets through the real mapper: 0 parent, 0 wrong; resolver unit tests | A3 probes | see below |
-| 4 Fragmentation | one action per tap → one action (H3) | A4 probe | see below |
-| 5 Over-bundling | three screens in one action → three actions, three distinct links | A5 probe | see below |
-| 6 Critical order | critical suffix, least disruptive first, non-destructive stays auto (H4) | A6 probe; `critical_order_violations` gate | see below |
-| 7 Manual deeplink | gate rejects a manual action with a link; model mislabels → no link | A6 probe `manual_unlinked`; gate over every line | see below |
-| 8 Cache poisoning | constant embedder (cosine 1.0 for everything): five distinct-intent pairs never share a plan; request-scoped SIIS plan never served to others (integration) | A8 probes | see below |
-| 9 Cache fragmentation | newest held-out round converges (H9) | benchmark §4 hit rate | see below |
-| 10 LLM malformation | 11 malformation kinds: truncated or prose-only output, missing fields, wrong types, invalid categories, bad lengths, … → repaired or safe typed error; at most one repair call | — | see below |
-| 11 Determinism | every gold query twice → identical responses | benchmark: 2 cold rounds; A11 repeated probes | see below |
-| 12 Performance | — | benchmark (N ≥ 30 per path) + stress test | see below |
-| 13 No source | four out-of-scope complaints → `no_siis_context`, no extraction call | A13 probe; negatives in the benchmark | see below |
-| 14 No solution | no-solution SIIS → `no_match`, nothing cached | A14 probe; edge cases E07/E08 | see below |
+| 1 URL leaks | 10 URL forms injected into title, topic, name, description, steps, query and SIIS; URL-only source → `no_match` | hostile A1-* probes; URL-leak gate over every benchmark line | Pass: 0 leaks in 447 outputs; 9/9 live probes pass |
+| 2 Fabricated deeplinks | model-supplied URIs in extra fields and steps; validator rejects an edited or extended URI; LLM-mapping baseline invents a URI (integration test) | A2 probe; ablation `fabricated_uris`; catalog gate over every line | Pass: catalog validity 100.0%; 1/1 live probes pass; 0 invented URIs emitted in the ablation |
+| 3 Parent menus | all 67 gold targets through the real mapper: 0 parent, 0 wrong; resolver unit tests | A3 probes | Pass offline (0 parent / 67); live cold path 1 parent of 67; 2/2 live probes pass |
+| 4 Fragmentation | one action per tap → one action (H3) | A4 probe | Fixed (H3); 1/1 live probes pass |
+| 5 Over-bundling | three screens in one action → three actions, three distinct links | A5 probe | Pass; 1/1 live probes pass |
+| 6 Critical order | critical suffix, least disruptive first, non-destructive stays auto (H4) | A6 probe; `critical_order_violations` gate | Fixed (H4); 0 violations; 1/1 live probes pass |
+| 7 Manual deeplink | gate rejects a manual action with a link; model mislabels → no link | A6 probe `manual_unlinked`; gate over every line | Pass: 0 manual actions with a link |
+| 8 Cache poisoning | constant embedder (cosine 1.0 for everything): five distinct-intent pairs never share a plan; request-scoped SIIS plan never served to others (integration) | A8 probes | Pass; 4/4 live probes pass; 0 negative cache hits |
+| 9 Cache fragmentation | newest held-out round converges (H9) | benchmark §4 hit rate | Target met: 87.5% correct on 128 fresh paraphrases; **4 wrong-plan hits remain** (strict xfail) |
+| 10 LLM malformation | 11 malformation kinds: truncated or prose-only output, missing fields, wrong types, invalid categories, bad lengths, … → repaired or safe typed error; at most one repair call | — | Pass (11 kinds, bounded at 1 repair) |
+| 11 Determinism | every gold query twice → identical responses | benchmark: 2 cold rounds; A11 repeated probes | Partial: cached repeats identical (3/3 live probes pass); live model identical plan structure 5/8 |
+| 12 Performance | — | benchmark (N ≥ 30 per path) + stress test | Pass: P95 exact 9.96 ms, paraphrase 24.18 ms, cold 2552.32 ms |
+| 13 No source | four out-of-scope complaints → `no_siis_context`, no extraction call | A13 probe; negatives in the benchmark | Fixed (H13); 36/40 negatives → no_siis_context; 1/1 live probes pass |
+| 14 No solution | no-solution SIIS → `no_match`, nothing cached | A14 probe; edge cases E07/E08 | Pass; E07/E08 no_match; 1/1 live probes pass |
+
+Live probe summary (`artifacts/reports/hostile.json`, dev_fixtures (synthetic, NOT OFFICIAL)): 19/19 passed against `groq/openai/gpt-oss-120b`.

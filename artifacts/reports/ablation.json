@@ -1,0 +1,820 @@
+{
+  "started_at": "2026-10-01T04:26:52+00:00",
+  "dataset": "dev_fixtures (synthetic, NOT OFFICIAL)",
+  "llm_provider": "groq",
+  "llm_model": "openai/gpt-oss-120b",
+  "mapping_model": "openai/gpt-oss-20b",
+  "llm_fallbacks": [
+    "openai/gpt-oss-20b",
+    "qwen/qwen3.8-27b"
+  ],
+  "embedding_model": "fastembed:BAAI/bge-small-en-v1.5",
+  "catalog_entries": 110,
+  "latency_scope": "in-process service latency (no HTTP), cache disabled, sequential requests; variant latency = measured model phase of the real run + measured replay",
+  "end_to_end": {
+    "baseline_llm": {
+      "mapper": "llm",
+      "requests": 6,
+      "ok": 6,
+      "errors": {},
+      "accuracy": {
+        "queries": 6,
+        "step_accuracy": 2.892,
+        "completeness": 0.933,
+        "correctness": 0.958,
+        "ordering": 1.0,
+        "deeplink_relevance": 1.538,
+        "deeplink_targets": 13,
+        "deeplink_outcomes": {
+          "exact": 10,
+          "missing": 3
+        },
+        "false_links": 0
+      },
+      "latency_ms": {
+        "n": 6,
+        "p50": 2895.57,
+        "p95": 4472.27,
+        "p99": 4516.66,
+        "mean": 3195.53,
+        "max": 4527.76
+      },
+      "replay_ms": {
+        "n": 6,
+        "p50": 1509.22,
+        "p95": 2191.89,
+        "p99": 2217.65,
+        "mean": 1472.8,
+        "max": 2224.09
+      },
+      "mapping_stage_ms": {
+        "n": 6,
+        "p50": 1506.31,
+        "p95": 2187.63,
+        "p99": 2213.41,
+        "mean": 1469.03,
+        "max": 2219.85
+      },
+      "cost_usd_per_query": 0.00365227,
+      "model_calls_per_query": 3.833,
+      "mapping_llm_calls_per_query": 1.833,
+      "fabricated_uris": 0,
+      "contract_ok_pct": 100.0
+    },
+    "variant_a_hybrid": {
+      "mapper": "hybrid",
+      "requests": 6,
+      "ok": 6,
+      "errors": {},
+      "accuracy": {
+        "queries": 6,
+        "step_accuracy": 2.892,
+        "completeness": 0.933,
+        "correctness": 0.958,
+        "ordering": 1.0,
+        "deeplink_relevance": 2.0,
+        "deeplink_targets": 13,
+        "deeplink_outcomes": {
+          "exact": 13
+        },
+        "false_links": 0
+      },
+      "latency_ms": {
+        "n": 6,
+        "p50": 1620.67,
+        "p95": 2387.04,
+        "p99": 2458.44,
+        "mean": 1752.22,
+        "max": 2476.29
+      },
+      "replay_ms": {
+        "n": 6,
+        "p50": 28.12,
+        "p95": 42.26,
+        "p99": 43.51,
+        "mean": 29.49,
+        "max": 43.82
+      },
+      "mapping_stage_ms": {
+        "n": 6,
+        "p50": 24.61,
+        "p95": 37.65,
+        "p99": 38.76,
+        "mean": 25.73,
+        "max": 39.04
+      },
+      "cost_usd_per_query": 0.0005284,
+      "model_calls_per_query": 2.0,
+      "mapping_llm_calls_per_query": 0.0,
+      "fabricated_uris": 0,
+      "contract_ok_pct": 100.0
+    },
+    "variant_b_rules": {
+      "mapper": "rules",
+      "requests": 6,
+      "ok": 6,
+      "errors": {},
+      "accuracy": {
+        "queries": 6,
+        "step_accuracy": 2.892,
+        "completeness": 0.933,
+        "correctness": 0.958,
+        "ordering": 1.0,
+        "deeplink_relevance": 2.0,
+        "deeplink_targets": 13,
+        "deeplink_outcomes": {
+          "exact": 13
+        },
+        "false_links": 0
+      },
+      "latency_ms": {
+        "n": 6,
+        "p50": 1600.41,
+        "p95": 2353.55,
+        "p99": 2423.81,
+        "mean": 1728.87,
+        "max": 2441.38
+      },
+      "replay_ms": {
+        "n": 6,
+        "p50": 5.56,
+        "p95": 8.77,
+        "p99": 8.87,
+        "mean": 6.14,
+        "max": 8.9
+      },
+      "mapping_stage_ms": {
+        "n": 6,
+        "p50": 1.86,
+        "p95": 4.3,
+        "p99": 4.44,
+        "mean": 2.45,
+        "max": 4.47
+      },
+      "cost_usd_per_query": 0.0005284,
+      "model_calls_per_query": 2.0,
+      "mapping_llm_calls_per_query": 0.0,
+      "fabricated_uris": 0,
+      "contract_ok_pct": 100.0
+    }
+  },
+  "end_to_end_real_runs": {
+    "requests": 6,
+    "ok": 6,
+    "latency_ms": {
+      "n": 6,
+      "p50": 1617.73,
+      "p95": 2394.6,
+      "p99": 2461.8,
+      "mean": 1756.43,
+      "max": 2478.6
+    },
+    "model_phase_ms": {
+      "n": 6,
+      "p50": 1594.97,
+      "p95": 2344.79,
+      "p99": 2414.94,
+      "mean": 1722.73,
+      "max": 2432.48
+    },
+    "rules_fallback_runs": 0,
+    "models": {
+      "openai/gpt-oss-20b": 6,
+      "openai/gpt-oss-120b": 6
+    }
+  },
+  "end_to_end_rows": {
+    "baseline_llm": [
+      {
+        "query_id": "D01",
+        "status": 200,
+        "ms": 1925.11,
+        "replay_ms": 676.382,
+        "mapping_ms": 671.768,
+        "cost_usd": 0.00082073,
+        "model_calls": 3,
+        "mapping_llm_calls": 1,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 2.35,
+        "deeplink_scores": [
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D02",
+        "status": 200,
+        "ms": 4527.76,
+        "replay_ms": 2095.28,
+        "mapping_ms": 2090.994,
+        "cost_usd": 0.00514747,
+        "model_calls": 4,
+        "mapping_llm_calls": 2,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0,
+          2.0,
+          0.0
+        ],
+        "deeplink_outcomes": [
+          "exact",
+          "exact",
+          "missing"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D03",
+        "status": 200,
+        "ms": 4305.8,
+        "replay_ms": 2224.091,
+        "mapping_ms": 2219.848,
+        "cost_usd": 0.00504885,
+        "model_calls": 4,
+        "mapping_llm_calls": 2,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0,
+          2.0,
+          0.0,
+          0.0
+        ],
+        "deeplink_outcomes": [
+          "exact",
+          "exact",
+          "missing",
+          "missing"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D04",
+        "status": 200,
+        "ms": 2907.57,
+        "replay_ms": 1518.376,
+        "mapping_ms": 1515.51,
+        "cost_usd": 0.00485807,
+        "model_calls": 4,
+        "mapping_llm_calls": 2,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0,
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact",
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D05",
+        "status": 200,
+        "ms": 2623.34,
+        "replay_ms": 822.583,
+        "mapping_ms": 818.968,
+        "cost_usd": 0.00117413,
+        "model_calls": 4,
+        "mapping_llm_calls": 2,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D06",
+        "status": 200,
+        "ms": 2883.57,
+        "replay_ms": 1500.064,
+        "mapping_ms": 1497.106,
+        "cost_usd": 0.00486438,
+        "model_calls": 4,
+        "mapping_llm_calls": 2,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0,
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact",
+          "exact"
+        ],
+        "false_links": 0
+      }
+    ],
+    "variant_a_hybrid": [
+      {
+        "query_id": "D01",
+        "status": 200,
+        "ms": 1264.88,
+        "replay_ms": 16.153,
+        "mapping_ms": 12.9,
+        "cost_usd": 0.0004434,
+        "model_calls": 2,
+        "mapping_llm_calls": 0,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 2.35,
+        "deeplink_scores": [
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D02",
+        "status": 200,
+        "ms": 2476.29,
+        "replay_ms": 43.818,
+        "mapping_ms": 39.038,
+        "cost_usd": 0.00074257,
+        "model_calls": 2,
+        "mapping_llm_calls": 0,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0,
+          2.0,
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact",
+          "exact",
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D03",
+        "status": 200,
+        "ms": 2119.29,
+        "replay_ms": 37.575,
+        "mapping_ms": 33.468,
+        "cost_usd": 0.00063285,
+        "model_calls": 2,
+        "mapping_llm_calls": 0,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0,
+          2.0,
+          2.0,
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact",
+          "exact",
+          "exact",
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D04",
+        "status": 200,
+        "ms": 1412.37,
+        "replay_ms": 23.177,
+        "mapping_ms": 19.768,
+        "cost_usd": 0.00044467,
+        "model_calls": 2,
+        "mapping_llm_calls": 0,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0,
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact",
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D05",
+        "status": 200,
+        "ms": 1828.97,
+        "replay_ms": 28.216,
+        "mapping_ms": 23.998,
+        "cost_usd": 0.00046035,
+        "model_calls": 2,
+        "mapping_llm_calls": 0,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D06",
+        "status": 200,
+        "ms": 1411.53,
+        "replay_ms": 28.028,
+        "mapping_ms": 25.222,
+        "cost_usd": 0.00044655,
+        "model_calls": 2,
+        "mapping_llm_calls": 0,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0,
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact",
+          "exact"
+        ],
+        "false_links": 0
+      }
+    ],
+    "variant_b_rules": [
+      {
+        "query_id": "D01",
+        "status": 200,
+        "ms": 1252.83,
+        "replay_ms": 4.103,
+        "mapping_ms": 0.97,
+        "cost_usd": 0.0004434,
+        "model_calls": 2,
+        "mapping_llm_calls": 0,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 2.35,
+        "deeplink_scores": [
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D02",
+        "status": 200,
+        "ms": 2441.38,
+        "replay_ms": 8.902,
+        "mapping_ms": 4.468,
+        "cost_usd": 0.00074257,
+        "model_calls": 2,
+        "mapping_llm_calls": 0,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0,
+          2.0,
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact",
+          "exact",
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D03",
+        "status": 200,
+        "ms": 2090.07,
+        "replay_ms": 8.359,
+        "mapping_ms": 3.81,
+        "cost_usd": 0.00063285,
+        "model_calls": 2,
+        "mapping_llm_calls": 0,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0,
+          2.0,
+          2.0,
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact",
+          "exact",
+          "exact",
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D04",
+        "status": 200,
+        "ms": 1393.55,
+        "replay_ms": 4.363,
+        "mapping_ms": 1.712,
+        "cost_usd": 0.00044467,
+        "model_calls": 2,
+        "mapping_llm_calls": 0,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0,
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact",
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D05",
+        "status": 200,
+        "ms": 1807.28,
+        "replay_ms": 6.522,
+        "mapping_ms": 1.92,
+        "cost_usd": 0.00046035,
+        "model_calls": 2,
+        "mapping_llm_calls": 0,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact"
+        ],
+        "false_links": 0
+      },
+      {
+        "query_id": "D06",
+        "status": 200,
+        "ms": 1388.09,
+        "replay_ms": 4.59,
+        "mapping_ms": 1.796,
+        "cost_usd": 0.00044655,
+        "model_calls": 2,
+        "mapping_llm_calls": 0,
+        "fabricated_uris": [],
+        "error": null,
+        "contract_ok": true,
+        "step_accuracy": 3.0,
+        "deeplink_scores": [
+          2.0,
+          2.0
+        ],
+        "deeplink_outcomes": [
+          "exact",
+          "exact"
+        ],
+        "false_links": 0
+      }
+    ]
+  },
+  "end_to_end_real_rows": [
+    {
+      "query_id": "D01",
+      "status": 200,
+      "ms": 1270.433,
+      "model_phase_ms": 1248.72,
+      "cost_usd": 0.0004434,
+      "models": [
+        "openai/gpt-oss-20b",
+        "openai/gpt-oss-120b"
+      ],
+      "extraction_modes": [
+        "llm"
+      ]
+    },
+    {
+      "query_id": "D02",
+      "status": 200,
+      "ms": 2478.6,
+      "model_phase_ms": 2432.48,
+      "cost_usd": 0.00074257,
+      "models": [
+        "openai/gpt-oss-20b",
+        "openai/gpt-oss-120b"
+      ],
+      "extraction_modes": [
+        "llm"
+      ]
+    },
+    {
+      "query_id": "D03",
+      "status": 200,
+      "ms": 2142.605,
+      "model_phase_ms": 2081.71,
+      "cost_usd": 0.00063285,
+      "models": [
+        "openai/gpt-oss-20b",
+        "openai/gpt-oss-120b"
+      ],
+      "extraction_modes": [
+        "llm"
+      ]
+    },
+    {
+      "query_id": "D04",
+      "status": 200,
+      "ms": 1414.124,
+      "model_phase_ms": 1389.19,
+      "cost_usd": 0.00044467,
+      "models": [
+        "openai/gpt-oss-20b",
+        "openai/gpt-oss-120b"
+      ],
+      "extraction_modes": [
+        "llm"
+      ]
+    },
+    {
+      "query_id": "D05",
+      "status": 200,
+      "ms": 1821.333,
+      "model_phase_ms": 1800.76,
+      "cost_usd": 0.00046035,
+      "models": [
+        "openai/gpt-oss-20b",
+        "openai/gpt-oss-120b"
+      ],
+      "extraction_modes": [
+        "llm"
+      ]
+    },
+    {
+      "query_id": "D06",
+      "status": 200,
+      "ms": 1411.498,
+      "model_phase_ms": 1383.5,
+      "cost_usd": 0.00044655,
+      "models": [
+        "openai/gpt-oss-20b",
+        "openai/gpt-oss-120b"
+      ],
+      "extraction_modes": [
+        "llm"
+      ]
+    }
+  ],
+  "mapping_only": {
+    "llm": {
+      "actions": 17,
+      "targets": 13,
+      "outcomes": {
+        "exact": 11,
+        "wrong": 1,
+        "abstain_ok": 4,
+        "parent": 1
+      },
+      "deeplink_relevance": 1.769,
+      "exact_pct": 84.62,
+      "abstain_accuracy_pct": 100.0,
+      "latency_ms_per_action": {
+        "n": 17,
+        "p50": 864.85,
+        "p95": 1902.85,
+        "p99": 2098.91,
+        "mean": 1074.82,
+        "max": 2147.92
+      },
+      "llm_calls": 15,
+      "cost_usd_per_action": 0.00140411,
+      "fabricated_uris": 0,
+      "fabricated_examples": []
+    },
+    "hybrid": {
+      "actions": 17,
+      "targets": 13,
+      "outcomes": {
+        "exact": 13,
+        "abstain_ok": 4
+      },
+      "deeplink_relevance": 2.0,
+      "exact_pct": 100.0,
+      "abstain_accuracy_pct": 100.0,
+      "latency_ms_per_action": {
+        "n": 17,
+        "p50": 7.09,
+        "p95": 13.24,
+        "p99": 19.25,
+        "mean": 7.54,
+        "max": 20.75
+      },
+      "llm_calls": 0,
+      "cost_usd_per_action": 0.0,
+      "fabricated_uris": 0,
+      "fabricated_examples": []
+    },
+    "bm25": {
+      "actions": 17,
+      "targets": 13,
+      "outcomes": {
+        "exact": 13,
+        "abstain_ok": 4
+      },
+      "deeplink_relevance": 2.0,
+      "exact_pct": 100.0,
+      "abstain_accuracy_pct": 100.0,
+      "latency_ms_per_action": {
+        "n": 17,
+        "p50": 0.31,
+        "p95": 0.48,
+        "p99": 0.6,
+        "mean": 0.29,
+        "max": 0.63
+      },
+      "llm_calls": 0,
+      "cost_usd_per_action": 0.0,
+      "fabricated_uris": 0,
+      "fabricated_examples": []
+    },
+    "dense": {
+      "actions": 17,
+      "targets": 13,
+      "outcomes": {
+        "exact": 13,
+        "abstain_ok": 4
+      },
+      "deeplink_relevance": 2.0,
+      "exact_pct": 100.0,
+      "abstain_accuracy_pct": 100.0,
+      "latency_ms_per_action": {
+        "n": 17,
+        "p50": 7.72,
+        "p95": 14.34,
+        "p99": 15.28,
+        "mean": 8.2,
+        "max": 15.52
+      },
+      "llm_calls": 0,
+      "cost_usd_per_action": 0.0,
+      "fabricated_uris": 0,
+      "fabricated_examples": []
+    },
+    "rules": {
+      "actions": 17,
+      "targets": 13,
+      "outcomes": {
+        "exact": 13,
+        "abstain_ok": 4
+      },
+      "deeplink_relevance": 2.0,
+      "exact_pct": 100.0,
+      "abstain_accuracy_pct": 100.0,
+      "latency_ms_per_action": {
+        "n": 17,
+        "p50": 0.94,
+        "p95": 1.46,
+        "p99": 1.9,
+        "mean": 0.97,
+        "max": 2.0
+      },
+      "llm_calls": 0,
+      "cost_usd_per_action": 0.0,
+      "fabricated_uris": 0,
+      "fabricated_examples": []
+    }
+  },
+  "finished_at": "2026-10-01T04:37:41+00:00"
+}

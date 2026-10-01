@@ -6,7 +6,9 @@ import logging
 from typing import Any
 
 from fastapi import APIRouter, Request
-from fastapi.responses import JSONResponse
+from pathlib import Path
+
+from fastapi.responses import HTMLResponse, JSONResponse
 
 from app.api.errors import ApiError
 from app.api.schemas import TroubleshootRequest
@@ -98,3 +100,12 @@ async def health(request: Request):
 async def health_details(request: Request):
     ok, details = health_components(request)
     return JSONResponse({"status": "ok" if ok else "unavailable", **details}, status_code=200 if ok else 503)
+
+
+_DEMO_PAGE = Path(__file__).resolve().parents[1] / "static" / "demo.html"
+
+
+@router.get("/demo", include_in_schema=False)
+async def demo() -> HTMLResponse:
+    """Small static page that calls POST /v1/troubleshoot and renders the plan (for demos)."""
+    return HTMLResponse(_DEMO_PAGE.read_text(encoding="utf-8"))

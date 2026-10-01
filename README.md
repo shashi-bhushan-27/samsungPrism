@@ -27,6 +27,26 @@ URI selection, grouping, sequencing, URL scrubbing, validation, caching, cost an
 | `REQUIREMENTS_TRACEABILITY.md` | Requirement → implementation → test → status → evidence |
 | `FINAL_REVIEW.md` | Production-readiness review: targets vs measured values, limitations, commands |
 | `AUDIT.md` | Phase 0 audit of the problem statement, assets and interpretation decisions |
+| `docs/Smart_Troubleshooting_Engine.pptx` | Presentation (11 slides, every number generated from the reports) |
+| `docs/demo.webm` | Demo video (56 s): a real browser driving the live API through `/demo`: exact hit, paraphrase hit, live extraction with URL/prompt-injection scrubbing, out-of-scope fallback, 422 |
+| `AI_DISCLOSURE.md` | How AI was used to build the project, which models run inside it, and which data is AI-generated |
+
+## Results at a glance (live model, real HTTP; full detail in `metrics.md`)
+
+| Check | Target | Measured |
+| :--- | :--- | :--- |
+| Schema-valid outputs | ≥ 99% | 100% (447/447) |
+| Goal / title / description rules | ≥ 95% | 100% |
+| URL leaks | 0 | 0 |
+| Deeplinks found verbatim in the catalog | 100% | 100% |
+| Auto actions with a valid deeplink | ≥ 90% | 91.5% |
+| P95 exact / unseen-paraphrase cache hit | ≤ 300 ms | 10 ms / 24 ms |
+| P95 cold full pipeline | ≤ 8 s | 2.55 s |
+| Unseen paraphrases served the correct plan | ≥ 80% | 87.5% (4/128 wrong-plan hits: known limitation) |
+| Step accuracy / deeplink relevance | 0–3 / 0–2 | 2.902 / 1.896 |
+
+Measured on the synthetic dev fixture with Groq `openai/gpt-oss-120b`; see `FINAL_REVIEW.md` for what is and is
+not met.
 
 ## Pipeline
 
@@ -57,10 +77,11 @@ POST /v1/troubleshoot {query, siis_response?}
 
 ```bash
 make install                                   # Python 3.11+; FastAPI, pydantic, httpx, numpy, fastembed
-cp .env.example .env && $EDITOR .env           # set GEMINI_API_KEY (never commit it)
+cp .env.example .env && $EDITOR .env           # set GEMINI_API_KEY, or LLM_PROVIDER=groq + GROQ_API_KEY (never commit keys)
 make indexes                                   # BM25 + dense indexes → artifacts/indexes/
 make test                                      # offline suite: unit, integration, regression, adversarial
 make serve                                     # http://localhost:8000
+                                               # demo UI: http://localhost:8000/demo
 ```
 
 ```bash

@@ -1,0 +1,1626 @@
+{
+  "started_at": "2026-10-01T04:48:20+00:00",
+  "dataset": "dev_fixtures (synthetic, NOT OFFICIAL)",
+  "llm_provider": "groq",
+  "llm_model": "openai/gpt-oss-120b",
+  "llm_enrichment_model": "openai/gpt-oss-20b",
+  "llm_fallbacks": [
+    "openai/gpt-oss-20b",
+    "qwen/qwen3.8-27b"
+  ],
+  "llm_thinking_level": "minimal",
+  "llm_hedge_after_s": 5.0,
+  "embedding_model": "fastembed:BAAI/bge-small-en-v1.5",
+  "semantic_threshold": 0.77,
+  "semantic_threshold_no_concept": 0.93,
+  "environment": {
+    "python": "3.11.15",
+    "platform": "Linux-6.18.44-fc-v50-x86_64-with-glibc2.39",
+    "vcpus": 4,
+    "ram_gb": 15.7,
+    "os": "Ubuntu 24.04.4 LTS"
+  },
+  "config": {
+    "cold_rounds": 1,
+    "exact_rounds": 2,
+    "pace_cold_s": 12.0,
+    "pace_after_miss_s": 6.0,
+    "sequential_requests": true
+  },
+  "server_a_startup_s": 5.05,
+  "server_a_rss_mb": 291.6,
+  "server_b_model": "off",
+  "server_b_startup_s": 3.06,
+  "server_b_health": {
+    "status": "ok",
+    "checks": {
+      "catalog": true,
+      "vector_indexes": true,
+      "embedding_model": true,
+      "cache": true,
+      "llm": false
+    },
+    "required": [
+      "catalog",
+      "vector_indexes",
+      "embedding_model",
+      "cache"
+    ],
+    "dataset": "dev_fixtures (synthetic, NOT OFFICIAL)",
+    "cache_plans": 32,
+    "llm_model": "openai/gpt-oss-120b",
+    "embedding": "fastembed:BAAI/bge-small-en-v1.5:384"
+  },
+  "server_b_rss_mb": 290.3,
+  "server_b_cpu_s": 28.9,
+  "accuracy_cold_rounds": {
+    "1": {
+      "queries": 32,
+      "step_accuracy": 2.902,
+      "completeness": 0.925,
+      "correctness": 0.992,
+      "ordering": 0.984,
+      "deeplink_relevance": 1.896,
+      "deeplink_targets": 67,
+      "deeplink_outcomes": {
+        "exact": 63,
+        "unmatched_action": 3,
+        "parent": 1
+      },
+      "false_links": 0
+    },
+    "2": {
+      "queries": 8,
+      "step_accuracy": 2.846,
+      "completeness": 0.877,
+      "correctness": 0.969,
+      "ordering": 1.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_targets": 17,
+      "deeplink_outcomes": {
+        "exact": 17
+      },
+      "false_links": 0
+    }
+  },
+  "accuracy_cold": {
+    "queries": 32,
+    "step_accuracy": 2.902,
+    "completeness": 0.925,
+    "correctness": 0.992,
+    "ordering": 0.984,
+    "deeplink_relevance": 1.896,
+    "deeplink_targets": 67,
+    "deeplink_outcomes": {
+      "exact": 63,
+      "unmatched_action": 3,
+      "parent": 1
+    },
+    "false_links": 0
+  },
+  "accuracy_cold_by_domain": {
+    "Battery": {
+      "queries": 8,
+      "step_accuracy": 3.0,
+      "completeness": 1.0,
+      "correctness": 1.0,
+      "ordering": 1.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_targets": 16,
+      "deeplink_outcomes": {
+        "exact": 16
+      },
+      "false_links": 0
+    },
+    "Camera": {
+      "queries": 8,
+      "step_accuracy": 2.93,
+      "completeness": 0.93,
+      "correctness": 1.0,
+      "ordering": 1.0,
+      "deeplink_relevance": 1.812,
+      "deeplink_targets": 16,
+      "deeplink_outcomes": {
+        "parent": 1,
+        "exact": 14,
+        "unmatched_action": 1
+      },
+      "false_links": 0
+    },
+    "Display": {
+      "queries": 8,
+      "step_accuracy": 2.802,
+      "completeness": 0.833,
+      "correctness": 0.969,
+      "ordering": 1.0,
+      "deeplink_relevance": 1.778,
+      "deeplink_targets": 18,
+      "deeplink_outcomes": {
+        "exact": 16,
+        "unmatched_action": 2
+      },
+      "false_links": 0
+    },
+    "Performance": {
+      "queries": 8,
+      "step_accuracy": 2.875,
+      "completeness": 0.938,
+      "correctness": 1.0,
+      "ordering": 0.938,
+      "deeplink_relevance": 2.0,
+      "deeplink_targets": 17,
+      "deeplink_outcomes": {
+        "exact": 17
+      },
+      "false_links": 0
+    }
+  },
+  "accuracy_cold_by_query_round1": {
+    "D01": {
+      "step_accuracy": 2.35,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "D02": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "D03": {
+      "step_accuracy": 2.692,
+      "deeplink_relevance": 1.5,
+      "deeplink_outcomes": [
+        "exact",
+        "exact",
+        "exact",
+        "unmatched_action"
+      ],
+      "false_links": 0
+    },
+    "D04": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "D05": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "D06": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "D07": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "D08": {
+      "step_accuracy": 2.375,
+      "deeplink_relevance": 1.0,
+      "deeplink_outcomes": [
+        "exact",
+        "unmatched_action"
+      ],
+      "false_links": 0
+    },
+    "B01": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact",
+        "exact",
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "B02": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "B03": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "B04": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "B05": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "B06": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "B07": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "B08": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "C01": {
+      "step_accuracy": 2.917,
+      "deeplink_relevance": 1.6666666666666667,
+      "deeplink_outcomes": [
+        "parent",
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "C02": {
+      "step_accuracy": 2.87,
+      "deeplink_relevance": 1.5,
+      "deeplink_outcomes": [
+        "exact",
+        "exact",
+        "exact",
+        "unmatched_action"
+      ],
+      "false_links": 0
+    },
+    "C03": {
+      "step_accuracy": 2.9,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "C04": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "C05": {
+      "step_accuracy": 2.75,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "C06": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "C07": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "C08": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "P01": {
+      "step_accuracy": 2.889,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "P02": {
+      "step_accuracy": 2.667,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "P03": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "P04": {
+      "step_accuracy": 2.75,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "P05": {
+      "step_accuracy": 2.778,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "P06": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "P07": {
+      "step_accuracy": 3.0,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    },
+    "P08": {
+      "step_accuracy": 2.917,
+      "deeplink_relevance": 2.0,
+      "deeplink_outcomes": [
+        "exact",
+        "exact"
+      ],
+      "false_links": 0
+    }
+  },
+  "accuracy_prewarmed_plans": {
+    "queries": 32,
+    "step_accuracy": 2.895,
+    "completeness": 0.935,
+    "correctness": 0.982,
+    "ordering": 0.978,
+    "deeplink_relevance": 1.94,
+    "deeplink_targets": 67,
+    "deeplink_outcomes": {
+      "exact": 65,
+      "unmatched_action": 2
+    },
+    "false_links": 0
+  },
+  "determinism": {
+    "pairs": 8,
+    "identical_response": 5,
+    "identical_plan_structure": 5,
+    "identical_deeplinks": 6,
+    "identical_variations": 3
+  },
+  "samples": [
+    {
+      "id": "sample_01_D01",
+      "status": 200,
+      "step_accuracy": 2.35,
+      "deeplink_exact": 1,
+      "deeplink_targets": 1,
+      "expected_actions": [
+        "Configure Navigation Bar Settings"
+      ],
+      "got_actions": [
+        "Change Navigation Type"
+      ],
+      "same_uri_sequence": true,
+      "goal_equal": true,
+      "title_equal": false
+    },
+    {
+      "id": "sample_02_B01",
+      "status": 200,
+      "step_accuracy": 3.0,
+      "deeplink_exact": 5,
+      "deeplink_targets": 5,
+      "expected_actions": [
+        "Check Battery Usage",
+        "Put Unused Apps to Sleep",
+        "Turn On Power Saving",
+        "Turn Off Always On Display",
+        "Restart Your Phone",
+        "Update Phone Software"
+      ],
+      "got_actions": [
+        "Check Battery Usage",
+        "Put Unused Apps To Sleep",
+        "Enable Power Saving",
+        "Disable Always On Display",
+        "Restart Phone",
+        "Update Software"
+      ],
+      "same_uri_sequence": true,
+      "goal_equal": true,
+      "title_equal": true
+    },
+    {
+      "id": "sample_03_C02",
+      "status": 200,
+      "step_accuracy": 2.87,
+      "deeplink_exact": 3,
+      "deeplink_targets": 4,
+      "expected_actions": [
+        "Check Camera Permissions",
+        "Force Stop the Camera App",
+        "Clear the Camera Cache",
+        "Restart Your Phone",
+        "Start Safe Mode",
+        "Update Phone Software"
+      ],
+      "got_actions": [
+        "Check Camera Permissions",
+        "Force Stop Camera App",
+        "Clear Camera Cache",
+        "Restart Phone",
+        "Check Safe Mode"
+      ],
+      "same_uri_sequence": false,
+      "goal_equal": true,
+      "title_equal": false
+    },
+    {
+      "id": "sample_04_P01",
+      "status": 200,
+      "step_accuracy": 2.889,
+      "deeplink_exact": 3,
+      "deeplink_targets": 3,
+      "expected_actions": [
+        "Update Your Apps",
+        "Optimize With Device Care",
+        "Free Up Storage Space",
+        "Restart Your Phone",
+        "Factory Data Reset"
+      ],
+      "got_actions": [
+        "Update Apps",
+        "Optimize Device Care",
+        "Free Up Storage",
+        "Restart Phone",
+        "Factory Data Reset"
+      ],
+      "same_uri_sequence": true,
+      "goal_equal": false,
+      "title_equal": false
+    },
+    {
+      "id": "sample_05_D02",
+      "status": 200,
+      "step_accuracy": 3.0,
+      "deeplink_exact": 3,
+      "deeplink_targets": 3,
+      "expected_actions": [
+        "Turn Off Adaptive Brightness",
+        "Change Motion Smoothness",
+        "Visit A Service Center",
+        "Start Safe Mode",
+        "Update Phone Software"
+      ],
+      "got_actions": [
+        "Turn Off Adaptive Brightness",
+        "Change Motion Smoothness",
+        "Have Screen Checked",
+        "Check App Problems In Safe Mode",
+        "Update Software"
+      ],
+      "same_uri_sequence": true,
+      "goal_equal": false,
+      "title_equal": true
+    }
+  ],
+  "latency": {
+    "cold": {
+      "client_ms": {
+        "n": 40,
+        "p50": 1790.29,
+        "p95": 2552.32,
+        "p99": 2767.2,
+        "mean": 1795.43,
+        "max": 2821.51
+      },
+      "server_ms": {
+        "n": 40,
+        "p50": 1786.39,
+        "p95": 2548.57,
+        "p99": 2763.66,
+        "mean": 1790.98,
+        "max": 2817.9
+      }
+    },
+    "cold_by_round": {
+      "1": {
+        "client_ms": {
+          "n": 32,
+          "p50": 1821.73,
+          "p95": 2354.68,
+          "p99": 2681.75,
+          "mean": 1793.99,
+          "max": 2821.51
+        },
+        "server_ms": {
+          "n": 32,
+          "p50": 1817.91,
+          "p95": 2350.85,
+          "p99": 2678.15,
+          "mean": 1789.4,
+          "max": 2817.9
+        }
+      },
+      "2": {
+        "client_ms": {
+          "n": 8,
+          "p50": 1627.33,
+          "p95": 2634.39,
+          "p99": 2672.68,
+          "mean": 1801.2,
+          "max": 2682.26
+        },
+        "server_ms": {
+          "n": 8,
+          "p50": 1623.62,
+          "p95": 2630.84,
+          "p99": 2669.22,
+          "mean": 1797.33,
+          "max": 2678.82
+        }
+      }
+    },
+    "exact_hit": {
+      "client_ms": {
+        "n": 64,
+        "p50": 5.36,
+        "p95": 9.96,
+        "p99": 11.98,
+        "mean": 5.75,
+        "max": 14.4
+      },
+      "server_ms": {
+        "n": 64,
+        "p50": 3.58,
+        "p95": 7.11,
+        "p99": 10.0,
+        "mean": 3.9,
+        "max": 12.31
+      }
+    },
+    "semantic_hit_llm_paraphrases": {
+      "client_ms": {
+        "n": 116,
+        "p50": 17.35,
+        "p95": 24.18,
+        "p99": 25.66,
+        "mean": 17.59,
+        "max": 28.5
+      },
+      "server_ms": {
+        "n": 116,
+        "p50": 15.24,
+        "p95": 21.51,
+        "p99": 23.57,
+        "mean": 15.49,
+        "max": 25.97
+      }
+    },
+    "semantic_hit_manual_paraphrases": {
+      "client_ms": {
+        "n": 62,
+        "p50": 12.01,
+        "p95": 15.29,
+        "p99": 16.91,
+        "mean": 12.43,
+        "max": 17.02
+      },
+      "server_ms": {
+        "n": 62,
+        "p50": 10.21,
+        "p95": 13.36,
+        "p99": 14.74,
+        "mean": 10.56,
+        "max": 14.84
+      }
+    },
+    "all_hits": {
+      "client_ms": {
+        "n": 242,
+        "p50": 13.42,
+        "p95": 22.72,
+        "p99": 25.03,
+        "mean": 13.13,
+        "max": 28.5
+      },
+      "server_ms": {
+        "n": 242,
+        "p50": 11.58,
+        "p95": 20.04,
+        "p99": 22.61,
+        "mean": 11.16,
+        "max": 25.97
+      }
+    }
+  },
+  "cold_path": {
+    "requests": 40,
+    "ok": 40,
+    "errors": {},
+    "model_calls_per_query": 1.95,
+    "input_tokens_per_query": 1256.8,
+    "output_tokens_per_query": 706.1,
+    "cost_usd_per_query": 0.00052716,
+    "cost_usd_p95": 0.00072347,
+    "cost_usd_total": 0.021086,
+    "models": {
+      "openai/gpt-oss-120b": 40
+    },
+    "over_8s": 0
+  },
+  "cache": {
+    "exact": {
+      "n": 64,
+      "cache_mix": {
+        "HIT-EXACT": 64
+      }
+    },
+    "paraphrase_llm": {
+      "n": 128,
+      "hits": 116,
+      "hit_rate_pct": 90.62,
+      "correct_plan_hits": 112,
+      "correct_hit_rate_pct": 87.5,
+      "wrong_plan_hits": 4,
+      "cache_mix": {
+        "HIT-SEMANTIC": 116,
+        "MISS": 12
+      },
+      "by_style": {
+        "non_native": {
+          "n": 32,
+          "correct_hits": 28
+        },
+        "short_angry": {
+          "n": 32,
+          "correct_hits": 28
+        },
+        "spoken": {
+          "n": 32,
+          "correct_hits": 28
+        },
+        "ticket_summary": {
+          "n": 32,
+          "correct_hits": 28
+        }
+      },
+      "misses": [
+        "Fix this garbage display! Max brightness looks like 10%! Useless outside!",
+        "The customer reports that the smartphone screen turns completely black after only a few seconds of use.",
+        "My phone screen not working for my touch after I put new protector glass. Please help fix this problem.",
+        "um hey siri why does my phone battery die so fast like literally every hour i have to charge it",
+        "My phone battery finish very fast time I charge everyday many times why like this.",
+        "The customer is reporting extremely poor battery performance requiring frequent recharges.",
+        "Fix my battery! The new update completely ruined it!",
+        "Customer reports that the device experiences excessive heating issues while plugged in to charge.",
+        "um hey so my phone battery like literally just drops from forty percent to five percent out of nowhere fix it",
+        "My phone battery have big problem because it dropping fast from 40 percent to 5 very quick.",
+        "Customer reports that front-facing camera photos are saving as mirrored images instead of normal orientation.",
+        "um hey siri like my phone is super laggy when i swipe around and stuff like how do i make it faster because these animations take forever"
+      ],
+      "wrong_hits": [
+        "This battery life is a joke! Fix it now!",
+        "My phone is completely full and freezing up constantly. Fix this junk!",
+        "um hey my phone just totally froze up and like it wont respond to anything i touch or press at all what do i do",
+        "My phone is freeze completely and not respond to touch or buttons at all, please help me."
+      ],
+      "latency_hits": {
+        "client_ms": {
+          "n": 116,
+          "p50": 17.35,
+          "p95": 24.18,
+          "p99": 25.66,
+          "mean": 17.59,
+          "max": 28.5
+        },
+        "server_ms": {
+          "n": 116,
+          "p50": 15.24,
+          "p95": 21.51,
+          "p99": 23.57,
+          "mean": 15.49,
+          "max": 25.97
+        }
+      },
+      "round": 2,
+      "generator_model": "gemini-3.6-flash",
+      "generated_at": "2026-09-30T19:27:41+00:00",
+      "dropped_as_seen": 0
+    },
+    "paraphrase_llm_older_rounds": {
+      "1": {
+        "n": 96,
+        "hits": 92,
+        "hit_rate_pct": 95.83,
+        "correct_plan_hits": 91,
+        "correct_hit_rate_pct": 94.79,
+        "wrong_plan_hits": 1,
+        "cache_mix": {
+          "HIT-SEMANTIC": 92,
+          "MISS": 4
+        },
+        "by_style": {
+          "indirect_description": {
+            "n": 32,
+            "correct_hits": 28
+          },
+          "search_phrase": {
+            "n": 32,
+            "correct_hits": 32
+          },
+          "support_chat": {
+            "n": 32,
+            "correct_hits": 31
+          }
+        },
+        "misses": [
+          "I really regret buying this device since it can't even capture a decent picture of my kids without everything looking like it was taken through a fogged-up lens.",
+          "Hey my phone camera is completely broken, whenever I open the app it's just totally black and wont take pictures.",
+          "Ever since the latest update, the device just goes to a black screen and powers back on by itself whenever it feels like it.",
+          "My device just locked up completely and nothing I try seems to wake it back up."
+        ],
+        "wrong_hits": [
+          "A user is experiencing severe device sluggishness because the internal memory capacity has reached its limit, causing daily performance issues."
+        ],
+        "latency_hits": {
+          "client_ms": {
+            "n": 92,
+            "p50": 17.04,
+            "p95": 22.77,
+            "p99": 25.25,
+            "mean": 16.54,
+            "max": 30.03
+          },
+          "server_ms": {
+            "n": 92,
+            "p50": 15.17,
+            "p95": 20.62,
+            "p99": 23.29,
+            "mean": 14.62,
+            "max": 27.66
+          }
+        },
+        "generator_model": "gemini-3.5-flash-lite",
+        "note": "seen while fixing the enrichment lexicon; not an unbiased estimate"
+      }
+    },
+    "paraphrase_manual": {
+      "n": 64,
+      "hits": 62,
+      "hit_rate_pct": 96.88,
+      "correct_plan_hits": 62,
+      "correct_hit_rate_pct": 96.88,
+      "wrong_plan_hits": 0,
+      "cache_mix": {
+        "HIT-SEMANTIC": 62,
+        "MISS": 2
+      },
+      "by_style": {
+        "manual": {
+          "n": 64,
+          "correct_hits": 62
+        }
+      },
+      "misses": [
+        "phone shows 30% then suddenly 2% and dies",
+        "performance dropped after I updated my phone"
+      ],
+      "wrong_hits": [],
+      "latency_hits": {
+        "client_ms": {
+          "n": 62,
+          "p50": 12.01,
+          "p95": 15.29,
+          "p99": 16.91,
+          "mean": 12.43,
+          "max": 17.02
+        },
+        "server_ms": {
+          "n": 62,
+          "p50": 10.21,
+          "p95": 13.36,
+          "p99": 14.74,
+          "mean": 10.56,
+          "max": 14.84
+        }
+      }
+    },
+    "hits_total": 334,
+    "hit_cost_usd_values": [
+      0.0
+    ],
+    "hit_model_calls_values": [
+      0
+    ]
+  },
+  "negatives": {
+    "n": 40,
+    "cache_hits": 0,
+    "false_hits": [],
+    "no_siis_context": 36,
+    "kb_grounded_plans": [
+      "Wireless charging is not working",
+      "Fingerprint sensor is slow to unlock",
+      "Can't record slow motion video",
+      "Portrait mode background blur isn't working"
+    ],
+    "cache_mix": {
+      "MISS": 40
+    }
+  },
+  "edge_cases": [
+    {
+      "id": "E01",
+      "kind": "typo_heavy",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Check Battery Usage",
+        "Configure Background Usage Limits",
+        "Enable Power Saving",
+        "Disable Always On Display",
+        "Restart Phone",
+        "Update Software"
+      ],
+      "error_code": null,
+      "client_ms": 2365.2
+    },
+    {
+      "id": "E02",
+      "kind": "colloquial",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Enable Tracking Auto‑focus",
+        "Enable Scene Optimizer",
+        "Reset Camera Settings",
+        "Clean Camera Lens",
+        "Remove Phone Case"
+      ],
+      "error_code": null,
+      "client_ms": 2041.6
+    },
+    {
+      "id": "E03",
+      "kind": "multi_symptom",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Turn Off Adaptive Brightness",
+        "Change Motion Smoothness",
+        "Check App Problems In Safe Mode",
+        "Update Software",
+        "Check Battery Usage",
+        "Put Unused Apps To Sleep"
+      ],
+      "error_code": null,
+      "client_ms": 2793.3
+    },
+    {
+      "id": "E04",
+      "kind": "multi_intent",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Check Camera Permissions",
+        "Force Stop Camera App",
+        "Clear Camera Cache",
+        "Restart Phone",
+        "Check Safe Mode",
+        "Update Software"
+      ],
+      "error_code": null,
+      "client_ms": 2507.7
+    },
+    {
+      "id": "E05",
+      "kind": "unknown_domain",
+      "expected": "no_siis_context",
+      "observed": "no_siis_context",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [],
+      "error_code": null,
+      "client_ms": 26.4
+    },
+    {
+      "id": "E06",
+      "kind": "unsupported_domain",
+      "expected": "no_siis_context",
+      "observed": "no_siis_context",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [],
+      "error_code": null,
+      "client_ms": 13.7
+    },
+    {
+      "id": "E07",
+      "kind": "no_solution_siis",
+      "expected": "no_match",
+      "observed": "no_match",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [],
+      "error_code": null,
+      "client_ms": 861.4
+    },
+    {
+      "id": "E08",
+      "kind": "irrelevant_siis",
+      "expected": "no_match",
+      "observed": "no_match",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [],
+      "error_code": null,
+      "client_ms": 756.1
+    },
+    {
+      "id": "E09",
+      "kind": "url_injection_query",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Check Battery Usage",
+        "Configure Background Usage Limits",
+        "Enable Power Saving",
+        "Disable Always On Display",
+        "Restart Phone",
+        "Update Software"
+      ],
+      "error_code": null,
+      "client_ms": 2333.4
+    },
+    {
+      "id": "E10",
+      "kind": "url_injection_siis",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Enable Power Saving"
+      ],
+      "error_code": null,
+      "client_ms": 966.0
+    },
+    {
+      "id": "E11",
+      "kind": "fabricated_uri_siis",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Configure Adaptive Brightness"
+      ],
+      "error_code": null,
+      "client_ms": 923.3
+    },
+    {
+      "id": "E12",
+      "kind": "prompt_injection_siis",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Configure Charging Settings"
+      ],
+      "error_code": null,
+      "client_ms": 1017.2
+    },
+    {
+      "id": "E13",
+      "kind": "hierarchy_variation",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Configure Background Usage Limits",
+        "Enable Power Saving"
+      ],
+      "error_code": null,
+      "client_ms": 1463.3
+    },
+    {
+      "id": "E14",
+      "kind": "long_query",
+      "expected": "plan",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Battery Usage",
+        "Background Usage Limits",
+        "Power Saving",
+        "Always On Display",
+        "Restart Phone",
+        "Software Update"
+      ],
+      "error_code": null,
+      "client_ms": 3805.5
+    },
+    {
+      "id": "E15",
+      "kind": "empty_query",
+      "expected": "http_422",
+      "observed": "http_422",
+      "pass": true,
+      "cache": "",
+      "url_leaks": 0,
+      "contract_ok": null,
+      "actions": [],
+      "error_code": "empty_query",
+      "client_ms": 3.1
+    },
+    {
+      "id": "E16",
+      "kind": "whitespace_query",
+      "expected": "http_422",
+      "observed": "http_422",
+      "pass": true,
+      "cache": "",
+      "url_leaks": 0,
+      "contract_ok": null,
+      "actions": [],
+      "error_code": "empty_query",
+      "client_ms": 1.5
+    },
+    {
+      "id": "E17",
+      "kind": "too_long_query",
+      "expected": "http_422",
+      "observed": "http_422",
+      "pass": true,
+      "cache": "",
+      "url_leaks": 0,
+      "contract_ok": null,
+      "actions": [],
+      "error_code": "query_too_long",
+      "client_ms": 1.5
+    },
+    {
+      "id": "E18",
+      "kind": "non_english",
+      "expected": "any",
+      "observed": "plan",
+      "pass": true,
+      "cache": "MISS",
+      "url_leaks": 0,
+      "contract_ok": true,
+      "actions": [
+        "Turn Off Adaptive Brightness",
+        "Change Motion Smoothness",
+        "Have The Screen Checked",
+        "Check App Problems In Safe Mode",
+        "Update Software"
+      ],
+      "error_code": null,
+      "client_ms": 2826.7
+    }
+  ],
+  "results_jsonl": {
+    "lines": 32,
+    "queries": 32,
+    "missing": []
+  },
+  "compliance": {
+    "lines": 32,
+    "schema_valid_lines": 32,
+    "schema_valid_pct": 100.0,
+    "rule_compliance_goal_title_description_pct": 100.0,
+    "rule_checks_goal_title_description": 438,
+    "rule_compliance_all_rules_pct": 100.0,
+    "rule_checks_all": 3499,
+    "lines_fully_compliant": 32,
+    "lines_fully_compliant_pct": 100.0,
+    "absolute_url_leaks": 0,
+    "deeplinks_emitted": 81,
+    "deeplinks_catalog_valid": 81,
+    "deeplink_catalog_validity_pct": 100.0,
+    "auto_actions": 61,
+    "auto_with_catalog_deeplink": 53,
+    "auto_with_dummy_positive": 3,
+    "auto_with_valid_actionable_pct": 91.8,
+    "auto_with_catalog_actionable_pct": 86.89,
+    "manual_actions_with_actionable_deeplink": 0,
+    "critical_order_violations": 0,
+    "violations_by_rule": {},
+    "checks_by_rule": {
+      "action.name_single_feature": {
+        "checks": 100,
+        "passed": 100
+      },
+      "action.name_title_case": {
+        "checks": 100,
+        "passed": 100
+      },
+      "action.name_words": {
+        "checks": 100,
+        "passed": 100
+      },
+      "action.not_fragmented": {
+        "checks": 66,
+        "passed": 66
+      },
+      "action.single_screen": {
+        "checks": 100,
+        "passed": 100
+      },
+      "action.step_groups": {
+        "checks": 100,
+        "passed": 100
+      },
+      "action.unique_names": {
+        "checks": 34,
+        "passed": 34
+      },
+      "action.unique_targets": {
+        "checks": 34,
+        "passed": 34
+      },
+      "category.valid": {
+        "checks": 100,
+        "passed": 100
+      },
+      "deeplink.catalog_membership": {
+        "checks": 61,
+        "passed": 61
+      },
+      "deeplink.dummy_description": {
+        "checks": 3,
+        "passed": 3
+      },
+      "deeplink.dummy_not_allowed": {
+        "checks": 3,
+        "passed": 3
+      },
+      "deeplink.field_integrity": {
+        "checks": 61,
+        "passed": 61
+      },
+      "deeplink.manual_actionable": {
+        "checks": 64,
+        "passed": 64
+      },
+      "description.prefix": {
+        "checks": 100,
+        "passed": 100
+      },
+      "description.word_count": {
+        "checks": 100,
+        "passed": 100
+      },
+      "envelope.query": {
+        "checks": 32,
+        "passed": 32
+      },
+      "fallback.consistency": {
+        "checks": 32,
+        "passed": 32
+      },
+      "goal.has_actions": {
+        "checks": 34,
+        "passed": 34
+      },
+      "goal.syntax": {
+        "checks": 34,
+        "passed": 34
+      },
+      "goal.topic_title_case": {
+        "checks": 34,
+        "passed": 34
+      },
+      "goal.topic_words": {
+        "checks": 34,
+        "passed": 34
+      },
+      "ordering.critical_last": {
+        "checks": 76,
+        "passed": 76
+      },
+      "ordering.critical_rank": {
+        "checks": 24,
+        "passed": 24
+      },
+      "score.range": {
+        "checks": 34,
+        "passed": 34
+      },
+      "score.type": {
+        "checks": 34,
+        "passed": 34
+      },
+      "step.imperative": {
+        "checks": 309,
+        "passed": 309
+      },
+      "step.length": {
+        "checks": 309,
+        "passed": 309
+      },
+      "step.no_duplicate": {
+        "checks": 309,
+        "passed": 309
+      },
+      "step.non_empty": {
+        "checks": 309,
+        "passed": 309
+      },
+      "step.single_interaction": {
+        "checks": 309,
+        "passed": 309
+      },
+      "steps.non_empty": {
+        "checks": 100,
+        "passed": 100
+      },
+      "title.punctuation": {
+        "checks": 34,
+        "passed": 34
+      },
+      "title.sentence_case": {
+        "checks": 34,
+        "passed": 34
+      },
+      "title.word_count": {
+        "checks": 34,
+        "passed": 34
+      },
+      "url.leak": {
+        "checks": 64,
+        "passed": 64
+      },
+      "validation.catalog_membership": {
+        "checks": 17,
+        "passed": 17
+      },
+      "validation.field_integrity": {
+        "checks": 17,
+        "passed": 17
+      },
+      "variations.count": {
+        "checks": 32,
+        "passed": 32
+      },
+      "variations.distinct": {
+        "checks": 32,
+        "passed": 32
+      },
+      "variations.non_empty": {
+        "checks": 32,
+        "passed": 32
+      },
+      "variations.not_query": {
+        "checks": 32,
+        "passed": 32
+      },
+      "variations.type": {
+        "checks": 32,
+        "passed": 32
+      }
+    }
+  },
+  "compliance_all_paths": {
+    "lines": 447,
+    "schema_valid_lines": 447,
+    "schema_valid_pct": 100.0,
+    "rule_compliance_goal_title_description_pct": 100.0,
+    "rule_checks_goal_title_description": 5325,
+    "rule_compliance_all_rules_pct": 100.0,
+    "rule_checks_all": 44463,
+    "lines_fully_compliant": 447,
+    "lines_fully_compliant_pct": 100.0,
+    "absolute_url_leaks": 0,
+    "deeplinks_emitted": 1024,
+    "deeplinks_catalog_valid": 1024,
+    "deeplink_catalog_validity_pct": 100.0,
+    "auto_actions": 753,
+    "auto_with_catalog_deeplink": 652,
+    "auto_with_dummy_positive": 37,
+    "auto_with_valid_actionable_pct": 91.5,
+    "auto_with_catalog_actionable_pct": 86.59,
+    "manual_actions_with_actionable_deeplink": 0,
+    "critical_order_violations": 0,
+    "violations_by_rule": {},
+    "checks_by_rule": {
+      "action.name_single_feature": {
+        "checks": 1266,
+        "passed": 1266
+      },
+      "action.name_title_case": {
+        "checks": 1266,
+        "passed": 1266
+      },
+      "action.name_words": {
+        "checks": 1266,
+        "passed": 1266
+      },
+      "action.not_fragmented": {
+        "checks": 867,
+        "passed": 867
+      },
+      "action.single_screen": {
+        "checks": 1266,
+        "passed": 1266
+      },
+      "action.step_groups": {
+        "checks": 1266,
+        "passed": 1266
+      },
+      "action.unique_names": {
+        "checks": 399,
+        "passed": 399
+      },
+      "action.unique_targets": {
+        "checks": 399,
+        "passed": 399
+      },
+      "category.valid": {
+        "checks": 1266,
+        "passed": 1266
+      },
+      "deeplink.catalog_membership": {
+        "checks": 769,
+        "passed": 769
+      },
+      "deeplink.dummy_description": {
+        "checks": 37,
+        "passed": 37
+      },
+      "deeplink.dummy_not_allowed": {
+        "checks": 37,
+        "passed": 37
+      },
+      "deeplink.field_integrity": {
+        "checks": 769,
+        "passed": 769
+      },
+      "deeplink.manual_actionable": {
+        "checks": 806,
+        "passed": 806
+      },
+      "description.prefix": {
+        "checks": 1266,
+        "passed": 1266
+      },
+      "description.word_count": {
+        "checks": 1266,
+        "passed": 1266
+      },
+      "envelope.query": {
+        "checks": 447,
+        "passed": 447
+      },
+      "fallback.consistency": {
+        "checks": 447,
+        "passed": 447
+      },
+      "goal.has_actions": {
+        "checks": 399,
+        "passed": 399
+      },
+      "goal.syntax": {
+        "checks": 399,
+        "passed": 399
+      },
+      "goal.topic_title_case": {
+        "checks": 399,
+        "passed": 399
+      },
+      "goal.topic_words": {
+        "checks": 399,
+        "passed": 399
+      },
+      "ordering.critical_last": {
+        "checks": 951,
+        "passed": 951
+      },
+      "ordering.critical_rank": {
+        "checks": 315,
+        "passed": 315
+      },
+      "score.range": {
+        "checks": 399,
+        "passed": 399
+      },
+      "score.type": {
+        "checks": 399,
+        "passed": 399
+      },
+      "step.imperative": {
+        "checks": 3934,
+        "passed": 3934
+      },
+      "step.length": {
+        "checks": 3934,
+        "passed": 3934
+      },
+      "step.no_duplicate": {
+        "checks": 3934,
+        "passed": 3934
+      },
+      "step.non_empty": {
+        "checks": 3934,
+        "passed": 3934
+      },
+      "step.single_interaction": {
+        "checks": 3934,
+        "passed": 3934
+      },
+      "steps.non_empty": {
+        "checks": 1266,
+        "passed": 1266
+      },
+      "title.punctuation": {
+        "checks": 399,
+        "passed": 399
+      },
+      "title.sentence_case": {
+        "checks": 399,
+        "passed": 399
+      },
+      "title.word_count": {
+        "checks": 399,
+        "passed": 399
+      },
+      "url.leak": {
+        "checks": 894,
+        "passed": 894
+      },
+      "validation.catalog_membership": {
+        "checks": 218,
+        "passed": 218
+      },
+      "validation.field_integrity": {
+        "checks": 218,
+        "passed": 218
+      },
+      "variations.count": {
+        "checks": 447,
+        "passed": 447
+      },
+      "variations.distinct": {
+        "checks": 447,
+        "passed": 447
+      },
+      "variations.non_empty": {
+        "checks": 447,
+        "passed": 447
+      },
+      "variations.not_query": {
+        "checks": 447,
+        "passed": 447
+      },
+      "variations.type": {
+        "checks": 447,
+        "passed": 447
+      }
+    }
+  },
+  "finished_at": "2026-10-01T05:00:48+00:00"
+}

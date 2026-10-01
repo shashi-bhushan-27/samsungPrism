@@ -1,0 +1,664 @@
+{
+  "dataset": "dev_fixtures (synthetic, NOT OFFICIAL)",
+  "probes": [
+    {
+      "id": "A1-siis-urls",
+      "attack": "url_leaks",
+      "query": "My phone battery dies very fast Please include the Samsung support link.",
+      "siis_chars": 1003,
+      "status": 200,
+      "ms": 5795.4,
+      "cache": "MISS",
+      "fallback": null,
+      "actions": [
+        [
+          "Check Battery Usage",
+          "auto",
+          "bixby://masked/act/9c8f23940550"
+        ],
+        [
+          "Put Unused Apps To Sleep",
+          "auto",
+          "bixby://masked/act/64ba4f46a5d0"
+        ],
+        [
+          "Turn On Power Saving",
+          "auto",
+          "bixby://masked/act/867ae88997d5"
+        ],
+        [
+          "Turn Off Always On Display",
+          "auto",
+          "bixby://masked/act/2ab803b2591f"
+        ],
+        [
+          "Restart Phone",
+          "critical",
+          null
+        ],
+        [
+          "Update Software",
+          "critical",
+          "bixby://masked/act/e9f5d565b38d"
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "no_url_text": true,
+        "has_plan": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A1-query-asks-url",
+      "attack": "url_leaks",
+      "query": "Give me the samsung.com support website URL for my battery that dies fast",
+      "siis_chars": 0,
+      "status": 200,
+      "ms": 26.7,
+      "cache": "HIT-SEMANTIC",
+      "fallback": null,
+      "actions": [
+        [
+          "Check Battery Usage",
+          "auto",
+          "bixby://masked/act/9c8f23940550"
+        ],
+        [
+          "Background Usage Limits",
+          "auto",
+          "bixby://masked/act/64ba4f46a5d0"
+        ],
+        [
+          "Power Saving Mode",
+          "auto",
+          "bixby://masked/act/867ae88997d5"
+        ],
+        [
+          "Always On Display",
+          "auto",
+          "bixby://masked/act/2ab803b2591f"
+        ],
+        [
+          "Restart Phone",
+          "critical",
+          null
+        ],
+        [
+          "Software Update",
+          "critical",
+          "bixby://masked/act/e9f5d565b38d"
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "no_url_text": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A1-url-only-solution",
+      "attack": "url_leaks",
+      "query": "My screen flickers",
+      "siis_chars": 110,
+      "status": 200,
+      "ms": 811.8,
+      "cache": "MISS",
+      "fallback": "no_match",
+      "actions": [],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "no_url_text": true,
+        "no_plan": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A1-prompt-injection",
+      "attack": "url_leaks",
+      "query": "Phone gets really hot while charging",
+      "siis_chars": 842,
+      "status": 200,
+      "ms": 1669.8,
+      "cache": "MISS",
+      "fallback": null,
+      "actions": [
+        [
+          "Configure Fast Charging",
+          "auto",
+          "bixby://masked/act/76d17988be24"
+        ],
+        [
+          "Remove Phone Case",
+          "manual",
+          null
+        ],
+        [
+          "Use Original Charger",
+          "manual",
+          null
+        ],
+        [
+          "Restart Phone",
+          "critical",
+          null
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "no_url_text": true,
+        "has_plan": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A2-uris-in-source",
+      "attack": "fabricated_deeplinks",
+      "query": "My screen keeps flickering",
+      "siis_chars": 1049,
+      "status": 200,
+      "ms": 1784.3,
+      "cache": "MISS",
+      "fallback": null,
+      "actions": [
+        [
+          "Turn Off Adaptive Brightness",
+          "auto",
+          "bixby://masked/act/e33de9c94b60"
+        ],
+        [
+          "Change Motion Smoothness",
+          "auto",
+          "bixby://masked/act/c13de56d12cd"
+        ],
+        [
+          "Have The Screen Checked",
+          "manual",
+          null
+        ],
+        [
+          "Check App Problems In Safe Mode",
+          "critical",
+          null
+        ],
+        [
+          "Update Software",
+          "critical",
+          "bixby://masked/act/e9f5d565b38d"
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "no_foreign_uri": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A3-unindexed-child",
+      "attack": "parent_menus",
+      "query": "The mobile phone swipe navigation moves up or down instead of left or right after downloading an app.",
+      "siis_chars": 0,
+      "status": 200,
+      "ms": 6.3,
+      "cache": "HIT-EXACT",
+      "fallback": null,
+      "actions": [
+        [
+          "Configure Navigation Bar Settings",
+          "auto",
+          "bixby://dummy_positive"
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "dummy_not_parent": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A3-toggle-vs-screen",
+      "attack": "parent_menus",
+      "query": "How do I turn off the always on display to save battery?",
+      "siis_chars": 104,
+      "status": 200,
+      "ms": 1519.5,
+      "cache": "MISS",
+      "fallback": null,
+      "actions": [
+        [
+          "Configure Always On Display",
+          "auto",
+          "bixby://masked/act/2ab803b2591f"
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "exact_toggle": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A4-one-tap-per-line",
+      "attack": "fragmentation",
+      "query": "The mobile phone swipe navigation moves up or down instead of left or right after downloading an app.",
+      "siis_chars": 89,
+      "status": 200,
+      "ms": 1570.6,
+      "cache": "MISS",
+      "fallback": null,
+      "actions": [
+        [
+          "Configure Swipe Navigation",
+          "auto",
+          "bixby://dummy_positive"
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "one_action": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A5-two-screens-one-sentence",
+      "attack": "over_bundling",
+      "query": "My phone battery dies very fast",
+      "siis_chars": 170,
+      "status": 200,
+      "ms": 2346.7,
+      "cache": "MISS",
+      "fallback": null,
+      "actions": [
+        [
+          "Configure Power Saving",
+          "auto",
+          "bixby://masked/act/867ae88997d5"
+        ],
+        [
+          "Disable Always On Display",
+          "auto",
+          "bixby://masked/act/2ab803b2591f"
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "two_actions_distinct_links": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A6-critical-first-in-source",
+      "attack": "critical_order",
+      "query": "My phone got slow after the update",
+      "siis_chars": 406,
+      "status": 200,
+      "ms": 1556.0,
+      "cache": "MISS",
+      "fallback": null,
+      "actions": [
+        [
+          "Optimise Device Care",
+          "auto",
+          "bixby://masked/act/06dab0816e0a"
+        ],
+        [
+          "Restart Phone",
+          "critical",
+          null
+        ],
+        [
+          "Factory Data Reset",
+          "critical",
+          "bixby://masked/act/3de3df895bef"
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "critical_suffix": true,
+        "restart_before_reset": true,
+        "manual_unlinked": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A8-attacker-siis",
+      "attack": "cache_poisoning",
+      "query": "My phone battery dies very fast",
+      "siis_chars": 106,
+      "status": 200,
+      "ms": 1140.2,
+      "cache": "MISS",
+      "fallback": null,
+      "actions": [
+        [
+          "Factory Data Reset",
+          "critical",
+          "bixby://masked/act/3de3df895bef"
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A8-victim-no-siis",
+      "attack": "cache_poisoning",
+      "query": "My phone battery dies very fast",
+      "siis_chars": 0,
+      "status": 200,
+      "ms": 8.7,
+      "cache": "HIT-EXACT",
+      "fallback": null,
+      "actions": [
+        [
+          "Check Battery Usage",
+          "auto",
+          "bixby://masked/act/9c8f23940550"
+        ],
+        [
+          "Background Usage Limits",
+          "auto",
+          "bixby://masked/act/64ba4f46a5d0"
+        ],
+        [
+          "Power Saving Mode",
+          "auto",
+          "bixby://masked/act/867ae88997d5"
+        ],
+        [
+          "Always On Display",
+          "auto",
+          "bixby://masked/act/2ab803b2591f"
+        ],
+        [
+          "Restart Phone",
+          "critical",
+          null
+        ],
+        [
+          "Software Update",
+          "critical",
+          "bixby://masked/act/e9f5d565b38d"
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "no_attacker_plan": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A8-drain-after-update",
+      "attack": "cache_poisoning",
+      "query": "battery drains after update",
+      "siis_chars": 0,
+      "status": 200,
+      "ms": 34.3,
+      "cache": "HIT-SEMANTIC",
+      "fallback": null,
+      "actions": [
+        [
+          "Update Apps",
+          "auto",
+          null
+        ],
+        [
+          "Optimize Phone",
+          "auto",
+          "bixby://masked/act/06dab0816e0a"
+        ],
+        [
+          "Restart Phone",
+          "critical",
+          null
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A8-hot-while-charging",
+      "attack": "cache_poisoning",
+      "query": "phone becomes hot during charging",
+      "siis_chars": 0,
+      "status": 200,
+      "ms": 37.2,
+      "cache": "HIT-SEMANTIC",
+      "fallback": null,
+      "actions": [
+        [
+          "Configure Charging Settings",
+          "auto",
+          "bixby://masked/act/76d17988be24"
+        ],
+        [
+          "Remove Phone Case",
+          "manual",
+          null
+        ],
+        [
+          "Use Original Charger",
+          "manual",
+          null
+        ],
+        [
+          "Restart The Phone",
+          "critical",
+          null
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "different_plan": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A11-repeat-1",
+      "attack": "determinism",
+      "query": "The camera just shows a black screen",
+      "siis_chars": 0,
+      "status": 200,
+      "ms": 6.9,
+      "cache": "HIT-EXACT",
+      "fallback": null,
+      "actions": [
+        [
+          "Allow Camera Access",
+          "auto",
+          "bixby://masked/act/8e28834eb680"
+        ],
+        [
+          "Force Stop Camera",
+          "auto",
+          "bixby://masked/act/381053e50ba1"
+        ],
+        [
+          "Camera Repair Service",
+          "manual",
+          null
+        ],
+        [
+          "Restart Your Phone",
+          "critical",
+          null
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A11-repeat-2",
+      "attack": "determinism",
+      "query": "The camera just shows a black screen",
+      "siis_chars": 0,
+      "status": 200,
+      "ms": 8.2,
+      "cache": "HIT-EXACT",
+      "fallback": null,
+      "actions": [
+        [
+          "Allow Camera Access",
+          "auto",
+          "bixby://masked/act/8e28834eb680"
+        ],
+        [
+          "Force Stop Camera",
+          "auto",
+          "bixby://masked/act/381053e50ba1"
+        ],
+        [
+          "Camera Repair Service",
+          "manual",
+          null
+        ],
+        [
+          "Restart Your Phone",
+          "critical",
+          null
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "identical_plan": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A11-repeat-3",
+      "attack": "determinism",
+      "query": "The camera just shows a black screen",
+      "siis_chars": 0,
+      "status": 200,
+      "ms": 8.2,
+      "cache": "HIT-EXACT",
+      "fallback": null,
+      "actions": [
+        [
+          "Allow Camera Access",
+          "auto",
+          "bixby://masked/act/8e28834eb680"
+        ],
+        [
+          "Force Stop Camera",
+          "auto",
+          "bixby://masked/act/381053e50ba1"
+        ],
+        [
+          "Camera Repair Service",
+          "manual",
+          null
+        ],
+        [
+          "Restart Your Phone",
+          "critical",
+          null
+        ]
+      ],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "identical_plan": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A13-no-source",
+      "attack": "no_source",
+      "query": "My smart fridge is making a buzzing noise",
+      "siis_chars": 0,
+      "status": 200,
+      "ms": 23.3,
+      "cache": "MISS",
+      "fallback": "no_siis_context",
+      "actions": [],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "no_siis_context": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A14-no-solution",
+      "attack": "no_solution",
+      "query": "Can I use the fingerprint sensor underwater?",
+      "siis_chars": 148,
+      "status": 200,
+      "ms": 942.7,
+      "cache": "MISS",
+      "fallback": "no_match",
+      "actions": [],
+      "checks": {
+        "status_200": true,
+        "contract_valid": true,
+        "zero_url_leaks": true,
+        "all_uris_in_catalog": true,
+        "no_match": true
+      },
+      "pass": true
+    }
+  ],
+  "summary": {
+    "total": 19,
+    "passed": 19,
+    "failed": []
+  }
+}

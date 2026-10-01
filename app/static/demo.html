@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Troubleshooting Engine demo</title>
+<style>
+  :root { --ink:#1B2430; --muted:#5B6573; --line:#E3E7EC; --accent:#F2A541; --ok:#2A9D8F; --crit:#C8553D; --bg:#F7F9FB; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.45 system-ui, -apple-system, "Segoe UI", Arial, sans-serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--ink); color:#fff; padding:14px 24px; display:flex; align-items:baseline; gap:14px; }
+  header h1 { font-size:19px; margin:0; } header span { color:#AEB8C4; font-size:13px; }
+  main { display:grid; grid-template-columns: 380px 1fr; gap:20px; padding:20px 24px; }
+  .panel { background:#fff; border:1px solid var(--line); border-radius:10px; padding:16px; }
+  label { font-weight:600; font-size:13px; display:block; margin:0 0 6px; }
+  textarea { width:100%; border:1px solid var(--line); border-radius:8px; padding:10px; font:inherit; resize:vertical; }
+  #query { height:84px; } #siis { height:190px; font-size:13px; }
+  button { margin-top:12px; background:var(--accent); color:var(--ink); border:0; border-radius:8px; padding:10px 18px; font-weight:700; cursor:pointer; }
+  .meta { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+  .chip { border-radius:999px; padding:4px 10px; font-size:12.5px; font-weight:600; background:#EEF1F4; }
+  .chip.hit { background:#D7F0EC; color:#17675D; } .chip.miss { background:#FCE9D2; color:#8A5212; }
+  .goal { font-size:13px; color:var(--muted); } .title { font-size:20px; font-weight:700; margin:2px 0 12px; }
+  .action { border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin-bottom:10px; }
+  .action h3 { margin:0 0 2px; font-size:16px; } .action .d { color:var(--muted); font-size:13px; }
+  .cat { font-size:11px; font-weight:700; text-transform:uppercase; padding:2px 7px; border-radius:5px; margin-left:8px; }
+  .auto { background:#D7F0EC; color:#17675D; } .manual { background:#EEF1F4; color:#3C4652; } .critical { background:#F8DCD5; color:var(--crit); }
+  ol { margin:8px 0 6px 18px; padding:0; } li { margin:2px 0; }
+  .link { font-family: ui-monospace, Menlo, monospace; font-size:12.5px; background:#F3F5F8; border-radius:6px; padding:6px 8px; }
+  .fallback { padding:18px; border-radius:10px; background:#FCE9D2; color:#8A5212; font-weight:600; }
+  #caption { position:fixed; left:50%; bottom:22px; transform:translateX(-50%); background:rgba(27,36,48,.92); color:#fff;
+             padding:10px 18px; border-radius:10px; font-size:16px; max-width:80%; display:none; }
+  .empty { color:var(--muted); }
+</style>
+</head>
+<body>
+<header><h1>Smart Guided Troubleshooting Engine</h1><span>POST /v1/troubleshoot · live demo</span></header>
+<main>
+  <section class="panel">
+    <label for="query">Customer complaint</label>
+    <textarea id="query" placeholder="e.g. my phone battery dies very fast"></textarea>
+    <label for="siis" style="margin-top:12px">SIIS reference text (optional)</label>
+    <textarea id="siis" placeholder="Leave empty to use the cache / knowledge base"></textarea>
+    <button id="go">Troubleshoot</button>
+  </section>
+  <section class="panel" id="out"><p class="empty">The validated plan appears here.</p></section>
+</main>
+<div id="caption"></div>
+<script>
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+async function run() {
+  const body = { query: document.getElementById("query").value };
+  const siis = document.getElementById("siis").value.trim();
+  if (siis) body.siis_response = siis;
+  const out = document.getElementById("out");
+  out.innerHTML = '<p class="empty">Working…</p>';
+  const t0 = performance.now();
+  const r = await fetch("/v1/troubleshoot", { method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify(body) });
+  const ms = Math.round(performance.now() - t0);
+  const j = await r.json();
+  if (!r.ok) { out.innerHTML = `<div class="fallback">HTTP ${r.status}: ${esc(j.error && j.error.code)}</div>`; return; }
+  const m = j.meta, cache = r.headers.get("x-cache") || "";
+  let html = `<div class="meta"><span class="chip ${m.cache_hit ? "hit" : "miss"}">${esc(cache)}</span>
+    <span class="chip">server ${esc(m.latency_ms)} ms · round trip ${ms} ms</span>
+    <span class="chip">cost $${Number(m.cost_usd ?? 0).toFixed(6)}</span><span class="chip">${esc(m.model)}</span></div>`;
+  const ctx = j.response.contexts;
+  if (!ctx.length) { html += `<div class="fallback">contexts: [] · fallback: ${esc(m.fallback)}</div>`; }
+  for (const g of ctx) {
+    html += `<div class="goal">${esc(g.goal)}</div><div class="title">${esc(g.title)} <span class="chip">score ${esc(g.score)}</span></div>`;
+    for (const a of g.actions) {
+      html += `<div class="action"><h3>${esc(a.actionName)}<span class="cat ${esc(a.category)}">${esc(a.category)}</span></h3><div class="d">${esc(a.description)}</div>`;
+      for (const sg of a.stepGroups) {
+        html += "<ol>" + sg.steps.map(s => `<li>${esc(s)}</li>`).join("") + "</ol>";
+        const dl = sg.actionableDeeplink;
+        html += dl ? `<div class="link">${esc(dl.deeplink)} — ${esc(dl.description)}</div>` : `<div class="link">no actionable deeplink</div>`;
+      }
+      html += "</div>";
+    }
+  }
+  out.innerHTML = html;
+}
+document.getElementById("go").addEventListener("click", run);
+window.showCaption = t => { const c = document.getElementById("caption"); c.textContent = t; c.style.display = t ? "block" : "none"; };
+</script>
+</body>
+</html>
