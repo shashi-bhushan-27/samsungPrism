@@ -1,5 +1,5 @@
 """Fill the PRISM submission template. Every number comes from artifacts/reports/*.json (official dataset run).
-Fields only the team can provide stay as highlighted [TO FILL] markers."""
+Team details and the demo-video link are filled in below."""
 import json
 import sys
 from pathlib import Path
@@ -282,7 +282,7 @@ for rec in recs:
         example = rec
         break
 items = [
-    f"**Demo video:** docs/demo.webm in the repository  [TO FILL: YouTube / Drive link]",
+    f"**Demo video:** https://youtu.be/eRBRi4PisPU (also docs/ResolveAI_demo.mp4; earlier API walkthrough: docs/demo.webm)",
     "**Live walkthrough** (http://localhost:8000/demo):",
     (1, "1. Paste an official complaint → plan in about 2–3 s on the first request (model call)."),
     (1, "2. Same or paraphrased complaint → served from the semantic cache in milliseconds, no model call."),
@@ -402,11 +402,37 @@ bullets(body(S[9]), items, size=15)
 bullets(body(S[10]), [
     f"Working prototype code — public or shared GitHub repo: **Y** ({REPO_URL})",
     "README with reproducible setup instructions: **Y** (make install / indexes / test / serve; Docker)",
-    "Demo video, max 5 minutes: **Y** (docs/demo.webm)  [TO FILL: YouTube or Drive link]",
+    "Demo video, max 5 minutes: **Y** (https://youtu.be/eRBRi4PisPU; docs/ResolveAI_demo.mp4, docs/demo.webm)",
     "Presentation file (PPT or PDF): **Y** (this deck, docs/ folder)",
     "AI disclosure form: **Y** (docs/LangAI3.0_AI_Disclosure.docx, AI_DISCLOSURE.md)",
     "GitHub tag: **PRISM_GENAI_HACKATHON_Y2026**",
 ], size=17)
 
+# Make every URL in the deck clickable (a run is split so only the URL itself carries the link).
+import copy as _copy
+import re as _re
+
+_URL = _re.compile(r"https://[^\s;),]+")
+for _slide in prs.slides:
+    for _sh in _slide.shapes:
+        if not _sh.has_text_frame:
+            continue
+        for _p in _sh.text_frame.paragraphs:
+            for _r in list(_p.runs):
+                m = _URL.search(_r.text)
+                if not m or _r.hyperlink.address:
+                    continue
+                before, url, after = _r.text[:m.start()], m.group(0), _r.text[m.end():]
+                _r.text = before
+                link_el = _copy.deepcopy(_r._r)
+                _r._r.addnext(link_el)
+                from pptx.text.text import _Run
+                link = _Run(link_el, _p)
+                link.text = url
+                link.hyperlink.address = url
+                if after:
+                    tail_el = _copy.deepcopy(_r._r)
+                    link_el.addnext(tail_el)
+                    _Run(tail_el, _p).text = after
 prs.save(OUT)
 print("saved", OUT)

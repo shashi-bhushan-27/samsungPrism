@@ -39,7 +39,8 @@ URI selection, grouping, sequencing, URL scrubbing, validation, caching, cost an
 | `AUDIT.md` | Phase 0 audit of the problem statement, assets and interpretation decisions |
 | `docs/VITV_ResolveAI_Submission.pptx` | Submission deck on the official template; every number from the reports |
 | `docs/LangAI3.0_AI_Disclosure.docx` | Filled AI-usage disclosure form (date and sign-off left for the team representative) |
-| `docs/demo.webm` | Demo video (56 s, recorded on the synthetic fixture before the official data arrived): a real browser driving the live API through `/demo`: exact hit, paraphrase hit, live extraction with URL/prompt-injection scrubbing, out-of-scope fallback, 422 |
+| Demo video | https://youtu.be/eRBRi4PisPU (32 s; file: `docs/ResolveAI_demo.mp4`) |
+| `docs/demo.webm` | Earlier API walkthrough video (56 s, recorded on the synthetic fixture before the official data arrived): a real browser driving the live API through `/demo`: exact hit, paraphrase hit, live extraction with URL/prompt-injection scrubbing, out-of-scope fallback, 422 |
 | `AI_DISCLOSURE.md` | How AI was used to build the project, which models run inside it, and which data is AI-generated |
 
 ## Results at a glance (official data, live model, real HTTP; full detail in `metrics.md`)
