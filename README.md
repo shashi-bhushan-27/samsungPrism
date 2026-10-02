@@ -17,6 +17,16 @@ URI selection, grouping, sequencing, URL scrubbing, validation, caching, cost an
 > earlier report in `artifacts/reports/dev_fixtures/`. The official data has no gold labels, so step accuracy
 > is scored only against the reference sample.
 
+## Team
+
+**ResolveAI** (VITV) · PRISM GenAI Hackathon 2026, Theme 2: Troubleshooting
+
+| Member | Email |
+| :--- | :--- |
+| Shashi Bhushan | shashibhushan.vijay2022@vitstudent.ac.in |
+| Astha Doshi | astha.doshi2023@vitstudent.ac.in |
+| Himangi Khanduri | himangi.khanduri2023@vitstudent.ac.in |
+
 ## Deliverables
 
 | File | What it is |
@@ -27,8 +37,8 @@ URI selection, grouping, sequencing, URL scrubbing, validation, caching, cost an
 | `REQUIREMENTS_TRACEABILITY.md` | Requirement → implementation → test → status → evidence |
 | `FINAL_REVIEW.md` | Production-readiness review: targets vs measured values, limitations, commands |
 | `AUDIT.md` | Phase 0 audit of the problem statement, assets and interpretation decisions |
-| `docs/CollegeName_TeamName_Submission.pptx` | Submission deck on the official template (team fields marked [TO FILL]); every number from the reports |
-| `docs/LangAI3.0_AI_Disclosure.docx` | Filled AI-usage disclosure form (team fields marked [TO FILL]) |
+| `docs/CollegeName_TeamName_Submission.pptx` | Submission deck on the official template; every number from the reports |
+| `docs/LangAI3.0_AI_Disclosure.docx` | Filled AI-usage disclosure form (date and sign-off left for the team representative) |
 | `docs/Smart_Troubleshooting_Engine.pptx` | Earlier technical deck (synthetic-fixture numbers) |
 | `docs/demo.webm` | Demo video (56 s, recorded on the synthetic fixture before the official data arrived): a real browser driving the live API through `/demo`: exact hit, paraphrase hit, live extraction with URL/prompt-injection scrubbing, out-of-scope fallback, 422 |
 | `AI_DISCLOSURE.md` | How AI was used to build the project, which models run inside it, and which data is AI-generated |

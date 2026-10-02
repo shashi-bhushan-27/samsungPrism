@@ -171,15 +171,17 @@ def small_title(slide, size=34):
 # ---------------------------------------------------------------- slide 1: cover
 cover = next(sh for sh in S[0].shapes if sh.has_text_frame and sh.text_frame.text.startswith("Theme ID"))
 values = {
-    "Theme ID -": ("Theme 2: Troubleshooting  [TO FILL: Theme ID]", True),
-    "Team Name -": ("[TO FILL]", True),
-    "College Name -": ("[TO FILL]", True),
-    "Member Name & Email 1- ": ("[TO FILL]", True),
-    "Member Name & Email 2-": ("[TO FILL]", True),
-    "Member Name & Email 3- ": ("[TO FILL]", True),
-    "Member Name & Email 4-": ("[TO FILL]", True),
+    "Theme ID -": ("Theme 2: Troubleshooting", False),
+    "Team Name -": ("ResolveAI", False),
+    "College Name -": ("VITV", False),
+    "Member Name & Email 1- ": ("Shashi Bhushan – shashibhushan.vijay2022@vitstudent.ac.in", False),
+    "Member Name & Email 2-": ("Astha Doshi – astha.doshi2023@vitstudent.ac.in", False),
+    "Member Name & Email 3- ": ("Himangi Khanduri – himangi.khanduri2023@vitstudent.ac.in", False),
     "Submission Github link - ": (f"{REPO_URL}  (tag PRISM_GENAI_HACKATHON_Y2026)", False),
 }
+for p in list(cover.text_frame.paragraphs):  # the team has three members: drop the unused fourth line
+    if p.text.startswith("Member Name & Email 4"):
+        p._p.getparent().remove(p._p)
 for p in cover.text_frame.paragraphs:
     key = p.text
     if key in values:
@@ -188,8 +190,8 @@ for p in cover.text_frame.paragraphs:
         r = p.add_run()
         r.text = " " + val
         r.font.size = src.font.size
-        r.font.bold = not is_todo
-        r.font.color.rgb = PURPLE if not is_todo else GREY
+        r.font.bold = False
+        r.font.color.rgb = DARK if not is_todo else GREY
 
 # ---------------------------------------------------------------- slide 2: theme
 bullets(body(S[1]), [

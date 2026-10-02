@@ -41,9 +41,9 @@ def labelled(p, label, value):
 
 
 # 1. Team details
-set_line(P[3], True, "[TO FILL: team name]", todo=True)
+set_line(P[3], True, "ResolveAI")
 set_line(P[4], True, "Smart Guided Troubleshooting Engine (PRISM GenAI Hackathon 2026, Theme 2: Troubleshooting)")
-set_line(P[5], True, "[TO FILL: college / institution]", todo=True)
+set_line(P[5], True, "VITV")
 set_line(P[6], True, "[TO FILL: DD-MM-YYYY]", todo=True)
 
 # 2. Declaration
