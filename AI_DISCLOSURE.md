@@ -26,8 +26,8 @@ How the AI-written work was checked:
 
 | Purpose | Model | Where |
 | :--- | :--- | :--- |
-| Structure extraction: SIIS reference text → goal, actions, steps | Large language model via API. Measured with Groq `openai/gpt-oss-120b`; Google Gemini (`gemini-3.1-flash-lite` and fail-over chain) is also supported | `app/services/structure_extraction.py`, `app/llm/` |
-| Query paraphrases (`query_variations`) | Groq `openai/gpt-oss-20b` (or the extraction model) | `app/services/troubleshooting.py` |
+| Structure extraction: SIIS reference text → goal, actions, steps | Large language model via API. Reported numbers: Google Gemini `gemini-3.1-flash-lite` (default, with fail-over chain); an earlier run with Groq `openai/gpt-oss-120b` is archived | `app/services/structure_extraction.py`, `app/llm/` |
+| Query paraphrases (`query_variations`) | the extraction model (Gemini), or a dedicated model such as Groq `openai/gpt-oss-20b` | `app/services/troubleshooting.py` |
 | Semantic retrieval and cache matching | `BAAI/bge-small-en-v1.5` sentence embeddings, run locally (ONNX via fastembed) | `app/retrieval/embeddings.py` |
 | Full-LLM deeplink mapping | LLM; **ablation baseline only**, not used in production | `app/services/deeplink_mapping.py` (`DEEPLINK_MAPPER=llm`) |
 

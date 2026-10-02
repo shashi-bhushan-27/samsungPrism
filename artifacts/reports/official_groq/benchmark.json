@@ -1,12 +1,11 @@
 {
-  "started_at": "2026-10-02T03:39:46+00:00",
+  "started_at": "2026-10-01T22:36:12+00:00",
   "dataset": "official",
-  "llm_provider": "gemini",
-  "llm_model": "gemini-3.1-flash-lite",
-  "llm_enrichment_model": "gemini-3.1-flash-lite",
+  "llm_provider": "groq",
+  "llm_model": "openai/gpt-oss-120b",
+  "llm_enrichment_model": "openai/gpt-oss-20b",
   "llm_fallbacks": [
-    "gemini-3.5-flash-lite",
-    "gemini-3.6-flash"
+    "openai/gpt-oss-20b"
   ],
   "llm_thinking_level": "minimal",
   "llm_hedge_after_s": 5.0,
@@ -23,14 +22,14 @@
   "config": {
     "cold_rounds": 1,
     "exact_rounds": 2,
-    "pace_cold_s": 8.0,
+    "pace_cold_s": 25.0,
     "pace_after_miss_s": 6.0,
     "sequential_requests": true
   },
-  "server_a_startup_s": 5.91,
-  "server_a_rss_mb": 305.2,
+  "server_a_startup_s": 5.05,
+  "server_a_rss_mb": 308.3,
   "server_b_model": "off",
-  "server_b_startup_s": 4.09,
+  "server_b_startup_s": 4.58,
   "server_b_health": {
     "status": "ok",
     "checks": {
@@ -48,11 +47,11 @@
     ],
     "dataset": "official",
     "cache_plans": 18,
-    "llm_model": "gemini-3.1-flash-lite",
+    "llm_model": "openai/gpt-oss-120b",
     "embedding": "fastembed:BAAI/bge-small-en-v1.5:384"
   },
-  "server_b_rss_mb": 307.1,
-  "server_b_cpu_s": 41.32,
+  "server_b_rss_mb": 304.9,
+  "server_b_cpu_s": 31.92,
   "accuracy_cold_rounds": {
     "1": null,
     "2": null
@@ -63,26 +62,23 @@
   "accuracy_prewarmed_plans": null,
   "determinism": {
     "pairs": 6,
-    "identical_response": 6,
-    "identical_plan_structure": 6,
-    "identical_deeplinks": 6,
-    "identical_variations": 4
+    "identical_response": 4,
+    "identical_plan_structure": 4,
+    "identical_deeplinks": 4,
+    "identical_variations": 0
   },
   "samples": [
     {
       "id": "sample_01_screen_damage",
       "status": 200,
-      "step_accuracy": 1.0,
+      "step_accuracy": 0.0,
       "deeplink_exact": 0,
       "deeplink_targets": 1,
       "expected_actions": [
         "Back Up Phone Data",
         "Schedule Screen Repair Service"
       ],
-      "got_actions": [
-        "Schedule Repair Service",
-        "Visit Service Center"
-      ],
+      "got_actions": [],
       "same_uri_sequence": false,
       "goal_equal": false,
       "title_equal": false
@@ -92,93 +88,93 @@
     "cold": {
       "client_ms": {
         "n": 26,
-        "p50": 2141.15,
-        "p95": 2584.89,
-        "p99": 2689.69,
-        "mean": 2034.97,
-        "max": 2720.52
+        "p50": 1836.29,
+        "p95": 2180.2,
+        "p99": 2288.2,
+        "mean": 1800.53,
+        "max": 2322.82
       },
       "server_ms": {
         "n": 26,
-        "p50": 2136.75,
-        "p95": 2580.32,
-        "p99": 2682.85,
-        "mean": 2029.67,
-        "max": 2712.84
+        "p50": 1832.38,
+        "p95": 2174.43,
+        "p99": 2283.97,
+        "mean": 1796.29,
+        "max": 2318.94
       }
     },
     "cold_by_round": {
       "1": {
         "client_ms": {
           "n": 20,
-          "p50": 2047.22,
-          "p95": 2603.36,
-          "p99": 2697.09,
-          "mean": 2017.21,
-          "max": 2720.52
+          "p50": 1909.56,
+          "p95": 2191.28,
+          "p99": 2296.51,
+          "mean": 1870.45,
+          "max": 2322.82
         },
         "server_ms": {
           "n": 20,
-          "p50": 2042.84,
-          "p95": 2598.87,
-          "p99": 2690.05,
-          "mean": 2011.9,
-          "max": 2712.84
+          "p50": 1905.69,
+          "p95": 2186.07,
+          "p99": 2292.37,
+          "mean": 1866.08,
+          "max": 2318.94
         }
       },
       "2": {
         "client_ms": {
           "n": 6,
-          "p50": 2232.38,
-          "p95": 2396.02,
-          "p99": 2405.75,
-          "mean": 2094.16,
-          "max": 2408.18
+          "p50": 1657.35,
+          "p95": 1754.17,
+          "p99": 1773.75,
+          "mean": 1567.45,
+          "max": 1778.65
         },
         "server_ms": {
           "n": 6,
-          "p50": 2226.95,
-          "p95": 2391.03,
-          "p99": 2400.69,
-          "mean": 2088.89,
-          "max": 2403.11
+          "p50": 1653.61,
+          "p95": 1750.24,
+          "p99": 1769.86,
+          "mean": 1563.67,
+          "max": 1774.77
         }
       }
     },
     "exact_hit": {
       "client_ms": {
         "n": 36,
-        "p50": 9.64,
-        "p95": 13.66,
-        "p99": 14.26,
-        "mean": 9.85,
-        "max": 14.56
+        "p50": 8.87,
+        "p95": 12.76,
+        "p99": 15.83,
+        "mean": 8.99,
+        "max": 17.01
       },
       "server_ms": {
         "n": 36,
-        "p50": 6.79,
-        "p95": 9.55,
-        "p99": 10.4,
-        "mean": 6.94,
-        "max": 10.61
+        "p50": 6.26,
+        "p95": 9.8,
+        "p99": 13.0,
+        "mean": 6.55,
+        "max": 14.11
       }
     },
     "semantic_hit_llm_paraphrases": {
       "client_ms": {
-        "n": 66,
-        "p50": 29.19,
-        "p95": 41.62,
-        "p99": 45.52,
-        "mean": 29.26,
-        "max": 46.87
+        "n": 71,
+        "p50": 23.62,
+        "p95": 32.66,
+        "p99": 42.07,
+        "mean": 23.87,
+        "max": 42.97
       },
       "server_ms": {
-        "n": 66,
-        "p50": 26.14,
-        "p95": 38.39,
-        "p99": 41.75,
-        "mean": 26.13,
-        "max": 42.52
+        "n": 71,
+        "p50": 20.93,
+        "p95": 29.89,
+        "p99": 39.28,
+        "mean": 21.27,
+        "max": 39.88
       }
     },
     "semantic_hit_manual_paraphrases": {
@@ -201,20 +197,20 @@
     },
     "all_hits": {
       "client_ms": {
-        "n": 104,
-        "p50": 24.46,
-        "p95": 40.71,
-        "p99": 46.81,
-        "mean": 22.85,
-        "max": 50.67
+        "n": 111,
+        "p50": 20.93,
+        "p95": 33.52,
+        "p99": 42.84,
+        "mean": 19.56,
+        "max": 47.88
       },
       "server_ms": {
-        "n": 104,
-        "p50": 20.89,
-        "p95": 37.67,
-        "p99": 42.48,
-        "mean": 19.77,
-        "max": 44.27
+        "n": 111,
+        "p50": 18.17,
+        "p95": 30.5,
+        "p99": 39.79,
+        "mean": 16.99,
+        "max": 43.92
       }
     }
   },
@@ -222,14 +218,15 @@
     "requests": 26,
     "ok": 26,
     "errors": {},
-    "model_calls_per_query": 1.462,
-    "input_tokens_per_query": 1606.9,
-    "output_tokens_per_query": 516.4,
-    "cost_usd_per_query": 0.00117636,
-    "cost_usd_p95": 0.00179225,
-    "cost_usd_total": 0.030585,
+    "model_calls_per_query": 2.0,
+    "input_tokens_per_query": 2117.1,
+    "output_tokens_per_query": 670.8,
+    "cost_usd_per_query": 0.00036983,
+    "cost_usd_p95": 0.00045551,
+    "cost_usd_total": 0.009615,
     "models": {
-      "gemini-3.1-flash-lite": 26
+      "openai/gpt-oss-20b": 18,
+      "openai/gpt-oss-120b": 8
     },
     "over_8s": 0
   },
@@ -237,26 +234,25 @@
     "exact": {
       "n": 40,
       "cache_mix": {
-        "HIT-EXACT": 36,
-        "HIT-SEMANTIC": 2,
-        "MISS": 2
+        "HIT-SEMANTIC": 4,
+        "HIT-EXACT": 36
       }
     },
     "paraphrase_llm": {
       "n": 80,
-      "hits": 66,
-      "hit_rate_pct": 82.5,
-      "correct_plan_hits": 65,
-      "correct_hit_rate_pct": 81.25,
-      "wrong_plan_hits": 1,
+      "hits": 71,
+      "hit_rate_pct": 88.75,
+      "correct_plan_hits": 67,
+      "correct_hit_rate_pct": 83.75,
+      "wrong_plan_hits": 4,
       "cache_mix": {
-        "HIT-SEMANTIC": 66,
-        "MISS": 14
+        "HIT-SEMANTIC": 71,
+        "MISS": 9
       },
       "by_style": {
         "forum_post": {
           "n": 20,
-          "correct_hits": 16
+          "correct_hits": 17
         },
         "keywords": {
           "n": 20,
@@ -268,44 +264,42 @@
         },
         "text_message": {
           "n": 20,
-          "correct_hits": 16
+          "correct_hits": 17
         }
       },
       "misses": [
+        "why does my TechCorp A15G screen flash and go blank when opening Gmail emails?",
+        "A15G screen blank Gmail flash",
         "How do I transfer data from my Nexa Fold X1 when the screen is completely black and unresponsive?",
-        "Why is my tablet screen staying dark with only three app icons lit, causing everything else to fail to load?",
         "My tablet screen remains mostly black with only three app icons visible, while the rest are obscured and unresponsive. Because of this, nothing loads up and I am completely unable to use the device.",
         "dark screen, only 3 icons lit, apps won't open, tablet unresponsive",
-        "hey, my nexa x1 has this annoying floating circle stuck on the screen w/ app shortcuts. how do i turn it off? it's in the way lol",
-        "How do I get rid of the floating circle shortcut menu on my Nexa X1 screen?",
-        "My Nexa X1 displays a persistent floating circle that hovers over my screen. I need to know how to permanently remove this always-on accessor.",
-        "nexa x1 floating circle remove",
         "How do I get this replaced when my screen is completely wrecked and the device won't turn on?",
-        "My Nexa X1 Ultra is stuck on a blue screen with tiny text and won't boot up. I've tried holding the power button without any luck.",
         "ur x1 ultra screen goes crazy flashing when u plug in the charger, makes it unusable for a sec",
-        "hey, got my nex a14 and the screen’s all weird right away. need a diagnostic test asap",
         "I just got my new Nexa A14 and the screen is all messed up right off the bat. I’m hoping someone can help me figure out why this is happening and what I should do next.",
         "yo my nexa x1 is super laggy rn, touches are delayed and it feels laggy when i try to use it. ugh"
       ],
       "wrong_hits": [
+        "urgh my techcorp a15g is acting up. screen flashes then goes black whenever i tap an email in gmail. works for a sec then blank again. help?",
+        "My TechCorp A15G screen flashes and then goes completely blank whenever I tap to open an email in Gmail. After it works for a short time, it goes blank again.",
+        "Why is my tablet screen staying dark with only three app icons lit, causing everything else to fail to load?",
         "cracked hinge, unresponsive touch, display visibility"
       ],
       "latency_hits": {
         "client_ms": {
-          "n": 66,
-          "p50": 29.19,
-          "p95": 41.62,
-          "p99": 45.52,
-          "mean": 29.26,
-          "max": 46.87
+          "n": 71,
+          "p50": 23.62,
+          "p95": 32.66,
+          "p99": 42.07,
+          "mean": 23.87,
+          "max": 42.97
         },
         "server_ms": {
-          "n": 66,
-          "p50": 26.14,
-          "p95": 38.39,
-          "p99": 41.75,
-          "mean": 26.13,
-          "max": 42.52
+          "n": 71,
+          "p50": 20.93,
+          "p95": 29.89,
+          "p99": 39.28,
+          "mean": 21.27,
+          "max": 39.88
         }
       },
       "round": 3,
@@ -316,14 +310,14 @@
     "paraphrase_llm_older_rounds": {
       "2": {
         "n": 80,
-        "hits": 66,
-        "hit_rate_pct": 82.5,
-        "correct_plan_hits": 64,
-        "correct_hit_rate_pct": 80.0,
-        "wrong_plan_hits": 2,
+        "hits": 68,
+        "hit_rate_pct": 85.0,
+        "correct_plan_hits": 65,
+        "correct_hit_rate_pct": 81.25,
+        "wrong_plan_hits": 3,
         "cache_mix": {
-          "HIT-SEMANTIC": 66,
-          "MISS": 14
+          "MISS": 12,
+          "HIT-SEMANTIC": 68
         },
         "by_style": {
           "non_native": {
@@ -332,7 +326,7 @@
           },
           "short_angry": {
             "n": 20,
-            "correct_hits": 17
+            "correct_hits": 18
           },
           "spoken": {
             "n": 20,
@@ -344,41 +338,40 @@
           }
         },
         "misses": [
+          "Okay so yeah I am having a real issue with my TechCorp A15G tablet you know and basically whenever I try to like tap on an email in Gmail the screen just flashes and then goes totally blank and then after like a few seconds it comes back but then it goes blank again so it is just really annoying",
+          "My TechCorp A15G tablet have a problem. When I tap on Gmail email, the screen flash and then go blank. It wait a little bit and work again, but then go blank one more time.",
+          "Customer reports screen flashes and goes white intermittently when opening Gmail emails on a TechCorp A15G tablet.",
           "Customer reports that the display on their TechCorp Nexa A14/A15 device became unresponsive and black after one month of use.",
           "Tablet screen is half-dead. Only 3 icons show, rest are black and won't open. Useless pile of junk.",
           "My tablet screen is only three icons show and others are dark. I try to open but nothing work. Device not usable because screen do not full load.",
           "Customer reports tablet screen displays only three functional app icons with the remaining interface dark and unresponsive, rendering the device unusable.",
-          "Display is stuck in small mode. Useless phone.",
           "um so like my nexa fold x1 just stopped showing anything on the inside screen you know it just went blank and i cant touch it at all but the little outer cover screen is still working so it is on but the main folding part is just black and unresponsive which is really weird",
-          "hey google i have this problem my nexan x1 keep showing a floating circle on my screen and i can’t get rid of it it’s like a shortcut bar and it’s annoying",
-          "I hate this damn floating circle on my Nexa X1, remove it NOW!",
-          "I have Nexa X1, there is floating circle on screen give me shortcut to recent apps, home, back, screen off, volume, and i want to delete it",
-          "Customer reports persistent floating circle shortcut bar on Nexa X1 screen, requests removal.",
           "Customer reports total screen fracture rendering device inoperable.",
           "Hey so quick question my TechCorp X1 Ultra screen is doing this thing where it just flashes like super fast you know like in milliseconds whenever i plug in the charger and it basically makes the display totally unusable for that short period so i dont really know what to do about it",
           "Customer reports that the display on their TechCorp X1 Ultra intermittently flashes at high frequency upon connecting a charger, rendering the screen briefly unusable.",
           "Customer reports recurrent screen cracking at the hinge, partial touch insensitivity, and severe visibility issues on their Nexa Fold X1 device."
         ],
         "wrong_hits": [
+          "TechCorp A15G screen keeps flashing and going white whenever I open Gmail emails. This is garbage.",
           "Okay so my tablet screen is basically dead except for three little icons that are actually lit up like the rest of the screen is just completely dark and nothing loads when I tap them so I literally cannot use the device at all right now",
           "Customer reports that the left half of the Nexa Fold X1 display is non-functional and black, rendering the device inoperable."
         ],
         "latency_hits": {
           "client_ms": {
-            "n": 66,
-            "p50": 30.6,
-            "p95": 51.91,
-            "p99": 63.04,
-            "mean": 33.73,
-            "max": 64.65
+            "n": 68,
+            "p50": 23.93,
+            "p95": 35.15,
+            "p99": 41.07,
+            "mean": 24.67,
+            "max": 47.52
           },
           "server_ms": {
-            "n": 66,
-            "p50": 27.66,
-            "p95": 48.66,
-            "p99": 58.43,
-            "mean": 30.33,
-            "max": 59.88
+            "n": 68,
+            "p50": 21.22,
+            "p95": 32.27,
+            "p99": 38.4,
+            "mean": 21.99,
+            "max": 44.93
           }
         },
         "generator_model": "qwen/qwen3.8-27b",
@@ -415,7 +408,7 @@
         }
       }
     },
-    "hits_total": 170,
+    "hits_total": 179,
     "hit_cost_usd_values": [
       0.0
     ],
@@ -445,11 +438,11 @@
       "contract_ok": true,
       "actions": [
         "Disable Super Steady Mode",
-        "Adjust Pro Video Settings",
-        "Visit Service Center"
+        "Adjust Shutter Speed in Pro Video Mode",
+        "Increase Lighting"
       ],
       "error_code": null,
-      "client_ms": 2086.4
+      "client_ms": 1703.6
     },
     {
       "id": "E02",
@@ -461,28 +454,26 @@
       "url_leaks": 0,
       "contract_ok": true,
       "actions": [
-        "Check Physical Components",
-        "Charge Device",
+        "Check Device, Charger, and USB Cable",
+        "Connect USB Mouse and Keyboard",
+        "Back Up Data via Monitor",
         "Force Restart Device"
       ],
       "error_code": null,
-      "client_ms": 1962.0
+      "client_ms": 1852.0
     },
     {
       "id": "E03",
       "kind": "multi_symptom",
       "expected": "plan",
-      "observed": "plan",
-      "pass": true,
+      "observed": "no_match",
+      "pass": false,
       "cache": "MISS",
       "url_leaks": 0,
       "contract_ok": true,
-      "actions": [
-        "Schedule Repair Service",
-        "Visit Service Center"
-      ],
+      "actions": [],
       "error_code": null,
-      "client_ms": 1899.4
+      "client_ms": 1610.0
     },
     {
       "id": "E04",
@@ -495,7 +486,7 @@
       "contract_ok": true,
       "actions": [],
       "error_code": null,
-      "client_ms": 5941.2
+      "client_ms": 1682.7
     },
     {
       "id": "E05",
@@ -508,7 +499,7 @@
       "contract_ok": true,
       "actions": [],
       "error_code": null,
-      "client_ms": 15.9
+      "client_ms": 13.7
     },
     {
       "id": "E06",
@@ -521,7 +512,7 @@
       "contract_ok": true,
       "actions": [],
       "error_code": null,
-      "client_ms": 12.9
+      "client_ms": 10.8
     },
     {
       "id": "E07",
@@ -534,7 +525,7 @@
       "contract_ok": true,
       "actions": [],
       "error_code": null,
-      "client_ms": 1363.3
+      "client_ms": 1095.8
     },
     {
       "id": "E08",
@@ -547,7 +538,7 @@
       "contract_ok": true,
       "actions": [],
       "error_code": null,
-      "client_ms": 1330.0
+      "client_ms": 1883.4
     },
     {
       "id": "E09",
@@ -559,12 +550,12 @@
       "url_leaks": 0,
       "contract_ok": true,
       "actions": [
-        "Adjust Pro Video Shutter",
-        "Increase Scene Lighting",
-        "Check Device Damage"
+        "Disable Super Steady Mode",
+        "Adjust Shutter Speed",
+        "Increase Lighting"
       ],
       "error_code": null,
-      "client_ms": 2150.5
+      "client_ms": 1883.1
     },
     {
       "id": "E10",
@@ -576,10 +567,10 @@
       "url_leaks": 0,
       "contract_ok": true,
       "actions": [
-        "Adaptive Brightness Settings"
+        "Turn off Adaptive Brightness"
       ],
       "error_code": null,
-      "client_ms": 1952.4
+      "client_ms": 1724.3
     },
     {
       "id": "E11",
@@ -591,10 +582,10 @@
       "url_leaks": 0,
       "contract_ok": true,
       "actions": [
-        "Turn off Adaptive Brightness"
+        "Configure Display Settings"
       ],
       "error_code": null,
-      "client_ms": 1610.3
+      "client_ms": 1776.1
     },
     {
       "id": "E12",
@@ -609,7 +600,7 @@
         "Turn off Extra Dim"
       ],
       "error_code": null,
-      "client_ms": 3401.7
+      "client_ms": 1445.0
     },
     {
       "id": "E13",
@@ -621,11 +612,11 @@
       "url_leaks": 0,
       "contract_ok": true,
       "actions": [
-        "Configure Font Size",
-        "Configure Screen Zoom"
+        "Adjust Font Size",
+        "Adjust Screen Zoom"
       ],
       "error_code": null,
-      "client_ms": 1853.5
+      "client_ms": 1541.2
     },
     {
       "id": "E14",
@@ -637,12 +628,11 @@
       "url_leaks": 0,
       "contract_ok": true,
       "actions": [
-        "Inspect Physical Condition",
-        "Check Liquid Damage Indicator",
-        "Force Device Restart"
+        "Remove Any Cases or Accessories",
+        "Attempt to Power on"
       ],
       "error_code": null,
-      "client_ms": 2234.2
+      "client_ms": 1833.4
     },
     {
       "id": "E15",
@@ -655,7 +645,7 @@
       "contract_ok": null,
       "actions": [],
       "error_code": "empty_query",
-      "client_ms": 3.9
+      "client_ms": 3.1
     },
     {
       "id": "E16",
@@ -668,7 +658,7 @@
       "contract_ok": null,
       "actions": [],
       "error_code": "empty_query",
-      "client_ms": 2.4
+      "client_ms": 1.7
     },
     {
       "id": "E17",
@@ -681,7 +671,7 @@
       "contract_ok": null,
       "actions": [],
       "error_code": "query_too_long",
-      "client_ms": 4.0
+      "client_ms": 1.4
     },
     {
       "id": "E18",
@@ -694,7 +684,7 @@
       "contract_ok": true,
       "actions": [],
       "error_code": null,
-      "client_ms": 28.2
+      "client_ms": 24.3
     }
   ],
   "results_jsonl": {
@@ -707,87 +697,87 @@
     "schema_valid_lines": 20,
     "schema_valid_pct": 100.0,
     "rule_compliance_goal_title_description_pct": 100.0,
-    "rule_checks_goal_title_description": 248,
+    "rule_checks_goal_title_description": 253,
     "rule_compliance_all_rules_pct": 100.0,
-    "rule_checks_all": 1884,
+    "rule_checks_all": 1713,
     "lines_fully_compliant": 20,
     "lines_fully_compliant_pct": 100.0,
     "absolute_url_leaks": 0,
-    "deeplinks_emitted": 3,
-    "deeplinks_catalog_valid": 3,
+    "deeplinks_emitted": 6,
+    "deeplinks_catalog_valid": 6,
     "deeplink_catalog_validity_pct": 100.0,
-    "auto_actions": 7,
+    "auto_actions": 11,
     "auto_with_catalog_deeplink": 1,
-    "auto_with_dummy_positive": 1,
-    "auto_with_valid_actionable_pct": 28.57,
-    "auto_with_catalog_actionable_pct": 14.29,
+    "auto_with_dummy_positive": 2,
+    "auto_with_valid_actionable_pct": 27.27,
+    "auto_with_catalog_actionable_pct": 9.09,
     "manual_actions_with_actionable_deeplink": 0,
     "critical_order_violations": 0,
     "violations_by_rule": {},
     "checks_by_rule": {
       "action.name_single_feature": {
-        "checks": 61,
-        "passed": 61
+        "checks": 67,
+        "passed": 67
       },
       "action.name_title_case": {
-        "checks": 61,
-        "passed": 61
+        "checks": 67,
+        "passed": 67
       },
       "action.name_words": {
-        "checks": 61,
-        "passed": 61
+        "checks": 67,
+        "passed": 67
       },
       "action.not_fragmented": {
-        "checks": 43,
-        "passed": 43
+        "checks": 50,
+        "passed": 50
       },
       "action.single_screen": {
-        "checks": 61,
-        "passed": 61
+        "checks": 67,
+        "passed": 67
       },
       "action.step_groups": {
-        "checks": 61,
-        "passed": 61
+        "checks": 67,
+        "passed": 67
       },
       "action.unique_names": {
-        "checks": 18,
-        "passed": 18
+        "checks": 17,
+        "passed": 17
       },
       "action.unique_targets": {
-        "checks": 18,
-        "passed": 18
+        "checks": 17,
+        "passed": 17
       },
       "category.valid": {
-        "checks": 61,
-        "passed": 61
+        "checks": 67,
+        "passed": 67
       },
       "deeplink.catalog_membership": {
-        "checks": 1,
-        "passed": 1
-      },
-      "deeplink.dummy_description": {
-        "checks": 1,
-        "passed": 1
-      },
-      "deeplink.dummy_not_allowed": {
-        "checks": 1,
-        "passed": 1
-      },
-      "deeplink.field_integrity": {
-        "checks": 1,
-        "passed": 1
-      },
-      "deeplink.manual_actionable": {
         "checks": 2,
         "passed": 2
       },
+      "deeplink.dummy_description": {
+        "checks": 2,
+        "passed": 2
+      },
+      "deeplink.dummy_not_allowed": {
+        "checks": 2,
+        "passed": 2
+      },
+      "deeplink.field_integrity": {
+        "checks": 2,
+        "passed": 2
+      },
+      "deeplink.manual_actionable": {
+        "checks": 4,
+        "passed": 4
+      },
       "description.prefix": {
-        "checks": 61,
-        "passed": 61
+        "checks": 67,
+        "passed": 67
       },
       "description.word_count": {
-        "checks": 61,
-        "passed": 61
+        "checks": 67,
+        "passed": 67
       },
       "envelope.query": {
         "checks": 20,
@@ -798,84 +788,84 @@
         "passed": 20
       },
       "goal.has_actions": {
-        "checks": 18,
-        "passed": 18
+        "checks": 17,
+        "passed": 17
       },
       "goal.syntax": {
-        "checks": 18,
-        "passed": 18
+        "checks": 17,
+        "passed": 17
       },
       "goal.topic_title_case": {
-        "checks": 18,
-        "passed": 18
+        "checks": 17,
+        "passed": 17
       },
       "goal.topic_words": {
-        "checks": 18,
-        "passed": 18
+        "checks": 17,
+        "passed": 17
       },
       "ordering.critical_last": {
-        "checks": 47,
-        "passed": 47
+        "checks": 50,
+        "passed": 50
       },
       "ordering.critical_rank": {
-        "checks": 14,
-        "passed": 14
+        "checks": 17,
+        "passed": 17
       },
       "score.range": {
-        "checks": 18,
-        "passed": 18
+        "checks": 17,
+        "passed": 17
       },
       "score.type": {
-        "checks": 18,
-        "passed": 18
+        "checks": 17,
+        "passed": 17
       },
       "step.imperative": {
-        "checks": 169,
-        "passed": 169
+        "checks": 122,
+        "passed": 122
       },
       "step.length": {
-        "checks": 169,
-        "passed": 169
+        "checks": 122,
+        "passed": 122
       },
       "step.no_duplicate": {
-        "checks": 169,
-        "passed": 169
+        "checks": 122,
+        "passed": 122
       },
       "step.non_empty": {
-        "checks": 169,
-        "passed": 169
+        "checks": 122,
+        "passed": 122
       },
       "step.single_interaction": {
-        "checks": 169,
-        "passed": 169
+        "checks": 122,
+        "passed": 122
       },
       "steps.non_empty": {
-        "checks": 61,
-        "passed": 61
+        "checks": 67,
+        "passed": 67
       },
       "title.punctuation": {
-        "checks": 18,
-        "passed": 18
+        "checks": 17,
+        "passed": 17
       },
       "title.sentence_case": {
-        "checks": 18,
-        "passed": 18
+        "checks": 17,
+        "passed": 17
       },
       "title.word_count": {
-        "checks": 18,
-        "passed": 18
+        "checks": 17,
+        "passed": 17
       },
       "url.leak": {
         "checks": 40,
         "passed": 40
       },
       "validation.catalog_membership": {
-        "checks": 1,
-        "passed": 1
+        "checks": 2,
+        "passed": 2
       },
       "validation.field_integrity": {
-        "checks": 1,
-        "passed": 1
+        "checks": 2,
+        "passed": 2
       },
       "variations.count": {
         "checks": 20,
@@ -904,87 +894,87 @@
     "schema_valid_lines": 262,
     "schema_valid_pct": 100.0,
     "rule_compliance_goal_title_description_pct": 100.0,
-    "rule_checks_goal_title_description": 3131,
+    "rule_checks_goal_title_description": 3171,
     "rule_compliance_all_rules_pct": 100.0,
-    "rule_checks_all": 25774,
+    "rule_checks_all": 23899,
     "lines_fully_compliant": 262,
     "lines_fully_compliant_pct": 100.0,
     "absolute_url_leaks": 0,
-    "deeplinks_emitted": 85,
-    "deeplinks_catalog_valid": 85,
+    "deeplinks_emitted": 83,
+    "deeplinks_catalog_valid": 83,
     "deeplink_catalog_validity_pct": 100.0,
-    "auto_actions": 178,
-    "auto_with_catalog_deeplink": 29,
-    "auto_with_dummy_positive": 27,
-    "auto_with_valid_actionable_pct": 31.46,
-    "auto_with_catalog_actionable_pct": 16.29,
+    "auto_actions": 147,
+    "auto_with_catalog_deeplink": 27,
+    "auto_with_dummy_positive": 9,
+    "auto_with_valid_actionable_pct": 24.49,
+    "auto_with_catalog_actionable_pct": 18.37,
     "manual_actions_with_actionable_deeplink": 0,
     "critical_order_violations": 0,
     "violations_by_rule": {},
     "checks_by_rule": {
       "action.name_single_feature": {
-        "checks": 785,
-        "passed": 785
+        "checks": 819,
+        "passed": 819
       },
       "action.name_title_case": {
-        "checks": 785,
-        "passed": 785
+        "checks": 819,
+        "passed": 819
       },
       "action.name_words": {
-        "checks": 785,
-        "passed": 785
+        "checks": 819,
+        "passed": 819
       },
       "action.not_fragmented": {
-        "checks": 562,
-        "passed": 562
+        "checks": 600,
+        "passed": 600
       },
       "action.single_screen": {
-        "checks": 785,
-        "passed": 785
+        "checks": 819,
+        "passed": 819
       },
       "action.step_groups": {
-        "checks": 785,
-        "passed": 785
+        "checks": 819,
+        "passed": 819
       },
       "action.unique_names": {
-        "checks": 223,
-        "passed": 223
+        "checks": 219,
+        "passed": 219
       },
       "action.unique_targets": {
-        "checks": 223,
-        "passed": 223
+        "checks": 219,
+        "passed": 219
       },
       "category.valid": {
-        "checks": 785,
-        "passed": 785
+        "checks": 819,
+        "passed": 819
       },
       "deeplink.catalog_membership": {
-        "checks": 29,
-        "passed": 29
+        "checks": 37,
+        "passed": 37
       },
       "deeplink.dummy_description": {
-        "checks": 27,
-        "passed": 27
+        "checks": 9,
+        "passed": 9
       },
       "deeplink.dummy_not_allowed": {
-        "checks": 27,
-        "passed": 27
+        "checks": 9,
+        "passed": 9
       },
       "deeplink.field_integrity": {
-        "checks": 29,
-        "passed": 29
+        "checks": 37,
+        "passed": 37
       },
       "deeplink.manual_actionable": {
-        "checks": 56,
-        "passed": 56
+        "checks": 46,
+        "passed": 46
       },
       "description.prefix": {
-        "checks": 785,
-        "passed": 785
+        "checks": 819,
+        "passed": 819
       },
       "description.word_count": {
-        "checks": 785,
-        "passed": 785
+        "checks": 819,
+        "passed": 819
       },
       "envelope.query": {
         "checks": 262,
@@ -995,84 +985,84 @@
         "passed": 262
       },
       "goal.has_actions": {
-        "checks": 223,
-        "passed": 223
+        "checks": 219,
+        "passed": 219
       },
       "goal.syntax": {
-        "checks": 223,
-        "passed": 223
+        "checks": 219,
+        "passed": 219
       },
       "goal.topic_title_case": {
-        "checks": 223,
-        "passed": 223
+        "checks": 219,
+        "passed": 219
       },
       "goal.topic_words": {
-        "checks": 223,
-        "passed": 223
+        "checks": 219,
+        "passed": 219
       },
       "ordering.critical_last": {
-        "checks": 625,
-        "passed": 625
+        "checks": 611,
+        "passed": 611
       },
       "ordering.critical_rank": {
-        "checks": 160,
-        "passed": 160
+        "checks": 208,
+        "passed": 208
       },
       "score.range": {
-        "checks": 223,
-        "passed": 223
+        "checks": 219,
+        "passed": 219
       },
       "score.type": {
-        "checks": 223,
-        "passed": 223
+        "checks": 219,
+        "passed": 219
       },
       "step.imperative": {
-        "checks": 2465,
-        "passed": 2465
+        "checks": 2026,
+        "passed": 2026
       },
       "step.length": {
-        "checks": 2465,
-        "passed": 2465
+        "checks": 2026,
+        "passed": 2026
       },
       "step.no_duplicate": {
-        "checks": 2465,
-        "passed": 2465
+        "checks": 2026,
+        "passed": 2026
       },
       "step.non_empty": {
-        "checks": 2465,
-        "passed": 2465
+        "checks": 2026,
+        "passed": 2026
       },
       "step.single_interaction": {
-        "checks": 2465,
-        "passed": 2465
+        "checks": 2026,
+        "passed": 2026
       },
       "steps.non_empty": {
-        "checks": 785,
-        "passed": 785
+        "checks": 819,
+        "passed": 819
       },
       "title.punctuation": {
-        "checks": 223,
-        "passed": 223
+        "checks": 219,
+        "passed": 219
       },
       "title.sentence_case": {
-        "checks": 223,
-        "passed": 223
+        "checks": 219,
+        "passed": 219
       },
       "title.word_count": {
-        "checks": 223,
-        "passed": 223
+        "checks": 219,
+        "passed": 219
       },
       "url.leak": {
         "checks": 524,
         "passed": 524
       },
       "validation.catalog_membership": {
-        "checks": 29,
-        "passed": 29
+        "checks": 37,
+        "passed": 37
       },
       "validation.field_integrity": {
-        "checks": 29,
-        "passed": 29
+        "checks": 37,
+        "passed": 37
       },
       "variations.count": {
         "checks": 262,
@@ -1096,5 +1086,5 @@
       }
     }
   },
-  "finished_at": "2026-10-02T03:46:41+00:00"
+  "finished_at": "2026-10-01T22:53:51+00:00"
 }

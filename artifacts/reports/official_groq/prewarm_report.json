@@ -1,0 +1,373 @@
+{
+  "summary": {
+    "exported_plans": 18,
+    "path": "/home/user/samsungPrism/artifacts/cache/prewarm_plans.jsonl",
+    "statuses": {
+      "not_cached": 2,
+      "cached": 18
+    },
+    "passes": "pass 1: --fresh over all 20 queries; pass 2: only queries without a cached plan (--retries 3)"
+  },
+  "items": [
+    {
+      "id": "row_1",
+      "status": "not_cached",
+      "ms": 996,
+      "modes": [
+        "llm"
+      ],
+      "actions": 0,
+      "tokens": {
+        "input": 1999,
+        "output": 428,
+        "thinking": 55,
+        "total": 2482
+      },
+      "cost_usd": 0.0004485,
+      "fallback": "no_match",
+      "pass": 2
+    },
+    {
+      "id": "row_2",
+      "status": "cached",
+      "ms": 2998,
+      "modes": [
+        "llm"
+      ],
+      "actions": 4,
+      "tokens": {
+        "input": 1906,
+        "output": 842,
+        "thinking": 402,
+        "total": 3150
+      },
+      "cost_usd": 0.00088125,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_3",
+      "status": "cached",
+      "ms": 2190,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 2060,
+        "output": 566,
+        "thinking": 285,
+        "total": 2911
+      },
+      "cost_usd": 0.00070155,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_4",
+      "status": "cached",
+      "ms": 3854,
+      "modes": [
+        "llm"
+      ],
+      "actions": 5,
+      "tokens": {
+        "input": 1908,
+        "output": 896,
+        "thinking": 524,
+        "total": 3328
+      },
+      "cost_usd": 0.00098858,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_5",
+      "status": "cached",
+      "ms": 2644,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 1594,
+        "output": 739,
+        "thinking": 322,
+        "total": 2655
+      },
+      "cost_usd": 0.0007314,
+      "fallback": null,
+      "pass": 2
+    },
+    {
+      "id": "row_7",
+      "status": "not_cached",
+      "ms": 1105,
+      "modes": [
+        "llm"
+      ],
+      "actions": 0,
+      "tokens": {
+        "input": 3378,
+        "output": 436,
+        "thinking": 41,
+        "total": 3855
+      },
+      "cost_usd": 0.0006495,
+      "fallback": "no_match",
+      "pass": 2
+    },
+    {
+      "id": "row_8",
+      "status": "cached",
+      "ms": 2876,
+      "modes": [
+        "llm"
+      ],
+      "actions": 2,
+      "tokens": {
+        "input": 3215,
+        "output": 683,
+        "thinking": 216,
+        "total": 4114
+      },
+      "cost_usd": 0.00087593,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_9",
+      "status": "cached",
+      "ms": 2424,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 1868,
+        "output": 773,
+        "thinking": 120,
+        "total": 2761
+      },
+      "cost_usd": 0.0006816,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_10",
+      "status": "cached",
+      "ms": 2214,
+      "modes": [
+        "llm"
+      ],
+      "actions": 1,
+      "tokens": {
+        "input": 1571,
+        "output": 593,
+        "thinking": 201,
+        "total": 2365
+      },
+      "cost_usd": 0.0005445,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_11",
+      "status": "cached",
+      "ms": 2311,
+      "modes": [
+        "llm"
+      ],
+      "actions": 5,
+      "tokens": {
+        "input": 2059,
+        "output": 799,
+        "thinking": 154,
+        "total": 3012
+      },
+      "cost_usd": 0.00073492,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_12",
+      "status": "cached",
+      "ms": 2208,
+      "modes": [
+        "llm"
+      ],
+      "actions": 1,
+      "tokens": {
+        "input": 3390,
+        "output": 617,
+        "thinking": 165,
+        "total": 4172
+      },
+      "cost_usd": 0.00080963,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_13",
+      "status": "cached",
+      "ms": 2500,
+      "modes": [
+        "llm"
+      ],
+      "actions": 6,
+      "tokens": {
+        "input": 1896,
+        "output": 875,
+        "thinking": 213,
+        "total": 2984
+      },
+      "cost_usd": 0.0008019,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_14",
+      "status": "cached",
+      "ms": 1333,
+      "modes": [
+        "llm"
+      ],
+      "actions": 2,
+      "tokens": {
+        "input": 1607,
+        "output": 395,
+        "thinking": 140,
+        "total": 2142
+      },
+      "cost_usd": 0.00047175,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_15",
+      "status": "cached",
+      "ms": 2426,
+      "modes": [
+        "llm"
+      ],
+      "actions": 5,
+      "tokens": {
+        "input": 1924,
+        "output": 827,
+        "thinking": 292,
+        "total": 3043
+      },
+      "cost_usd": 0.0008019,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_16",
+      "status": "cached",
+      "ms": 2611,
+      "modes": [
+        "llm"
+      ],
+      "actions": 6,
+      "tokens": {
+        "input": 1894,
+        "output": 768,
+        "thinking": 406,
+        "total": 3068
+      },
+      "cost_usd": 0.0008562,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_17",
+      "status": "cached",
+      "ms": 2387,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 2062,
+        "output": 682,
+        "thinking": 184,
+        "total": 2928
+      },
+      "cost_usd": 0.00069788,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_19",
+      "status": "cached",
+      "ms": 1654,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 1669,
+        "output": 606,
+        "thinking": 154,
+        "total": 2429
+      },
+      "cost_usd": 0.00056482,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_20",
+      "status": "cached",
+      "ms": 2466,
+      "modes": [
+        "llm"
+      ],
+      "actions": 3,
+      "tokens": {
+        "input": 1926,
+        "output": 642,
+        "thinking": 252,
+        "total": 2820
+      },
+      "cost_usd": 0.00071167,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_21",
+      "status": "cached",
+      "ms": 4480,
+      "modes": [
+        "llm"
+      ],
+      "actions": 8,
+      "tokens": {
+        "input": 2369,
+        "output": 940,
+        "thinking": 360,
+        "total": 3669
+      },
+      "cost_usd": 0.00101753,
+      "fallback": null,
+      "pass": 1
+    },
+    {
+      "id": "row_22",
+      "status": "cached",
+      "ms": 2162,
+      "modes": [
+        "llm"
+      ],
+      "actions": 5,
+      "tokens": {
+        "input": 1900,
+        "output": 848,
+        "thinking": 267,
+        "total": 3015
+      },
+      "cost_usd": 0.00080377,
+      "fallback": null,
+      "pass": 1
+    }
+  ]
+}

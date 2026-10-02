@@ -52,8 +52,8 @@ replace_all(P[10], (
     "Yes. AI was used in two ways. (a) Development: the code, tests, evaluation scripts, documentation, synthetic "
     "development data, presentation and demo video were produced with Claude Code (Anthropic's agentic coding "
     "assistant), working under the team's direction and specification; the team reviewed the work, ran it and "
-    "made the design decisions. (b) Inside the product: a large language model (Groq openai/gpt-oss-120b for "
-    "extraction, openai/gpt-oss-20b for query variations; Google Gemini also supported) reads the SIIS reference "
+    "made the design decisions. (b) Inside the product: a large language model (Google Gemini "
+    "gemini-3.1-flash-lite for extraction and query variations; Groq openai/gpt-oss-120b also supported) reads the SIIS reference "
     "text, and a local BAAI/bge-small-en-v1.5 embedding model powers retrieval and the semantic cache. Code, "
     "not the model, enforces every hard rule (grounding, catalog-only deeplinks, URL scrubbing, ordering, schema)."
 ))
@@ -82,7 +82,7 @@ FEATURES = [
      "qualifier gates. The team set the targets; the cache threshold was calibrated by a script, not by hand."),
     ("Grounded structure extraction (SIIS text to actions and steps)",
      "Both",
-     "Runtime LLM: Groq openai/gpt-oss-120b with a strict JSON schema. Prompt: the extraction rules in "
+     "Runtime LLM: Google Gemini gemini-3.1-flash-lite (Groq openai/gpt-oss-120b also supported) with a strict JSON schema. Prompt: the extraction rules in "
      "app/llm/prompts.py (use only the SOURCE, one action per screen, imperative steps). Code written by Claude Code; "
      "a deterministic grounding check removes any step not found in the SIIS text."),
     ("Deeplink mapping (hybrid BM25 + dense retrieval with exact-screen resolver)",

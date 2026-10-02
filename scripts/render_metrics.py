@@ -111,6 +111,14 @@ def render() -> str:
     w(f"> Measured {b.get('started_at', NM)} → {b.get('finished_at', NM)} (UTC) over real HTTP against a real uvicorn "
       "server and the live " + b.get("llm_provider", "gemini").capitalize() + " API. Raw data: `artifacts/reports/*.json`, `results.jsonl`, "
       "`artifacts/reports/results_all.jsonl` + `results_index.jsonl`.")
+    groq = REPORTS / "official_groq" / "benchmark.json"
+    if official and groq.exists() and b.get("llm_provider") != "groq":
+        g = json.loads(groq.read_text())
+        gm = (g.get("cold_path") or {}).get("models", {})
+        w("")
+        w(f"> **Earlier run on Groq** ({g.get('started_at', NM)}; cold requests served by "
+          f"{', '.join(f'{m_} ×{n}' for m_, n in gm.items())}) is archived in `artifacts/reports/official_groq/` "
+          f"(its `metrics.md`, `results.jsonl` and pre-warmed plans). Same code and data; only the model differs.")
     fallback_n = sum(n for m_, n in models.items() if m_ != b.get("llm_model"))
     if official and fallback_n:
         ref = json.loads((REPORTS / "official_run2" / "benchmark.json").read_text()) if (REPORTS / "official_run2" / "benchmark.json").exists() else {}
@@ -286,7 +294,9 @@ def render() -> str:
               f"{ms(lm.get('p95'))} | {ms(lm.get('p99'))} | {r['unexpected_errors']} | {r['contract_failures']} |")
         w("")
         w("Semantic runs include the few paraphrases that miss the cache and run the full pipeline; those requests "
-          "set the P99 column. Beyond ~8 concurrent requests one worker queues (CPU-bound embedding); scale out with "
+          "set the P99 column. " + ("Exact-hit runs cycle through every official query, including the ones with no "
+          "cached plan (`no_match`); each of those calls the live model, so provider latency and rate-limit back-off "
+          "set their throughput and P99 while P50/P95 stay at cache speed. " if official else "") + " Beyond ~8 concurrent requests one worker queues (CPU-bound embedding); scale out with "
           "workers or replicas.")
         w("")
         w(f"Server start → healthy: {st.get('startup_s', NM)} s; first request after healthy: "

@@ -47,7 +47,7 @@ probes) is archived in `artifacts/reports/dev_fixtures/`.
 | Parent-menu protection | parent penalty; exactness by label cover | attack 3; `test_vague_llm_action_name…` (H7) | Complete | A3 probes; 0 parent outcomes on the live cold path |
 | Duplicate and ambiguous catalog candidates | registry duplicates; ambiguity fallback | `test_duplicate_metadata_resolves_deterministically` | Complete | — |
 | Exact cache | `PlanCache.lookup_exact` | `tests/unit/test_cache.py` | Complete | exact-hit latency (`metrics.md` §3) |
-| Semantic cache with calibrated threshold | `PlanCache.lookup_semantic`, `scripts/calibrate_cache.py` | `test_cache.py`; attack 9 | **Partial** | official data: 83.75% correct-plan hits on fresh held-out round 3, with 4 wrong-plan hits (3 for queries without a cached plan); synthetic fixture: strict xfail `test_attack9_no_wrong_plan_is_ever_served` |
+| Semantic cache with calibrated threshold | `PlanCache.lookup_semantic`, `scripts/calibrate_cache.py` | `test_cache.py`; attack 9 | **Partial** | official data (Gemini): 81.25% correct-plan hits on held-out round 3, with 1 wrong-plan hit; synthetic fixture: strict xfail `test_attack9_no_wrong_plan_is_ever_served` |
 | Cache-poisoning protection | concept, qualifier and domain gates; scope isolation | attack 8 (constant embedder); `test_request_scoped_plan…` | Complete | A8 probes |
 | Persistent cache with versioned invalidation | `SqliteCacheStore`; catalog fingerprint + `PIPELINE_VERSION` | `test_sqlite_persistence_and_version_invalidation` | Complete | — |
 | Cache stores only validated plans; hits re-validated | `put` validator; revalidation on hit | `test_invalid_plan_is_never_cached`, `test_hit_that_fails_revalidation_is_evicted` | Complete | — |
@@ -62,7 +62,7 @@ probes) is archived in `artifacts/reports/dev_fixtures/`.
 | Error boundaries (422 / 413 / 502 / 503, JSON envelope) | `app/api/errors.py`, `ServiceError` | `test_api.py`; attack 10 | Complete | E15–E17 → 422 |
 | LLM provider abstraction | `app/llm/base.py`; Gemini and Groq providers | `test_llm_provider.py`, `test_groq_provider.py` | Complete | both providers used in this project |
 | Bounded repair loop for malformed model output | `StructureExtractor` (≤ 1 repair) and rules fallback | attack 10 (11 malformation kinds) | Complete | — |
-| Deterministic execution | temperature 0, fixed seed; cache gives identical repeats | attack 11 (scripted model) | **Partial** | the live model is not byte-deterministic (`benchmark.json: determinism`); cached answers are identical (A11) |
+| Deterministic execution | temperature 0, fixed seed; cache gives identical repeats | attack 11 (scripted model) | Complete | official data, Gemini: identical plan structure and deeplinks 6/6 with the cache off (`benchmark.json: determinism`); the Groq run was 4/6 |
 | Latency instrumentation and benchmarks (N ≥ 30 per path) | `StageTimer`, `X-Latency-Ms`, `scripts/run_benchmarks.py` | — | Complete | `metrics.md` §3 |
 | Cost and token tracking | `CostMeter`, verified price table, `X-Cost-USD` | `test_llm_mapping_calls_are_billed…` (H5) | Complete | `metrics.md` §4 |
 | Backpressure on model calls | `LLM_MAX_CONCURRENCY` (H6) | `test_concurrency_limit_queues_excess_calls` | Complete | — |
@@ -75,4 +75,4 @@ probes) is archived in `artifacts/reports/dev_fixtures/`.
 | Regression and adversarial tests | `tests/regression`, `tests/adversarial` | `pytest` | Complete | full suite green; one documented strict xfail |
 | Benchmark reproducibility | `Makefile`, fixed seeds, frozen held-out sets | — | Partial | live-model runs vary between runs (see determinism) and are bound by provider quotas |
 | Official datasets (`input.txt`, `siis_responses.json`, 578-entry `deeplinks.json`, sample) | format-tolerant loaders (`voiceassist://` URIs, `{title, content}` SIIS objects, catalog-defined placeholder) | `test_official_format.py` | Complete | `metrics.md` (dataset: official); 18/20 queries grounded |
-| Auto actions with a valid deeplink ≥ 90% | resolver + catalog placeholder | `test_resolver.py` | **Not met** | 24.5% on official data: most official auto steps are outside Settings (`metrics.md` §6, H16) |
+| Auto actions with a valid deeplink ≥ 90% | resolver + catalog placeholder | `test_resolver.py` | **Not met** | 31.5% on official data: most official auto steps are outside Settings (`metrics.md` §6, H16) |

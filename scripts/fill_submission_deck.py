@@ -304,7 +304,10 @@ bullets(bx, items, size=14, space=3)
 rows = [
     ["Layer", "Choice", "Why"],
     ["API", "Python 3.11, FastAPI, Pydantic v2, uvicorn", "Typed contract (schema.py) end to end"],
-    ["Model (run time)", f"Groq {B['llm_model']} (extraction), {B.get('llm_enrichment_model')} (variations); Gemini supported", "Strict JSON-schema output, fail-over chain, hedging"],
+    ["Model (run time)", (f"Google Gemini {B['llm_model']} (extraction and variations; fail-over {' → '.join(B.get('llm_fallbacks') or [])}); Groq gpt-oss also supported"
+                          if B.get("llm_provider") == "gemini" else
+                          f"Groq {B['llm_model']} (extraction), {B.get('llm_enrichment_model')} (variations); Gemini supported"),
+     "Strict JSON-schema output, fail-over chain, hedging"],
     ["Embeddings", "BAAI/bge-small-en-v1.5 via fastembed (ONNX, local)", "No network at request time; ~384-d vectors"],
     ["Retrieval", "BM25 + dense hybrid, exact-screen resolver", "Deterministic deeplink choice"],
     ["Cache", "SQLite (WAL): exact + semantic, versioned", "Hits skip the model; invalidated on catalog change"],
@@ -358,7 +361,9 @@ for i, line in enumerate([
     ("Limitations (honest)", True),
     ("Only 1 official reference sample: step accuracy vs. gold is not measurable at scale.", False),
     ("Some SIIS answers do not address the complaint; the system returns no_match rather than inventing steps.", False),
-    (f"Free-tier daily quota ran out in the final run: {sum(n for m_, n in cp['models'].items() if m_ != B['llm_model'])}/{cp['ok']} cold requests used the fail-over model.", False),
+    *([(f"Free-tier daily quota ran out in the final run: {_fb}/{cp['ok']} cold requests used the fail-over model.", False)]
+      if (_fb := sum(n for m_, n in cp['models'].items() if m_ != B['llm_model'])) else
+      [("One multi-intent edge case (E04) returned no_match instead of a plan.", False)]),
     ("Most official auto steps are outside Settings (panels, other apps): no catalog link exists for them.", False),
 ]):
     text, hd = line

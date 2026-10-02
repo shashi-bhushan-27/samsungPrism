@@ -38,20 +38,21 @@ URI selection, grouping, sequencing, URL scrubbing, validation, caching, cost an
 | Check | Target | Measured |
 | :--- | :--- | :--- |
 | Schema-valid outputs | ≥ 99% | 100% (262/262) |
-| Goal / title / description rules | ≥ 95% | 100% (3,171 checks) |
+| Goal / title / description rules | ≥ 95% | 100% (3,131 checks) |
 | URL leaks | 0 | 0 |
-| Deeplinks found verbatim in the catalog | 100% | 100% (83/83) |
-| Auto actions with a valid deeplink | ≥ 90% | **24.5% — not met** (most official auto steps are outside Settings; see `metrics.md` §6) |
-| P95 exact / unseen-paraphrase cache hit | ≤ 300 ms | 9.8 ms / 29.9 ms |
-| P95 cold full pipeline | ≤ 8 s | 2.17 s |
-| Unseen paraphrases served the correct plan | ≥ 80% | 83.75% (67/80; 4 wrong-plan hits) |
-| Official queries with a grounded plan | — | 18/20 (2 `no_match`: the SIIS article does not address the complaint) |
-| Edge cases / negatives | — | 16/18 / 0 false cache hits on 20 out-of-scope queries |
+| Deeplinks found verbatim in the catalog | 100% | 100% (85/85) |
+| Auto actions with a valid deeplink | ≥ 90% | **31.5% — not met** (most official auto steps are outside Settings; see `metrics.md` §6) |
+| P95 exact / unseen-paraphrase cache hit | ≤ 300 ms | 9.6 ms / 38.4 ms |
+| P95 cold full pipeline | ≤ 8 s | 2.58 s |
+| Unseen paraphrases served the correct plan | ≥ 80% | 81.25% (65/80; 1 wrong-plan hit) |
+| Official queries with a grounded plan | — | 18/20 (2 `no_match`) |
+| Reference sample step accuracy (0–3) | — | 1.0 |
+| Edge cases / negatives | — | 17/18 / 0 false cache hits on 20 out-of-scope queries |
+| Determinism (same input twice, cache off) | — | identical plan 6/6 |
 
-Measured with Groq `openai/gpt-oss-120b` (extraction) and `openai/gpt-oss-20b` (variations, fail-over). The
-free-tier daily token quota ran out during the final run, so 18 of its 26 cold requests were served by the
-fail-over model; the previous run with every cold request on `gpt-oss-120b` is archived in
-`artifacts/reports/official_run2/`. See `FINAL_REVIEW.md` for what is and is not met.
+Measured with the default provider, Google Gemini `gemini-3.1-flash-lite` (every cold request served by it). An
+earlier run of the same code and data on Groq `openai/gpt-oss-120b` / `gpt-oss-20b` is archived in
+`artifacts/reports/official_groq/`. See `FINAL_REVIEW.md` for what is and is not met.
 
 ## Pipeline
 
