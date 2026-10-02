@@ -37,9 +37,8 @@ URI selection, grouping, sequencing, URL scrubbing, validation, caching, cost an
 | `REQUIREMENTS_TRACEABILITY.md` | Requirement → implementation → test → status → evidence |
 | `FINAL_REVIEW.md` | Production-readiness review: targets vs measured values, limitations, commands |
 | `AUDIT.md` | Phase 0 audit of the problem statement, assets and interpretation decisions |
-| `docs/CollegeName_TeamName_Submission.pptx` | Submission deck on the official template; every number from the reports |
+| `docs/VITV_ResolveAI_Submission.pptx` | Submission deck on the official template; every number from the reports |
 | `docs/LangAI3.0_AI_Disclosure.docx` | Filled AI-usage disclosure form (date and sign-off left for the team representative) |
-| `docs/Smart_Troubleshooting_Engine.pptx` | Earlier technical deck (synthetic-fixture numbers) |
 | `docs/demo.webm` | Demo video (56 s, recorded on the synthetic fixture before the official data arrived): a real browser driving the live API through `/demo`: exact hit, paraphrase hit, live extraction with URL/prompt-injection scrubbing, out-of-scope fallback, 422 |
 | `AI_DISCLOSURE.md` | How AI was used to build the project, which models run inside it, and which data is AI-generated |
 
@@ -233,7 +232,7 @@ make metrics      # python scripts/render_metrics.py  → metrics.md (no model c
   are already committed; regenerate them only to repeat that part of the study.
 * The synthetic development fixture can be used instead of the official data with `DATA_DIR=data/dev_fixtures`.
 * The submission deck and the disclosure form are generated from the reports:
-  `python scripts/fill_submission_deck.py <template.pptx> docs/CollegeName_TeamName_Submission.pptx . [screenshot.png]`
+  `python scripts/fill_submission_deck.py <template.pptx> docs/VITV_ResolveAI_Submission.pptx . [screenshot.png]`
   and `python scripts/fill_disclosure_form.py <template.docx> docs/LangAI3.0_AI_Disclosure.docx`.
 
 ### 9. Docker
