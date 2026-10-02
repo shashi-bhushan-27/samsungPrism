@@ -42,7 +42,7 @@ RUN useradd --uid 10001 --create-home appuser && chown -R appuser:appuser /app /
 USER appuser
 
 EXPOSE 8000
-# /health returns 200 only when catalog, indexes, embedding model, cache and LLM connection are ready.
+# /health returns 200 when catalog, indexes, embedding model and cache are ready (and the LLM, when a key is set).
 HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=3 \
   CMD python -c "import sys,urllib.request; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4).status == 200 else 1)"
 

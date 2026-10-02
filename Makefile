@@ -1,6 +1,7 @@
 # Reproducible commands. Secrets come from an env file (never committed): ENV_FILE=/path/to/gemini.env make benchmark
 PY ?= python3
 ENV_FILE ?= .env
+PACE ?= 8
 IMAGE ?= samsung-prism-troubleshooter
 PORT ?= 8000
 
@@ -35,7 +36,7 @@ serve:
 	$(PY) -m uvicorn app.main:app --host 0.0.0.0 --port $(PORT) --workers 1
 
 prewarm:             ## live model: build validated plans for queries.json, export artifacts/cache/prewarm_plans.jsonl
-	$(PY) scripts/prewarm_cache.py --env-file $(ENV_FILE) --pace 2 --fresh
+	$(PY) scripts/prewarm_cache.py --env-file $(ENV_FILE) --pace $(PACE) --retries 3 --fresh
 
 calibrate:           ## choose the semantic-cache threshold on the calibration split (no model calls)
 	$(PY) scripts/calibrate_cache.py
@@ -44,13 +45,13 @@ paraphrases:         ## live model: fresh held-out paraphrases (after the thresh
 	$(PY) scripts/generate_heldout_paraphrases.py --env-file $(ENV_FILE)
 
 benchmark:           ## live model, real HTTP: results.jsonl + artifacts/reports/benchmark.json
-	$(PY) scripts/run_benchmarks.py --env-file $(ENV_FILE)
+	$(PY) scripts/run_benchmarks.py --env-file $(ENV_FILE) --pace-cold $(PACE) --determinism-subset 6
 
 ablation:            ## live model: LLM vs hybrid vs rules deeplink mapping → artifacts/reports/ablation.json
 	$(PY) scripts/run_ablation.py --env-file $(ENV_FILE)
 
 stress:              ## real HTTP under concurrency → artifacts/reports/stress.json
-	$(PY) scripts/stress_test.py --env-file $(ENV_FILE)
+	$(PY) scripts/stress_test.py --env-file $(ENV_FILE) --skip-cold
 
 hostile:             ## live hostile probes (URL/URI injection, poisoning, no source/solution) → hostile.json
 	$(PY) scripts/hostile_probe.py --env-file $(ENV_FILE)
@@ -64,4 +65,4 @@ docker-build:
 	docker build -t $(IMAGE) .
 
 docker-run:
-	docker run --rm -p $(PORT):8000 --env-file $(ENV_FILE) $(IMAGE)
+	docker run --rm -p $(PORT):8000 $(if $(wildcard $(ENV_FILE)),--env-file $(ENV_FILE),) $(IMAGE)

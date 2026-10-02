@@ -257,3 +257,15 @@ def test_demo_page_is_served_and_only_calls_the_api(api):
     r = client.get("/demo")
     assert r.status_code == 200 and "text/html" in r.headers["content-type"]
     assert 'fetch("/v1/troubleshoot"' in r.text and "://" not in r.text  # same-origin API only, no external links
+
+
+def test_health_without_a_configured_model_reports_no_model_mode(tmp_path):
+    from app.llm.base import NullLLMProvider
+
+    client, _ = client_for(tmp_path, NullLLMProvider())
+    with client:
+        r = client.get("/health")
+        assert r.status_code == 200
+        assert r.json()["mode"] == "no_model" and r.json()["llm"] == "not_configured"
+        d = client.get("/health/details").json()
+        assert d["mode"] == "no_model" and "llm" not in d["required"]

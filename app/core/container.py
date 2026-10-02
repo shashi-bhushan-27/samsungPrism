@@ -99,7 +99,7 @@ def build_llm(settings: Settings) -> LLMProvider:
 
     key = settings.gemini_api_key.get_secret_value() if settings.gemini_api_key else ""
     if not key:
-        # Serve cached plans and deterministic fallbacks; /health reports llm=false (not ready).
+        # No-model mode: serve cached plans and deterministic fallbacks; /health reports mode=no_model.
         log.warning("GEMINI_API_KEY is not set: LLM disabled, cold requests use the rules extractor")
         return NullLLMProvider()
     return GeminiProvider(

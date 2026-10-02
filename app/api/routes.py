@@ -13,6 +13,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from app.api.errors import ApiError
 from app.api.schemas import TroubleshootRequest
 from app.core.logging import log_event
+from app.llm.base import NullLLMProvider
 
 router = APIRouter()
 log = logging.getLogger("app.requests")
@@ -82,17 +83,26 @@ def health_components(request: Request) -> tuple[bool, dict[str, Any]]:
         "cache": bool(comps.cache.ready),
         "llm": bool(llm_ok) and last is not False,
     }
-    required = ["catalog", "vector_indexes", "embedding_model", "cache"] + (["llm"] if s.health_require_llm else [])
+    # No model configured (LLM_PROVIDER=none or no API key): the service deliberately runs in cache + rules mode,
+    # so a missing model is not a failure. A configured model that is unreachable still fails the check.
+    llm_configured = not isinstance(comps.llm, NullLLMProvider)
+    required = ["catalog", "vector_indexes", "embedding_model", "cache"] + (
+        ["llm"] if s.health_require_llm and llm_configured else [])
     ok = all(checks[k] for k in required)
-    return ok, {"checks": checks, "required": required, "dataset": s.dataset_label,
-                "cache_plans": len(comps.cache), "llm_model": s.llm_model, "embedding": comps.embedder.signature}
+    mode = "full" if llm_configured else "no_model"
+    return ok, {"checks": checks, "required": required, "mode": mode,
+                "llm": ("configured" if llm_configured else "not_configured"), "dataset": s.dataset_label,
+                "cache_plans": len(comps.cache), "llm_model": s.llm_model if llm_configured else None,
+                "embedding": comps.embedder.signature}
 
 
 @router.get("/health")
 async def health(request: Request):
     ok, details = health_components(request)
     if ok:
-        return JSONResponse({"status": "ok"})
+        return JSONResponse({"status": "ok"} if details["mode"] == "full" else
+                            {"status": "ok", "mode": "no_model", "llm": "not_configured",
+                             "note": "cache hits and grounded rules fallbacks only; set an API key for the full pipeline"})
     return JSONResponse({"status": "unavailable", "components": details}, status_code=503)
 
 
