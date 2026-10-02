@@ -2,20 +2,35 @@
 
 This project uses AI in three distinct ways. Each is listed with what it did and how its output was checked.
 
-## 1. AI-assisted development
+## 1. How the team built it, and where AI was used
 
-The repository was developed with **Claude Code** (Anthropic's agentic coding assistant), working under the
-direction of the team. Its work covered:
+**Team ResolveAI** (Shashi Bhushan, Astha Doshi, Himangi Khanduri) owned the problem analysis, the design
+decisions and the evaluation; an AI coding assistant (**Claude Code**, Anthropic) generated most of the
+implementation from the team's specifications.
 
-* the code, tests, benchmark scripts and documentation;
-* the synthetic development fixture.
+What the team did:
 
-The commits are authored under the team's account; this file is the record of how AI was involved. Most of
-the code, tests and documents were written by the assistant and reviewed and directed by the team.
+* **Specification.** Wrote the detailed build specification: pipeline stages, hard rules (grounding,
+  catalog-only deeplinks, critical-last ordering, no URLs), latency/accuracy targets, hardening and
+  traceability requirements, and what counts as "done".
+* **Design and model decisions.** Chose the architecture (model assists, code decides), the providers and
+  models (Gemini default, Groq fallback), and when to re-run evaluations; rejected changes that would inflate
+  metrics without being correct (e.g. relabelling auto actions as manual, `HARDENING_REPORT.md` H16).
+* **Data.** Obtained and integrated the official starter data and templates; decided how to treat SIIS
+  answers that do not address the complaint.
+* **Review and testing.** Reviewed the generated code and reports, ran the system locally, found issues during
+  testing (e.g. the Windows start-up and cache-loading problems), and directed the fixes.
+* **Deliverables.** Reviewed and finalised the presentation, recorded the demo video, filled the submission
+  forms and managed the repository.
 
-How the AI-written work was checked:
+What the AI assistant did: generated the code, tests, evaluation scripts and documentation drafts (including
+the synthetic development fixture and the first version of the slides) to the team's specification, and ran the
+benchmarks under the team's direction. The commits are authored under the team's account; this file is the
+record of how AI was involved.
 
-* **Tests.** More than 360 offline tests: unit, integration, sample-regression and adversarial (`make test`).
+How the generated work was checked:
+
+* **Tests.** 391 offline tests: unit, integration, sample-regression and adversarial (`make test`).
 * **Live evaluation.** Every number in `metrics.md` was measured by scripts against a real server and a real
   model, then rendered from the JSON reports. No figure was typed by hand.
 * **Hostile review.** The issues found and fixed are listed in `HARDENING_REPORT.md`.
