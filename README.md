@@ -199,7 +199,8 @@ and the server log says so.
 | One of the 20 official complaints (18 have a cached plan) | full validated plan from the cache, 0 model calls, $0 | same |
 | A paraphrase of a cached complaint | semantic cache hit, same plan | same |
 | A new complaint **with** its own `siis_response` text | grounded plan from the deterministic rules extractor (lower quality, not cached) | model extraction, validated and cached |
-| A new complaint **without** SIIS text that matches no cached plan | HTTP 503 `extraction_unavailable` (nothing is invented) | model extraction from the knowledge base |
+| A new complaint **without** SIIS text, not in the cache, that matches a knowledge-base article | HTTP 503 `extraction_unavailable` (nothing is invented) | model extraction from that article |
+| An out-of-scope complaint (nothing in the knowledge base), e.g. Bluetooth headphones | `contexts: []` with `fallback: no_siis_context` | same |
 | `pytest`, `/demo`, `/health`, Docker | work | work |
 
 Only the structure-extraction step and the query variations use the model. Retrieval, deeplink mapping,

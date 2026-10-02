@@ -342,6 +342,7 @@ class QueryEnricher:
         """Deterministic fallback paraphrases in ten registers (used when the LLM is unavailable)."""
         base = intent.canonical_query if intent.symptoms else intent.normalized_query or query.strip()
         base = base.strip().rstrip(".?!")
+        base = re.sub(r"^(?:my|the|our|this)\s+", "", base)  # the templates add their own determiner
         qual = ""
         dom = (intent.domain or "phone").lower()
         variants = [
@@ -349,13 +350,13 @@ class QueryEnricher:
             f"so my {base.replace('phone ', '')}, any quick fix?",
             " ".join(w for w in re.findall(r"[a-z0-9]+", base) if w not in {"the", "a", "an", "is", "are", "my"})
             + f" {dom} fix",
-            f"{base[:1].upper() + base[1:]} on my Galaxy phone{qual}.",
+            f"{base[:1].upper() + base[1:]} on my phone{qual}.",
             f"How do I fix it when my {base}?",
             f"Ugh, my {base} again and it's driving me crazy!",
             _typo(f"my {base} please help"),
             f"Hey, I noticed that my {base}. What should I do?",
             f"I'm not sure why, but lately my {base}.",
-            f"{(intent.domain or 'Device')} troubleshooting required: {base} (Samsung Galaxy, One UI).",
+            f"{(intent.domain or 'Device')} troubleshooting required: {base} (Android phone or tablet).",
         ]
         return dedupe_variations(query, variants)[:VARIATIONS_MAX]
 
